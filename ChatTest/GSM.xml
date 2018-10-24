@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XCTIP>
+  <GSM>
+	<Register_REQ>
+		<CId>1</CId>
+		<Number>101</Number>
+		<CodePage>PBX</CodePage>
+	</Register_REQ>
+	<RegisterInfo_ANS>
+		<GsmId>1</GsmId>
+		<Number>623456789</Number>
+		<CodePage>PBX</CodePage>
+	</RegisterInfo_ANS>
+	<SMSSend_REQ>
+		<CId>2</CId>
+		<GsmId>1</GsmId>
+		<Number>107</Number>
+		<Type>Normal</Type>
+		<Report>1</Report>
+		<Time>167</Time>
+		<Text>Dupa</Text>
+		<MultiPart>
+			<RefNr>10</RefNr>
+			<Part>1</Part>
+			<Total>2</Total>
+		</MultiPart>
+		<Code>GSM</Code>
+	</SMSSend_REQ>
+	<SMSGet_EV>
+		<GsmId>1</GsmId>
+		<MemId>515</MemId>
+		<Number>666444111</Number>
+		<Type>Normal</Type>
+		<MultiPart>
+			<RefNr>10</RefNr>
+			<Part>1</Part>
+			<Total>2</Total>
+		</MultiPart>
+		<Date>2007-05-23 15:51:28</Date>
+		<Text>Tresc..</Text>
+	</SMSGet_EV>
+	<SMSAcknowledge_EV>
+		<GsmId>1</GsmId>
+		<Status>Confirm</Status>
+		<MsgId>12</MsgId>
+		<ErrorCode>515</ErrorCode>
+	</SMSAcknowledge_EV>
+	<SMSReport_EV>
+		<GsmId>1</GsmId>
+		<Status>Delivered</Status>
+		<MsgId>12</MsgId>
+		<MemId>515</MemId>
+		<ErrorCode>515</ErrorCode>
+		<Number>666444111</Number>
+	</SMSReport_EV>
+	<SMSOk_REQ>
+		<CId>2</CId>
+		<GsmId>1</GsmId>
+		<MemId>12</MemId>
+	</SMSOk_REQ>
+	<Unregister_REQ>
+		<CId>2</CId>
+		<GsmId>1</GsmId>
+	</Unregister_REQ>
+  </GSM>
+</XCTIP>
+
+

@@ -1,2 +1,1 @@
 # BzCOM
-BzCOM (Biznes Communicator) 
