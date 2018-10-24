@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="IBM852"?>
+<XCTIP>
+<Sync>
+<Sync_REQ>
+  <CId>12</CId>
+  <Id></Id>
+  <Marker></Marker>
+  <SyncType>Book</SyncType>
+  <Limit>10</Limit>
+</Sync_REQ>
+</Sync>
+</XCTIP>
