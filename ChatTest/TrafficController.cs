@@ -26,6 +26,17 @@ namespace ChatTest
 
         public delegate void OnUpdateStatusDelegate(TrafficController sender, List<User> users);
         public event OnUpdateStatusDelegate OnUpdateStatus;
+        public event OnUpdateStatusDelegate OnAddressBookGet;
+
+        public delegate void OnLoggedInDelegate(TrafficController sender, string info);
+        public event OnLoggedInDelegate OnLoggedIn;
+
+        public delegate void OnDeadConnectionDelegate(TrafficController sender);
+        public event OnDeadConnectionDelegate OnSetConnection;
+        public event OnDeadConnectionDelegate OnDeadConnection;
+
+        public delegate void OnSuccessDelegate(TrafficController sender, bool error);
+        public event OnSuccessDelegate OnSuccess;
 
         public TrafficController()
         {
@@ -37,6 +48,9 @@ namespace ChatTest
         public async void Start()
         {
             if (connection.SetConnection())
+            {
+                //if (GetState() == State.LoggedIn)
+                //OnSetConnection.Invoke(this);
                 while (true)
                 {
                     try
@@ -58,6 +72,12 @@ namespace ChatTest
                     }
                     Thread.Sleep(500);
                 }
+            }
+            else
+            {
+                Start();
+                Thread.Sleep(3000);
+            }
         }
 
         public void CloseConnection()
@@ -86,7 +106,7 @@ namespace ChatTest
             connection.Port = port;
         }
 
-        public async Task<string> LogIn(string login, string pass)
+        public async Task LogIn(string login, string pass)
         {
             //lock (connection)
             //{
@@ -95,12 +115,12 @@ namespace ChatTest
             var temp = xmlInterpreter.LogIn(packet);
             if (temp != null)
             {
-                await SetStatus(Status.AVAILABLE);
+                SetStatus(Status.AVAILABLE);
                 connection.State = State.LoggedIn;
-                return $"{temp}";
+                OnLoggedIn.Invoke(this, $"{temp}");
             }
             else
-                return "Wystąpił błąd w trakcie logowania. Spróbuj ponownie.";
+                OnLoggedIn.Invoke(this, "Wystąpił błąd w trakcie logowania. Spróbuj ponownie.");
             //}
         }
 
@@ -124,34 +144,43 @@ namespace ChatTest
             //}
         }
 
-        public async Task SetStatus(Status status)
+        public async void SetStatus(Status status)
         {
-            //lock (connection)
-            //{
-            await connection.SendingPacket(xmlCreator.StatusUpdate_REQ(status.ToString(), null, out string rid));
-            xmlInterpreter.StatusError(GetResponse(rid));
-            //}
+            try
+            {
+                await connection.SendingPacket(xmlCreator.StatusUpdate_REQ(status.ToString(), null, out string rid));
+                if (xmlInterpreter.StatusError(GetResponse(rid)))
+                    OnDeadConnection.Invoke(this);
+            }
+            catch
+            {
+                OnDeadConnection.Invoke(this);
+            }
         }
 
-        public async Task<List<User>> GetUsers()
+        public async Task GetUsers()
         {
             //lock (connection)
             //{
             await GetAddressBook();
             await connection.SendingPacket(xmlCreator.StatusRegister_REQ(out string rid)); // zgłaszamy, że chcemy obserwować zmiany statusów
-            xmlInterpreter.StatusError(GetResponse(rid));
+            if (xmlInterpreter.StatusError(GetResponse(rid))) return;
 
-            return xmlInterpreter.GetStatus(); // zwraca ramki z obecnymi statusami do listy obiektów
+            OnAddressBookGet.Invoke(this, xmlInterpreter.GetStatus()); // zwraca ramki z obecnymi statusami do listy obiektów
             //}
         }
 
-        public async Task SetDescription(string status, string info)
+        public async void SetDescription(string status, string info)
         {
-            //lock (connection)
-            //{
-            await connection.SendingPacket(xmlCreator.StatusUpdate_REQ(status, info, out string rid));
-            xmlInterpreter.StatusError(GetResponse(rid));
-            //}
+            try
+            {
+                await connection.SendingPacket(xmlCreator.StatusUpdate_REQ(status, info, out string rid));
+                xmlInterpreter.StatusError(GetResponse(rid));
+            }
+            catch
+            {
+                OnDeadConnection.Invoke(this);
+            }
         }
 
         public void GetChangedStatus()
@@ -192,7 +221,7 @@ namespace ChatTest
         public static ConcurrentDictionary<string, XCTIP> responses = new ConcurrentDictionary<string, XCTIP>();
         public static List<XCTIP> asyncData = new List<XCTIP>();
 
-        public XCTIP GetResponse(string id, int timeoutMs = 120000)
+        public XCTIP GetResponse(string id, int timeoutMs = 10000)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             while (stopwatch.ElapsedMilliseconds < timeoutMs)
@@ -200,7 +229,8 @@ namespace ChatTest
                 if (responses.TryRemove(id, out XCTIP result))
                     return result;
             }
-            throw new TimeoutException($"Upłynął czas oczekiwania na odpowiedź {id}");
+            OnDeadConnection.Invoke(this);
+            return null;
         }
 
         public async Task RegisterToModules()
@@ -216,12 +246,12 @@ namespace ChatTest
             //}
         }
 
-        public async Task<bool> SMSSendAsync(string number, string smsId, string text, string dontBuffer, string userData)
+        public async Task SMSSend(string number, string smsId, string text, string dontBuffer, string userData)
         {
             //lock (connection)
             //{
             await connection.SendingPacket(xmlCreator.SMSSend_REQ(number, smsId, text, dontBuffer, userData, out string rid));
-            return xmlInterpreter.SMSError(GetResponse(rid));
+            OnSuccess.Invoke(this, xmlInterpreter.SMSError(GetResponse(rid)));
             //}
         }
 

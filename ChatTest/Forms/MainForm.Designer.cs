@@ -253,14 +253,12 @@
             this.szczegółyKontaktuToolStripMenuItem.Name = "szczegółyKontaktuToolStripMenuItem";
             this.szczegółyKontaktuToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
             this.szczegółyKontaktuToolStripMenuItem.Text = "Szczegóły kontaktu";
-            this.szczegółyKontaktuToolStripMenuItem.Click += new System.EventHandler(this.ContactDetailsToolStripMenuItem_Click);
             // 
             // edytujToolStripMenuItem
             // 
             this.edytujToolStripMenuItem.Name = "edytujToolStripMenuItem";
             this.edytujToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
             this.edytujToolStripMenuItem.Text = "Edytuj";
-            this.edytujToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
             // 
             // label4
             // 

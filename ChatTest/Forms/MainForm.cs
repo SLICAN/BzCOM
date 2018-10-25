@@ -6,6 +6,8 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Threading;
 
 namespace ChatTest
 {
@@ -33,6 +35,12 @@ namespace ChatTest
 
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
             trafficController.OnUpdateStatus += TrafficController_OnUpdateStatus;
+            trafficController.OnLoggedIn += TrafficController_OnLoggedIn;
+            trafficController.OnAddressBookGet += TrafficController_OnAddressBookGet;
+            trafficController.OnSuccess += TrafficController_OnSuccess;
+            trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
+            trafficController.OnSetConnection += TrafficController_OnSetConnection;
+
             logger.OnLoggerMessage += Logger_OnLoggerMessage;
 
             foreach (var item in Enum.GetValues(typeof(Status)))
@@ -43,6 +51,65 @@ namespace ChatTest
 
             webBrowser1.Navigate("about:blank");
             webBrowser1.Document.Write("<html><head><style>body,table { font-size: 8pt; font-family: Verdana; margin: 3px 3px 3px 3px; font-color: black; } </style></head><body width=\"" + (webBrowser1.ClientSize.Width - 20).ToString() + "\">");
+        }
+
+        private void TrafficController_OnSetConnection(TrafficController sender)
+        {
+            SetText("Udało się ustanowić połączenie z serwerem.");
+            SetText("Proszę się zalogować.");
+        }
+
+        private void TrafficController_OnDeadConnection(TrafficController sender)
+        {
+            SetText("Brak odpowiedzi z serwera.");
+            SetText("Sprawdź czy masz połączenie z Internetem lub zgłoś awarię do administratora.");
+            SetText("Aplikacja zamknie się za 10 sekund");
+            var sleep = 10000;
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while(stopwatch.ElapsedMilliseconds<=sleep)
+            {
+                SetText((10-Convert.ToInt32(stopwatch.ElapsedMilliseconds/1000)).ToString());
+                Thread.Sleep(1000);
+            }
+            Application.Exit();
+            //ListViewAddressBook.Clear();
+        }
+
+        private void TrafficController_OnSuccess(TrafficController sender, bool error)
+        {
+            if (!error)
+            {
+                TypeText("ja", TextBoxMessage.Text, DateTime.Now);
+            }
+            else
+                SetText("Nie udało się wysłać wiadomości");
+        }
+
+        private void TrafficController_OnAddressBookGet(TrafficController sender, List<User> users)
+        {
+            SetBook(users);
+            /// Manages the initial import of statuses and description
+            SetColor(trafficController.SetColor(users));
+            /// Register sms module
+            trafficController.RegisterToModules();
+
+        }
+
+        private void TrafficController_OnLoggedIn(TrafficController sender, string info)
+        {
+            SetText(info);
+            /// Changes the status displayed in combobox, when you logged in
+            if (trafficController.GetState() == State.LoggedIn)
+            {
+                ChangeComboBox(Status.AVAILABLE.ToString());
+            }
+
+            TextBoxLogin.Text = "";
+            TextBoxPassword.Text = "";
+
+            /// Manages the initial import of the adress book and statuses
+            trafficController.GetUsers();
         }
 
         /// <summary>
@@ -149,30 +216,6 @@ namespace ChatTest
             }
         }
 
-        private void EditToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //currentName = ListViewAddressBook.Items[ListViewAddressBook.FocusedItem.Index].SubItems[1].Text;
-            //AddInfoForm form2 = new AddInfoForm(currentName, StaticFields.contactId);
-            //form2.Text = "Edycja";
-            //form2.ShowDialog();
-        }
-
-        private void ContactDetailsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //string currentPhone = "brak";
-            //string currentDescription = "brak";
-            ////writing.Write(Sync_REQ());
-            //currentName = ListViewAddressBook.Items[ListViewAddressBook.FocusedItem.Index].SubItems[1].Text;
-            //if (StaticFields.phone.ContainsKey(currentName))
-            //    currentPhone = StaticFields.phone[currentName];
-            //if (StaticFields.description.ContainsKey(currentName))
-            //    currentDescription = StaticFields.description[currentName];
-            //ShowInfoForm form3 = new ShowInfoForm(currentName, currentPhone, currentDescription);
-            //form3.Text = "Szczegóły kontaktu";
-            //form3.ShowDialog();
-        }
-
-
         private void TextBoxMessage_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)13)
@@ -201,11 +244,10 @@ namespace ChatTest
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void TextBoxDescription_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBoxDescription_KeyPress(object sender, KeyPressEventArgs e)
         {
             if ((trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate) && e.KeyChar == (char)13)
-                await trafficController.SetDescription(ComboBoxStatus.Text, TextBoxDescription.Text);
-
+                trafficController.SetDescription(ComboBoxStatus.Text, TextBoxDescription.Text);
         }
 
         /// <summary>
@@ -255,14 +297,14 @@ namespace ChatTest
         {
             if (trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate)
             {
-            ListViewItem selectedItem = ListViewAddressBook.SelectedItems[0];
-            currentNumber = trafficController.FindNumber(selectedItem.SubItems[1].Text);
-            var temp = ListViewAddressBook.FocusedItem.ListView;
-            trafficController.SetState(State.OpenedGate);
-            SetText($"Rozmowa z {selectedItem.SubItems[1].Text}");
+                ListViewItem selectedItem = ListViewAddressBook.SelectedItems[0];
+                currentNumber = trafficController.FindNumber(selectedItem.SubItems[1].Text);
+                var temp = ListViewAddressBook.FocusedItem.ListView;
+                trafficController.SetState(State.OpenedGate);
+                SetText($"Rozmowa z {selectedItem.SubItems[1].Text}");
             }
             else
-            SetText("Najpierw musisz ustanowić połączenie!");
+                SetText("Najpierw musisz ustanowić połączenie!");
         }
 
         /// <summary>
@@ -270,10 +312,10 @@ namespace ChatTest
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void ComboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate)
-                await trafficController.SetStatus((Status)Enum.Parse(typeof(Status), ComboBoxStatus.Text));
+                trafficController.SetStatus((Status)Enum.Parse(typeof(Status), ComboBoxStatus.Text));
         }
 
         /// <summary>
@@ -461,15 +503,8 @@ namespace ChatTest
         {
             if (trafficController.GetState() == State.OpenedGate)
             {
-                /// TODO
-                //Random r = new Random();
                 /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
-                if (!(await trafficController.SMSSendAsync(currentNumber, null, TextBoxMessage.Text, "", null)))
-                {
-                    TypeText("ja", TextBoxMessage.Text, DateTime.Now);
-                }
-                else
-                    SetText("Nie udało się wysłać wiadomości");
+                trafficController.SMSSend(currentNumber, null, TextBoxMessage.Text, "", null);
                 TextBoxMessage.Clear();
             }
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
@@ -486,27 +521,9 @@ namespace ChatTest
             {
                 /// Checking, if login went successfully, if not, then showing the error
                 /// SetText powinno być wykorzystywane tylko i wyłącznie do wyświetlania informacji z klasy logującej
-                SetText(await trafficController.LogIn(TextBoxLogin.Text, TextBoxPassword.Text));
-
-                /// Manages the initial import of the adress book and statuses
-                List<User> temp = await trafficController.GetUsers();
-                SetBook(temp);
-
-                /// Manages the initial import of statuses and description
-                SetColor(trafficController.SetColor(temp));
-
-                /// Register sms module
-                await trafficController.RegisterToModules();
-
-            }
-            /// Changes the status displayed in combobox, when you logged in
-            if (trafficController.GetState() == State.LoggedIn)
-            {
-                ChangeComboBox(Status.AVAILABLE.ToString());
+                trafficController.LogIn(TextBoxLogin.Text, TextBoxPassword.Text);
             }
 
-            TextBoxLogin.Text = "";
-            TextBoxPassword.Text = "";
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -522,7 +539,7 @@ namespace ChatTest
 
         private async void ButtonLogout_Click(object sender, EventArgs e)
         {
-            await trafficController.LogOut();
+            trafficController.LogOut();
         }
     }
 }

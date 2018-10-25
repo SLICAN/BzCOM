@@ -286,16 +286,18 @@ namespace ChatTest
         /// <returns></returns>
         public bool SMSError(XCTIP packet)
         {
-            if (packet.SMSItems == null || packet.SMSItems[0].Answer == null)
-                throw new FormatException($"Nieprawdłowa ramka zwrotna");
+            if (packet == null || packet.SMSItems == null || packet.SMSItems[0].Answer == null)
+                return true;
 
             if (packet.SMSItems[0].Answer[0].Error == null)
             {
-                logger.Debug(packet.SMSItems[0].Answer[0].Error);
                 return false;
             }
             else
+            {
+                logger.Debug(packet.SMSItems[0].Answer[0].Error);
                 return true;
+            }
         }
 
         /// <summary>
@@ -304,7 +306,7 @@ namespace ChatTest
         /// <returns></returns>
         public bool SyncError(XCTIP packet)
         {
-            if (packet.SyncItems == null || packet.SyncItems[0].Answer == null)
+            if (packet == null || packet.SyncItems == null || packet.SyncItems[0].Answer == null)
                 return true;
 
             if (packet.SyncItems[0].Answer[0].Error == null)
@@ -322,8 +324,8 @@ namespace ChatTest
         /// <returns></returns>
         public bool LogError(XCTIP packet)
         {
-            if (packet.LogItems == null || packet.LogItems[0].Answer == null)
-                return false;
+            if (packet == null || packet.LogItems == null || packet.LogItems[0].Answer == null)
+                return true;
 
             if (packet.LogItems[0].Answer[0].Error == null)
                 return false;
@@ -340,7 +342,7 @@ namespace ChatTest
         /// <returns></returns>
         public bool StatusError(XCTIP packet)
         {
-            if (packet.StatusItems == null || packet.StatusItems[0].Answer == null)
+            if (packet == null || packet.StatusItems == null || packet.StatusItems[0].Answer == null)
             {
                 logger.Debug("Format pakietu jest niezgodny");
                 return true;
