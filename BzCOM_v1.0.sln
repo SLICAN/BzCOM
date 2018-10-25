@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 15 for Windows Desktop
+# Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatTest", "ChatTest\ChatTest.csproj", "{8A86636C-9C76-4FA4-A78D-441D3955F02B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BzCOM_v1.0", "ChatTest\BzCOM_v1.0.csproj", "{8A86636C-9C76-4FA4-A78D-441D3955F02B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
