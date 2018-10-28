@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XCTIP>
+	<Status>
+	<Register_REQ>
+		<CId>1</CId>
+		<Clear />
+		<Id>1021</Id>
+	</Register_REQ>
+	<Unregister_REQ>
+		<CId>1</CId>
+	</Unregister_REQ>
+	<Refresh_EV>
+		<Id>1020</Id>
+		<State>FREE</State>
+		<DndStat>On</DndStat>
+		<AppState>BRB</AppState>
+		<AppInfo>W pracy...</AppInfo> 
+		<AppInfoTime>2015-06-08 20:11:22</AppInfoTime> 
+		<CustomState>1</CustomState>
+		<Camera>1</Camera>
+		<Door>Close</Door>
+	</Refresh_EV>
+	<Change_EV>
+		<Id>1020</Id>
+		<State>FREE</State>
+		<DndStat>On</DndStat>
+		<AppState>BRB</AppState>
+		<AppInfo>W pracy...</AppInfo> 
+		<AppInfoTime>2015-07-06 22:33:44</AppInfoTime>
+		<CustomState>1</CustomState>
+		<Camera>1</Camera>
+		<Door>Close</Door>
+	</Change_EV>
+	<Update_REQ>
+		<CId>1</CId>
+		<AppState>BRB</AppState>
+		<AppInfo>W pracy...</AppInfo> 
+		<AppInfoTime>2015-06-08 09:30:33</AppInfoTime>
+		<CustomState>1</CustomState>
+		<Id>1001</Id>
+	</Update_REQ>
+	<Answer>
+		<CId>..</CId>
+		<Error>..</Error>
+	</Answer> 
+	</Status>
+</XCTIP>

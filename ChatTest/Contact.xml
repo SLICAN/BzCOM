@@ -1,0 +1,26 @@
+<Contact>
+  <ContactId>1</ContactId>
+  <Name>Jan Kowalski</Name>
+  <ExtNo>122</ExtNo>
+  <IdExtNo>1001</IdExtNo>
+  <Favourite>0</Favourite>
+  <Private>1</Private>
+  <Type>Subscriber</Type>
+  <DefaultPhoneId>123</DefaultPhoneId>
+  <Phone>
+    <PhoneId>123</PhoneId>
+    <Number>600123456</Number>
+    <Comment>Dom</Comment> 
+  </Phone>
+  ...
+  <Phone>
+    <PhoneId>124</PhoneId>
+    <Number>600123456</Number>
+    <Comment>Komórka</Comment>
+    <CanSMS>1</CanSMS>
+  </Phone>
+  <GroupId>2</GroupId>
+  <GroupId>16</GroupId>
+  <Info>Adres: Bydgoscz ul Lelewela 23</Info>
+  <IM>kowalski@gmail.pl</IM>
+</Contact>
