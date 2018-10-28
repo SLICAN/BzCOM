@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatTest.Forms;
+using System;
 using System.Windows.Forms;
 
 namespace ChatTest
@@ -14,7 +15,7 @@ namespace ChatTest
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new MainForm());
+            Application.Run(new LoginForm());
         }
         
     }

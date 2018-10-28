@@ -6,9 +6,7 @@ namespace ChatTest
 {
     public class User
     {
-        /// <summary>
-        /// 
-        /// </summary>
+
         public string UserId { get; set; }
 
         public string ContactId { get; set; }

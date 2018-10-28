@@ -21,6 +21,8 @@ namespace ChatTest
 
         private Thread listener;
 
+        public bool wrongLogin = false;
+
         public delegate void OnMessageReceivedDelegate(TrafficController sender, Message msg);
         public event OnMessageReceivedDelegate OnMessageReceived;
 
@@ -120,8 +122,11 @@ namespace ChatTest
                 OnLoggedIn.Invoke(this, $"{temp}");
             }
             else
+            {
+                wrongLogin = true;
+                connection.State = State.Connected;
                 OnLoggedIn.Invoke(this, "Wystąpił błąd w trakcie logowania. Spróbuj ponownie.");
-            //}
+            }
         }
 
         public async Task LogOut()

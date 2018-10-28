@@ -1,10 +1,13 @@
-﻿using System;
+﻿using ChatTest.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Threading;
@@ -13,9 +16,11 @@ namespace ChatTest
 {
     public partial class MainForm : Form
     {
-        private string currentNumber;
+        public string currentNumber;
 
         private int CursorPosition;
+
+        private ListViewItem iteam;
 
         delegate void SetUsersCallBack(List<User> users);
 
@@ -23,15 +28,36 @@ namespace ChatTest
 
         delegate void SetScrollCallBack();
 
-        private TrafficController trafficController = new TrafficController();
+        public TrafficController trafficController = new TrafficController();
+
+        private MessageForm messageForm = new MessageForm();
 
         private Logger logger = new Logger();
 
+        private PopUpForm popUpForm = new PopUpForm();
+
         private bool loggerActive = false;
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect,     // x-coordinate of upper-left corner
+            int nTopRect,      // y-coordinate of upper-left corner
+            int nRightRect,    // x-coordinate of lower-right corner
+            int nBottomRect,   // y-coordinate of lower-right corner
+            int nWidthEllipse, // height of ellipse
+            int nHeightEllipse // width of ellipse
+        );
 
         public MainForm()
         {
             InitializeComponent();
+
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.AllowTransparency = true;
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
+
+            timer1.Tick += new EventHandler(timer1_Tick);
 
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
             trafficController.OnUpdateStatus += TrafficController_OnUpdateStatus;
@@ -40,7 +66,6 @@ namespace ChatTest
             trafficController.OnSuccess += TrafficController_OnSuccess;
             trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
             trafficController.OnSetConnection += TrafficController_OnSetConnection;
-
             logger.OnLoggerMessage += Logger_OnLoggerMessage;
 
             foreach (var item in Enum.GetValues(typeof(Status)))
@@ -48,9 +73,6 @@ namespace ChatTest
                 if (item.ToString() != Status.UNKNOWN.ToString())
                     ComboBoxStatus.Items.Add(item);
             }
-
-            webBrowser1.Navigate("about:blank");
-            webBrowser1.Document.Write("<html><head><style>body,table { font-size: 8pt; font-family: Verdana; margin: 3px 3px 3px 3px; font-color: black; } </style></head><body width=\"" + (webBrowser1.ClientSize.Width - 20).ToString() + "\">");
         }
 
         private void TrafficController_OnSetConnection(TrafficController sender)
@@ -67,9 +89,9 @@ namespace ChatTest
             var sleep = 10000;
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            while(stopwatch.ElapsedMilliseconds<=sleep)
+            while (stopwatch.ElapsedMilliseconds <= sleep)
             {
-                SetText((10-Convert.ToInt32(stopwatch.ElapsedMilliseconds/1000)).ToString());
+                SetText((10 - Convert.ToInt32(stopwatch.ElapsedMilliseconds / 1000)).ToString());
                 Thread.Sleep(1000);
             }
             Application.Exit();
@@ -139,65 +161,45 @@ namespace ChatTest
         }
 
         /// <summary>
-        /// Wpisz na formatkę otrzymaną wiadomość
+        /// Wpisz na formatkę otrzymaną wiadomość i uruchom popUpForm
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="msgNow"></param>
         private void TrafficController_OnMessageReceived(TrafficController sender, Message msgNow)
         {
-            TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime);
-        }
+            messageForm.TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime);
 
-        public static void DoOnUIThread(Control control, Action action)
-        {
-            if (control.IsDisposed)
-                return;
-
-            if (control.InvokeRequired)
-                control.Invoke(action);
-            else
+            if (CheckOpened(messageForm.Text))
             {
-                if (control.IsDisposed)
-                    return;
-                action();
-            }
-
-            //DoOnUIThread(this, () =>
-            //{
-
-            //});
-        }
-
-        private void InsertTag(string tag)
-        {
-            string code = TextBoxMessage.Text;
-            TextBoxMessage.Text = code.Insert(CursorPosition, tag);
-            TextBoxMessage.Focus();
-            if (tag == "<br>" || tag == "<hr>")
-            {
-                TextBoxMessage.Select(CursorPosition + tag.Length, 0);
-                CursorPosition += tag.Length;
+                //MessageBox.Show("OTWARTE OKNO");
             }
             else
             {
-                TextBoxMessage.Select(CursorPosition + tag.Length / 2, 0);
-                CursorPosition += tag.Length / 2;
+                //MessageBox.Show("NIE OTWARTE OKNO");
+                timer1.Enabled = true;
+                popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
+                popUpForm.labelWhat.Text = msgNow.Text;
+                popUpForm.ShowDialog();
             }
+            //timer1.Enabled = true;
+            //popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
+            //popUpForm.labelWhat.Text = msgNow.Text;
+            //popUpForm.ShowDialog();
         }
 
-        private void ButtonBold_Click(object sender, EventArgs e)
+        private void timer1_Tick(object Sender, EventArgs e)
         {
-            InsertTag("<b></b>");
+            // Set the caption to the current time.  
+            Console.WriteLine("Tick");
+            popUpForm.Hide();
+            timer1.Enabled = false;
         }
 
-        private void ButtonItalic_Click(object sender, EventArgs e)
-        {
-            InsertTag("<i></i>");
-        }
+        
 
         private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.webBrowser1.Navigate("about:blank");
+            messageForm.webBrowser11.Navigate("about:blank");
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -207,7 +209,7 @@ namespace ChatTest
                 using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
                     try
                     {
-                        sw.Write(webBrowser1.DocumentText);
+                        sw.Write(messageForm.webBrowser11.DocumentText);
                     }
                     catch
                     {
@@ -216,29 +218,7 @@ namespace ChatTest
             }
         }
 
-        private void TextBoxMessage_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)13)
-                this.ButtonSend_Click(sender, e);
-            CursorPosition = TextBoxMessage.SelectionStart;
-        }
-
-        private void TextBoxPassword_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)13)
-                this.ButtonLogin_Click(sender, e);
-        }
-
-        private void TextBoxMessage_MouseUp_1(object sender, MouseEventArgs e)
-        {
-            CursorPosition = TextBoxMessage.SelectionStart;
-        }
-
-        private void TextBoxMessage_KeyUp_1(object sender, KeyEventArgs e)
-        {
-            CursorPosition = TextBoxMessage.SelectionStart;
-        }
-
+        
         /// <summary>
         /// Wyślij chęć zmiany opisu na serwer
         /// </summary>
@@ -248,6 +228,7 @@ namespace ChatTest
         {
             if ((trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate) && e.KeyChar == (char)13)
                 trafficController.SetDescription(ComboBoxStatus.Text, TextBoxDescription.Text);
+
         }
 
         /// <summary>
@@ -279,16 +260,6 @@ namespace ChatTest
         }
 
         /// <summary>
-        /// Ustaw port
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void NumericUpDownPort_ValueChanged(object sender, EventArgs e)
-        {
-            trafficController.SetPort(Convert.ToInt32(NumericUpDownPort.Value));
-        }
-
-        /// <summary>
         /// Podwójne kliknięcie na danym kontakcie otwiera z nim rozmowę, numer telefonu zostaje zapisany jako bieżący
         /// </summary>
         /// <param name="sender"></param>
@@ -297,14 +268,41 @@ namespace ChatTest
         {
             if (trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate)
             {
-                ListViewItem selectedItem = ListViewAddressBook.SelectedItems[0];
-                currentNumber = trafficController.FindNumber(selectedItem.SubItems[1].Text);
-                var temp = ListViewAddressBook.FocusedItem.ListView;
-                trafficController.SetState(State.OpenedGate);
-                SetText($"Rozmowa z {selectedItem.SubItems[1].Text}");
+            ListViewItem selectedItem = ListViewAddressBook.SelectedItems[0];
+            currentNumber = trafficController.FindNumber(selectedItem.SubItems[1].Text);
+            var temp = ListViewAddressBook.FocusedItem.ListView;
+            trafficController.SetState(State.OpenedGate);
+            SetText($"Rozmowa z {selectedItem.SubItems[1].Text}");
+                //if (CheckOpened(messageForm.Text))
+                //{
+                //    MessageBox.Show("Juz otwarte");
+                //    //messageForm.Dispose();
+                //    messageForm.Show();
+                //}
+                //else {
+                //    messageForm.Show();
+                //}
+                messageForm.labelWho.Text = "Rozmowa z " + selectedItem.SubItems[1].Text;
+                messageForm.Show();
+                messageForm.trafficController = trafficController;
+                messageForm.nr = currentNumber;
             }
             else
-                SetText("Najpierw musisz ustanowić połączenie!");
+            SetText("Najpierw musisz ustanowić połączenie!");
+        }
+
+        private bool CheckOpened(string name)
+        {
+            FormCollection fc = Application.OpenForms;
+
+            foreach (Form frm in fc)
+            {
+                if (frm.Text == name)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -324,16 +322,16 @@ namespace ChatTest
         /// <param name="text"></param>
         public void SetText(string text)
         {
-            if (ListBoxLogger.InvokeRequired)
-            {
-                SetTextCallBack f = new SetTextCallBack(SetText);
-                this.Invoke(f, new object[] { text });
-            }
-            else
-            {
-                ListBoxLogger.Items.Add(text);
-                ListBoxLogger.TopIndex = ListBoxLogger.Items.Count - 1;
-            }
+            //if (ListBoxLogger.InvokeRequired)
+            //{
+            //    SetTextCallBack f = new SetTextCallBack(SetText);
+            //    this.Invoke(f, new object[] { text });
+            //}
+            //else
+            //{
+            //    ListBoxLogger.Items.Add(text);
+            //    ListBoxLogger.TopIndex = ListBoxLogger.Items.Count - 1;
+            //}
         }
 
         /// <summary>
@@ -353,11 +351,20 @@ namespace ChatTest
             {
                 ListViewAddressBook.View = View.Details;
 
+
+                int itemHeight = 20;
+                ImageList imgList = new ImageList();
+                imgList.ImageSize = new Size(1, itemHeight);
+
+                ListViewAddressBook.SmallImageList = imgList;
+
                 foreach (var item in bookList)
                 {
                     ListViewItem listViewItem = new ListViewItem(new string[] { item.UserState.ToString(), item.UserName, item.UserDesc });
                     ListViewAddressBook.Items.Add(listViewItem);
                 }
+
+
 
                 ListViewAddressBook.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                 ListViewAddressBook.Columns[0].Width = 0;
@@ -388,65 +395,29 @@ namespace ChatTest
                                 int stateIndex = (int)item.UserState;
                                 lvi.SubItems[0].Text = stateIndex.ToString();
                                 SetText("Użytkownik " + item.UserName + " zaktualizował swój status!");
+
+                                timer1.Enabled = true;
+                                Console.WriteLine(stateIndex.ToString());
+                                popUpForm.labelWho.Text = item.UserName;
+                                popUpForm.labelWhat.Text = "Użytkownik zaktualizował swój status!";
+                                popUpForm.ShowDialog();
+
                                 ListViewAddressBook.Sort();
                             }
                             if (item.UserDesc != null && item.UserDesc != "")
                             {
                                 lvi.SubItems[2].Text = item.UserDesc;
                                 SetText("Użytkownik " + item.UserName + " zaktualizował swój opis!");
+
+                                timer1.Enabled = true;
+                                popUpForm.labelWho.Text = item.UserName;
+                                popUpForm.labelWhat.Text = "Użytkownik zaktualizował swój opis!";
+                                popUpForm.ShowDialog();
                             }
                         }
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Wpisz na webBrowser
-        /// </summary>
-        /// <param name="text"></param>
-        private void SetTextHTML(string text)
-        {
-            if (webBrowser1.InvokeRequired)
-            {
-                SetTextCallBack f = new SetTextCallBack(SetTextHTML);
-                Invoke(f, new object[] { text });
-            }
-            else
-            {
-                webBrowser1.Document.Write(text);
-            }
-        }
-
-        /// <summary>
-        /// Scrolluj na dół
-        /// </summary>
-        private void SetScroll()
-        {
-            if (webBrowser1.InvokeRequired)
-            {
-                SetScrollCallBack s = new SetScrollCallBack(SetScroll);
-                Invoke(s);
-            }
-            else
-            {
-                webBrowser1.Document.Window.ScrollTo(0, int.MaxValue);
-                //webBrowser1.Document.Body.ScrollIntoView(false);
-            }
-        }
-
-        /// <summary>
-        /// Wpisz wiadomość na formatkę  
-        /// </summary>
-        /// <param name="who"></param>
-        /// <param name="message"></param>
-        /// <param name="datatime"></param>
-        private void TypeText(string who, string message, DateTime datatime)
-        {
-            SetTextHTML("<table><tr><td width=\"10%\"><b><font size=1>" + who + "</font></b></td><td width=\"90%\"><font size=1>(" + datatime + "):</font></td></tr>");
-            SetTextHTML("<tr><td colspan=2><font size=1>" + message + "</font></td></tr></table>");
-            SetTextHTML("<hr>");
-            SetScroll();
         }
 
         /// <summary>
@@ -456,16 +427,6 @@ namespace ChatTest
         private void ChangeComboBox(string text)
         {
             ComboBoxStatus.Text = text;
-        }
-
-        /// <summary>
-        /// Ustaw adres IP
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ComboBoxIPAddress_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            trafficController.SetIPAddress(IPAddress.Parse(ComboBoxIPAddress.Text));
         }
 
         /// <summary>
@@ -499,31 +460,53 @@ namespace ChatTest
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void ButtonSend_Click(object sender, EventArgs e)
+        public void ButtonSend_Click(object sender, EventArgs e)
         {
-            if (trafficController.GetState() == State.OpenedGate)
-            {
-                /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
-                trafficController.SMSSend(currentNumber, null, TextBoxMessage.Text, "", null);
-                TextBoxMessage.Clear();
-            }
-            else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
+            //if (trafficController.GetState() == State.OpenedGate)
+            //{
+            //    /// TODO
+            //    //Random r = new Random();
+            //    /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
+
+            //    Console.WriteLine("current number" + currentNumber);
+            //    if (!trafficController.SMSSend(currentNumber, null, messageForm.TextBoxMessage1.Text, "", null))
+            //    {
+            //        Console.WriteLine("UDALO SIE");
+            //        TypeText("ja", messageForm.TextBoxMessage1.Text, DateTime.Now);
+            //    }
+            //    else
+            //        SetText("Nie udało się wysłać wiadomości");
+            //    messageForm.TextBoxMessage1.Clear();
+            //}
+            //else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
+            ////Clickk(messageForm.test, messageForm.TextBoxMessage1, messageForm.nr);
         }
 
-        /// <summary>
-        /// Button login
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void ButtonLogin_Click(object sender, EventArgs e)
+        public void Run(String login, String password)
         {
             if (trafficController.GetState() == State.Connected)
             {
                 /// Checking, if login went successfully, if not, then showing the error
                 /// SetText powinno być wykorzystywane tylko i wyłącznie do wyświetlania informacji z klasy logującej
-                trafficController.LogIn(TextBoxLogin.Text, TextBoxPassword.Text);
-            }
+                trafficController.LogIn(login, password);
 
+                /// Manages the initial import of the adress book and statuses
+                List<User> temp = trafficController.GetUsers();
+                SetBook(temp);
+
+                /// Manages the initial import of statuses and description
+                SetColor(trafficController.SetColor(temp));
+
+                /// Register sms module
+                trafficController.RegisterToModules();
+                Console.WriteLine("UDALO SIE POLACZYC FORM2");
+            }
+            /// Changes the status displayed in combobox, when you logged in
+            if (trafficController.GetState() == State.LoggedIn)
+            {
+                //messageForm.trafficController = trafficController;
+                ChangeComboBox(Status.AVAILABLE.ToString());
+            }
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -537,9 +520,18 @@ namespace ChatTest
             trafficController.CloseConnection();
         }
 
-        private async void ButtonLogout_Click(object sender, EventArgs e)
+        private void ListViewAddressBook_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
-            trafficController.LogOut();
+            iteam = e.Item;
+            //e.Item.BackColor = Color.Black;
+        }
+
+        private void ListViewAddressBook_MouseLeave(object sender, EventArgs e)
+        {
+            if (iteam != null)
+            {
+                //iteam.BackColor = Color.Bisque;
+            }
         }
     }
 }
