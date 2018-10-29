@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace ChatTest
 {
-    public partial class MainForm : Form
+    public partial class AddressBookForm : Form
     {
         public string currentNumber;
 
@@ -45,7 +45,7 @@ namespace ChatTest
             int nHeightEllipse // width of ellipse
         );
 
-        public MainForm()
+        public AddressBookForm()
         {
             InitializeComponent();
 
@@ -58,7 +58,7 @@ namespace ChatTest
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
             trafficController.OnUpdateStatus += TrafficController_OnUpdateStatus;
             //trafficController.OnLoggedIn += TrafficController_OnLoggedIn;
-            trafficController.OnAddressBookGet += TrafficController_OnAddressBookGet1;
+            trafficController.OnAddressBookGet += TrafficController_OnAddressBookGet;
             trafficController.OnSuccess += TrafficController_OnSuccess;
             trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
             trafficController.OnSetConnection += TrafficController_OnSetConnection;
@@ -69,15 +69,6 @@ namespace ChatTest
                 if (item.ToString() != Status.UNKNOWN.ToString())
                     ComboBoxStatus.Items.Add(item);
             }
-        }
-
-        private void TrafficController_OnAddressBookGet1(TrafficController sender, List<User> users)
-        {
-            SetBook(users);
-            /// Manages the initial import of statuses and description
-            SetColor(trafficController.SetColor(users));
-            /// Register sms module
-            trafficController.RegisterToModules();
         }
 
         private void TrafficController_OnSetConnection(TrafficController sender)
@@ -113,15 +104,15 @@ namespace ChatTest
                 SetText("Nie udało się wysłać wiadomości");
         }
 
-        //private void TrafficController_OnAddressBookGet(TrafficController sender, List<User> users)
-        //{
-        //    SetBook(users);
-        //    /// Manages the initial import of statuses and description
-        //    SetColor(trafficController.SetColor(users));
-        //    /// Register sms module
-        //    trafficController.RegisterToModules();
+        private void TrafficController_OnAddressBookGet(TrafficController sender, List<User> users)
+        {
+            SetBook(users);
+            /// Manages the initial import of statuses and description
+            SetColor(trafficController.SetColor(users));
+            /// Register sms module
+            trafficController.RegisterToModules();
 
-        //}
+        }
 
         //private void TrafficController_OnLoggedIn(TrafficController sender, string info)
         //{

@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace ChatTest.Forms
 {
@@ -11,7 +12,7 @@ namespace ChatTest.Forms
     {
         public TrafficController trafficController = new TrafficController();
         public bool isClick = false;
-        MainForm MainForm = new MainForm();
+        AddressBookForm MainForm = new AddressBookForm();
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -28,10 +29,11 @@ namespace ChatTest.Forms
         {
             InitializeComponent();
 
+            trafficController.OnLoggedIn += TrafficController_OnLoggedIn;
+
             this.FormBorderStyle = FormBorderStyle.None;
             this.AllowTransparency = true;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
-            trafficController.OnLoggedIn += TrafficController_OnLoggedIn;
 
             if (File.Exists(@".\file.json"))
             {
@@ -48,8 +50,6 @@ namespace ChatTest.Forms
 
         private void TrafficController_OnLoggedIn(TrafficController sender, string info)
         {
-            //SetText(info);
-            /// Changes the status displayed in combobox, when you logged in
             if (trafficController.GetState() == State.LoggedIn)
             {
                 if (SaveToFileCheckBox.Checked)
@@ -63,20 +63,15 @@ namespace ChatTest.Forms
                     //File.WriteAllText(@"C:\Users\Michał Adamkowski\Documents\Projects\Slican\file.json", jsonWrite);
                     File.WriteAllText(@".\file.json", jsonWrite);
                 }
-                
                 this.Hide();
                 trafficController.GetUsers();
                 MainForm.Show();
-                //MainForm.Run(TextBoxLogin.Text, TextBoxPassword.Text);
             }
-
             if (trafficController.wrongLogin)
             {
                 labelLoginInfo.Text = "ZŁY LOGIN LUB HASŁO";
                 trafficController.wrongLogin = false;
             }
-            /// Manages the initial import of the adress book and statuses
-            
         }
 
         /// <summary>
@@ -91,6 +86,8 @@ namespace ChatTest.Forms
             {
                 trafficController.LogIn(TextBoxLogin.Text, TextBoxPassword.Text);
             }
+                //MainForm.Run(TextBoxLogin.Text, TextBoxPassword.Text);
+            
         }
 
         /// <summary>
