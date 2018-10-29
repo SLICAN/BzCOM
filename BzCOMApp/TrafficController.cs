@@ -226,7 +226,7 @@ namespace ChatTest
         public static ConcurrentDictionary<string, XCTIP> responses = new ConcurrentDictionary<string, XCTIP>();
         public static List<XCTIP> asyncData = new List<XCTIP>();
 
-        public XCTIP GetResponse(string id, int timeoutMs = 25000)
+        public XCTIP GetResponse(string id, int timeoutMs = 10000)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             while (stopwatch.ElapsedMilliseconds < timeoutMs)
@@ -234,7 +234,7 @@ namespace ChatTest
                 if (responses.TryRemove(id, out XCTIP result))
                     return result;
             }
-            //OnDeadConnection.Invoke(this);
+            OnDeadConnection.Invoke(this);
             return null;
         }
 

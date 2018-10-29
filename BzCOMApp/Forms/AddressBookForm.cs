@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace ChatTest
 {
-    public partial class AddressBookForm : Form
+    public partial class MainForm : Form
     {
         public string currentNumber;
 
@@ -45,7 +45,7 @@ namespace ChatTest
             int nHeightEllipse // width of ellipse
         );
 
-        public AddressBookForm()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -57,7 +57,7 @@ namespace ChatTest
 
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
             trafficController.OnUpdateStatus += TrafficController_OnUpdateStatus;
-            //trafficController.OnLoggedIn += TrafficController_OnLoggedIn;
+            trafficController.OnLoggedIn += TrafficController_OnLoggedIn;
             trafficController.OnAddressBookGet += TrafficController_OnAddressBookGet;
             trafficController.OnSuccess += TrafficController_OnSuccess;
             trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
@@ -114,18 +114,18 @@ namespace ChatTest
 
         }
 
-        //private void TrafficController_OnLoggedIn(TrafficController sender, string info)
-        //{
-        //    SetText(info);
-        //    /// Changes the status displayed in combobox, when you logged in
-        //    if (trafficController.GetState() == State.LoggedIn)
-        //    {
-        //        ChangeComboBox(Status.AVAILABLE.ToString());
-        //    }
+        private void TrafficController_OnLoggedIn(TrafficController sender, string info)
+        {
+            SetText(info);
+            /// Changes the status displayed in combobox, when you logged in
+            if (trafficController.GetState() == State.LoggedIn)
+            {
+                ChangeComboBox(Status.AVAILABLE.ToString());
+            }
 
-        //    /// Manages the initial import of the adress book and statuses
-        //    trafficController.GetUsers();
-        //}
+            /// Manages the initial import of the adress book and statuses
+            trafficController.GetUsers();
+        }
 
         /// <summary>
         /// Ustaw wiadomości z loggera, jeśli logowanie ustawiono na aktywne

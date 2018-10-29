@@ -1,6 +1,6 @@
 ﻿namespace ChatTest
 {
-    partial class AddressBookForm
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.

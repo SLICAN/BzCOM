@@ -4,7 +4,6 @@ using System.IO;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 
 namespace ChatTest.Forms
 {
@@ -12,7 +11,7 @@ namespace ChatTest.Forms
     {
         public TrafficController trafficController = new TrafficController();
         public bool isClick = false;
-        AddressBookForm MainForm = new AddressBookForm();
+        MainForm MainForm = new MainForm();
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -28,8 +27,6 @@ namespace ChatTest.Forms
         public LoginForm()
         {
             InitializeComponent();
-
-            trafficController.OnLoggedIn += TrafficController_OnLoggedIn;
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.AllowTransparency = true;
@@ -48,8 +45,20 @@ namespace ChatTest.Forms
             }
         }
 
-        private void TrafficController_OnLoggedIn(TrafficController sender, string info)
+        /// <summary>
+        /// Button login
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonLogin_Click(object sender, EventArgs e)
         {
+            labelLoginInfo.Text = "";
+            if (trafficController.GetState() == State.Connected)
+            {
+                trafficController.LogIn(TextBoxLogin.Text, TextBoxPassword.Text);
+            }
+
+            /// Changes the status displayed in combobox, when you logged in
             if (trafficController.GetState() == State.LoggedIn)
             {
                 if (SaveToFileCheckBox.Checked)
@@ -64,30 +73,15 @@ namespace ChatTest.Forms
                     File.WriteAllText(@".\file.json", jsonWrite);
                 }
                 this.Hide();
-                trafficController.GetUsers();
                 MainForm.Show();
+                MainForm.Run(TextBoxLogin.Text, TextBoxPassword.Text);
             }
+
             if (trafficController.wrongLogin)
             {
                 labelLoginInfo.Text = "ZŁY LOGIN LUB HASŁO";
                 trafficController.wrongLogin = false;
             }
-        }
-
-        /// <summary>
-        /// Button login
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonLogin_Click(object sender, EventArgs e)
-        {
-            labelLoginInfo.Text = "";
-            if (trafficController.GetState() == State.Connected)
-            {
-                trafficController.LogIn(TextBoxLogin.Text, TextBoxPassword.Text);
-            }
-                //MainForm.Run(TextBoxLogin.Text, TextBoxPassword.Text);
-            
         }
 
         /// <summary>
