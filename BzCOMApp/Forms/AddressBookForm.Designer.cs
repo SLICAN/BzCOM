@@ -105,14 +105,14 @@
             this.szczegółyKontaktuToolStripMenuItem.Name = "szczegółyKontaktuToolStripMenuItem";
             this.szczegółyKontaktuToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.szczegółyKontaktuToolStripMenuItem.Text = "Szczegóły kontaktu";
-            this.szczegółyKontaktuToolStripMenuItem.Click += new System.EventHandler(this.ContactDetailsToolStripMenuItem_Click);
+//            this.szczegółyKontaktuToolStripMenuItem.Click += new System.EventHandler(this.ContactDetailsToolStripMenuItem_Click);
             // 
             // edytujToolStripMenuItem
             // 
             this.edytujToolStripMenuItem.Name = "edytujToolStripMenuItem";
             this.edytujToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.edytujToolStripMenuItem.Text = "Edytuj";
-            this.edytujToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
+ //           this.edytujToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
             // 
             // ListViewAddressBook
             // 

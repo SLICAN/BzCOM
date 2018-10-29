@@ -1,14 +1,10 @@
 ﻿using ChatTest.Forms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Threading;
 
@@ -102,7 +98,7 @@ namespace ChatTest
         {
             if (!error)
             {
-                TypeText("ja", TextBoxMessage.Text, DateTime.Now);
+                //TypeText("ja", TextBoxMessage.Text, DateTime.Now);
             }
             else
                 SetText("Nie udało się wysłać wiadomości");
@@ -126,9 +122,6 @@ namespace ChatTest
             {
                 ChangeComboBox(Status.AVAILABLE.ToString());
             }
-
-            TextBoxLogin.Text = "";
-            TextBoxPassword.Text = "";
 
             /// Manages the initial import of the adress book and statuses
             trafficController.GetUsers();
@@ -464,10 +457,6 @@ namespace ChatTest
         {
             //if (trafficController.GetState() == State.OpenedGate)
             //{
-            //    /// TODO
-            //    //Random r = new Random();
-            //    /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
-
             //    Console.WriteLine("current number" + currentNumber);
             //    if (!trafficController.SMSSend(currentNumber, null, messageForm.TextBoxMessage1.Text, "", null))
             //    {
@@ -486,26 +475,7 @@ namespace ChatTest
         {
             if (trafficController.GetState() == State.Connected)
             {
-                /// Checking, if login went successfully, if not, then showing the error
-                /// SetText powinno być wykorzystywane tylko i wyłącznie do wyświetlania informacji z klasy logującej
                 trafficController.LogIn(login, password);
-
-                /// Manages the initial import of the adress book and statuses
-                List<User> temp = trafficController.GetUsers();
-                SetBook(temp);
-
-                /// Manages the initial import of statuses and description
-                SetColor(trafficController.SetColor(temp));
-
-                /// Register sms module
-                trafficController.RegisterToModules();
-                Console.WriteLine("UDALO SIE POLACZYC FORM2");
-            }
-            /// Changes the status displayed in combobox, when you logged in
-            if (trafficController.GetState() == State.LoggedIn)
-            {
-                //messageForm.trafficController = trafficController;
-                ChangeComboBox(Status.AVAILABLE.ToString());
             }
         }
 

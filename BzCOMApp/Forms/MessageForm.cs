@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ChatTest.Forms
@@ -55,14 +48,10 @@ namespace ChatTest.Forms
         /// <param name="e"></param>
         private void ButtonSend1_Click(object sender, EventArgs e)
         {
-
             if (trafficController.GetState() == State.OpenedGate)
             {
-                if (!trafficController.SMSSend(nr, null, TextBoxMessage1.Text, "", null))
-                    TypeText("ja", TextBoxMessage1.Text, DateTime.Now);
-                else
-                    MessageBox.Show("Nie udalo sie nawiazac rozmowy");
-
+                /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
+                trafficController.SMSSend(nr, null, TextBoxMessage1.Text, "", null);
                 TextBoxMessage1.Clear();
             }
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
