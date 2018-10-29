@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BzCOMApp", "BzCOMApp.csproj", "{8A86636C-9C76-4FA4-A78D-441D3955F02B}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BzCOMSetup", "..\BzCOMSetup\BzCOMSetup\BzCOMSetup.vdproj", "{ED9A8F15-9B52-46C7-95A1-1AC9C9A9B2C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A86636C-9C76-4FA4-A78D-441D3955F02B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A86636C-9C76-4FA4-A78D-441D3955F02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A86636C-9C76-4FA4-A78D-441D3955F02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A86636C-9C76-4FA4-A78D-441D3955F02B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED9A8F15-9B52-46C7-95A1-1AC9C9A9B2C5}.Debug|Any CPU.ActiveCfg = Debug
+		{ED9A8F15-9B52-46C7-95A1-1AC9C9A9B2C5}.Debug|Any CPU.Build.0 = Debug
+		{ED9A8F15-9B52-46C7-95A1-1AC9C9A9B2C5}.Release|Any CPU.ActiveCfg = Release
+		{ED9A8F15-9B52-46C7-95A1-1AC9C9A9B2C5}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACD4DC4C-E93F-46A8-9A0E-D15ECD6E640F}
+	EndGlobalSection
+EndGlobal

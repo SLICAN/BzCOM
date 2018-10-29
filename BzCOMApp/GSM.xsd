@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="XCTIP" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="MultiPart">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RefNr" type="xs:string" minOccurs="0" />
+        <xs:element name="Part" type="xs:string" minOccurs="0" />
+        <xs:element name="Total" type="xs:string" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XCTIP" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="MultiPart" />
+        <xs:element name="GSM">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Register_REQ" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="CId" type="xs:string" minOccurs="0" />
+                    <xs:element name="Number" type="xs:string" minOccurs="0" />
+                    <xs:element name="CodePage" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="RegisterInfo_ANS" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="GsmId" type="xs:string" minOccurs="0" />
+                    <xs:element name="Number" type="xs:string" minOccurs="0" />
+                    <xs:element name="CodePage" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SMSSend_REQ" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="CId" type="xs:string" minOccurs="0" />
+                    <xs:element name="GsmId" type="xs:string" minOccurs="0" />
+                    <xs:element name="Number" type="xs:string" minOccurs="0" />
+                    <xs:element name="Type" type="xs:string" minOccurs="0" />
+                    <xs:element name="Report" type="xs:string" minOccurs="0" />
+                    <xs:element name="Time" type="xs:string" minOccurs="0" />
+                    <xs:element name="Text" type="xs:string" minOccurs="0" />
+                    <xs:element name="Code" type="xs:string" minOccurs="0" />
+                    <xs:element ref="MultiPart" minOccurs="0" maxOccurs="unbounded" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SMSGet_EV" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="GsmId" type="xs:string" minOccurs="0" />
+                    <xs:element name="MemId" type="xs:string" minOccurs="0" />
+                    <xs:element name="Number" type="xs:string" minOccurs="0" />
+                    <xs:element name="Type" type="xs:string" minOccurs="0" />
+                    <xs:element name="Date" type="xs:string" minOccurs="0" />
+                    <xs:element name="Text" type="xs:string" minOccurs="0" />
+                    <xs:element ref="MultiPart" minOccurs="0" maxOccurs="unbounded" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SMSAcknowledge_EV" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="GsmId" type="xs:string" minOccurs="0" />
+                    <xs:element name="Status" type="xs:string" minOccurs="0" />
+                    <xs:element name="MsgId" type="xs:string" minOccurs="0" />
+                    <xs:element name="ErrorCode" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SMSReport_EV" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="GsmId" type="xs:string" minOccurs="0" />
+                    <xs:element name="Status" type="xs:string" minOccurs="0" />
+                    <xs:element name="MsgId" type="xs:string" minOccurs="0" />
+                    <xs:element name="MemId" type="xs:string" minOccurs="0" />
+                    <xs:element name="ErrorCode" type="xs:string" minOccurs="0" />
+                    <xs:element name="Number" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SMSOk_REQ" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="CId" type="xs:string" minOccurs="0" />
+                    <xs:element name="GsmId" type="xs:string" minOccurs="0" />
+                    <xs:element name="MemId" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Unregister_REQ" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="CId" type="xs:string" minOccurs="0" />
+                    <xs:element name="GsmId" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

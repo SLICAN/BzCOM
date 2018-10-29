@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="Contact">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ContactId" type="xs:string" minOccurs="0" />
+        <xs:element name="Name" type="xs:string" minOccurs="0" />
+        <xs:element name="ExtNo" type="xs:string" minOccurs="0" />
+        <xs:element name="IdExtNo" type="xs:string" minOccurs="0" />
+        <xs:element name="Favourite" type="xs:string" minOccurs="0" />
+        <xs:element name="Private" type="xs:string" minOccurs="0" />
+        <xs:element name="Type" type="xs:string" minOccurs="0" />
+        <xs:element name="DefaultPhoneId" type="xs:string" minOccurs="0" />
+        <xs:element name="Info" type="xs:string" minOccurs="0" />
+        <xs:element name="IM" type="xs:string" minOccurs="0" />
+        <xs:element name="Phone" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PhoneId" type="xs:string" minOccurs="0" />
+              <xs:element name="Number" type="xs:string" minOccurs="0" />
+              <xs:element name="Comment" type="xs:string" minOccurs="0" />
+              <xs:element name="CanSMS" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GroupId" nillable="true" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:simpleContent msdata:ColumnName="GroupId_Text" msdata:Ordinal="0">
+              <xs:extension base="xs:string">
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="Contact" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
