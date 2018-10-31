@@ -9,9 +9,11 @@ namespace ChatTest.Forms
 {
     public partial class LoginForm : Form
     {
-        public TrafficController trafficController = new TrafficController();
-        public bool isClick = false;
-        MainForm MainForm = new MainForm();
+        private TrafficController trafficController = TrafficController.TrafficControllerInstance;
+
+        private PopUpForm popUpForm = new PopUpForm();
+
+        private bool isClick = false;
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -48,7 +50,7 @@ namespace ChatTest.Forms
 
         private void TrafficController_OnLoggedIn(TrafficController sender, string info)
         {
-            //SetText(info);
+            popUpForm.labelWhat.Text = info;
             /// Changes the status displayed in combobox, when you logged in
             if (trafficController.GetState() == State.LoggedIn)
             {
@@ -66,7 +68,8 @@ namespace ChatTest.Forms
                 
                 this.Hide();
                 trafficController.GetUsers();
-                MainForm.Show();
+                new AddressBookForm();
+                //MainForm.Show();
                 //MainForm.Run(TextBoxLogin.Text, TextBoxPassword.Text);
             }
 
@@ -75,8 +78,7 @@ namespace ChatTest.Forms
                 labelLoginInfo.Text = "ZŁY LOGIN LUB HASŁO";
                 trafficController.wrongLogin = false;
             }
-            /// Manages the initial import of the adress book and statuses
-            
+          
         }
 
         /// <summary>

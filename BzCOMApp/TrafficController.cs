@@ -9,8 +9,11 @@ using System.Threading.Tasks;
 
 namespace ChatTest
 {
-    public class TrafficController
+    public sealed class TrafficController
     {
+        private static TrafficController TCInstance = null;
+        private static readonly object PadLock = new object();
+
         private Connection connection = new Connection();
 
         private XMLCreator xmlCreator = new XMLCreator();
@@ -28,23 +31,39 @@ namespace ChatTest
 
         public delegate void OnUpdateStatusDelegate(TrafficController sender, List<User> users);
         public event OnUpdateStatusDelegate OnUpdateStatus;
-        public event OnUpdateStatusDelegate OnAddressBookGet;
+
+        public delegate void OnAddressBookGetDelegate(TrafficController sender, List<User> users);
+        public event OnAddressBookGetDelegate OnAddressBookGet;
 
         public delegate void OnLoggedInDelegate(TrafficController sender, string info);
         public event OnLoggedInDelegate OnLoggedIn;
 
         public delegate void OnDeadConnectionDelegate(TrafficController sender);
-        public event OnDeadConnectionDelegate OnSetConnection;
         public event OnDeadConnectionDelegate OnDeadConnection;
 
         public delegate void OnSuccessDelegate(TrafficController sender, bool error);
-        public event OnSuccessDelegate OnSuccess;
+        public event OnSuccessDelegate OnSuccessMessageSend;
 
-        public TrafficController()
+        private TrafficController()
         {
             listener = new Thread(Start);
             listener.Start();
             xmlInterpreter = new XMLInterpreter(connection);
+        }
+
+        public static TrafficController TrafficControllerInstance
+        {
+            get
+            {
+                lock (PadLock)
+                {
+                    if (TCInstance == null)
+                    {
+                        TCInstance = new TrafficController();
+                    }
+                    return TCInstance;
+                }
+            }
         }
 
         public async void Start()
@@ -170,8 +189,8 @@ namespace ChatTest
             await GetAddressBook();
             await connection.SendingPacket(xmlCreator.StatusRegister_REQ(out string rid)); // zgłaszamy, że chcemy obserwować zmiany statusów
             if (xmlInterpreter.StatusError(GetResponse(rid))) return;
-
-            OnAddressBookGet.Invoke(this, xmlInterpreter.GetStatus()); // zwraca ramki z obecnymi statusami do listy obiektów
+            List<User> temp = xmlInterpreter.GetStatus();
+            OnAddressBookGet?.Invoke(this, temp); // zwraca ramki z obecnymi statusami do listy obiektów
             //}
         }
 
@@ -234,7 +253,7 @@ namespace ChatTest
                 if (responses.TryRemove(id, out XCTIP result))
                     return result;
             }
-            OnDeadConnection.Invoke(this);
+            //OnDeadConnection.Invoke(this);
             return null;
         }
 
@@ -256,7 +275,7 @@ namespace ChatTest
             //lock (connection)
             //{
             await connection.SendingPacket(xmlCreator.SMSSend_REQ(number, smsId, text, dontBuffer, userData, out string rid));
-            OnSuccess.Invoke(this, xmlInterpreter.SMSError(GetResponse(rid)));
+            OnSuccessMessageSend.Invoke(this, xmlInterpreter.SMSError(GetResponse(rid)));
             //}
         }
 
