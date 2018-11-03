@@ -198,7 +198,7 @@ namespace ChatTest
         {
             try
             {
-                await connection.SendingPacket(xmlCreator.StatusUpdate_REQ(status, info, out string rid));
+                await connection.SendingPacket(xmlCreator.StatusUpdate_REQ(null, info, out string rid));
                 xmlInterpreter.StatusError(GetResponse(rid));
             }
             catch

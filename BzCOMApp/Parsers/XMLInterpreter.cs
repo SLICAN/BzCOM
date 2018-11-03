@@ -31,7 +31,7 @@ namespace ChatTest
             return null;
         }
 
-        
+
 
         /// <summary>
         /// Funkcja zwraca informacje o zalogowanym użytkowniku
@@ -167,18 +167,22 @@ namespace ChatTest
                         foreach (var el in UserInfo)
                         {
                             if (el.UserId == user.UserId)
+                            {
                                 user.UserName = el.UserName;
-                        }
-                        if (packet.StatusItems[0].Change_EV[0].AppState != null)
-                        {
-                            user.UserState = (Status)Enum.Parse(typeof(Status), packet.StatusItems[0].Change_EV[0].AppState);
-                            packet.StatusItems[0].Change_EV[0].AppState = null;
-                        }
+                                user.UserState = el.UserState;
+                                if (packet.StatusItems[0].Change_EV[0].AppState != null)
+                                {
+                                    user.UserState = (Status)Enum.Parse(typeof(Status), packet.StatusItems[0].Change_EV[0].AppState);
+                                    packet.StatusItems[0].Change_EV[0].AppState = null;
+                                    el.UserState = user.UserState;
+                                }
 
-                        if (packet.StatusItems[0].Change_EV[0].AppInfo != null)
-                        {
-                            user.UserDesc = packet.StatusItems[0].Change_EV[0].AppInfo;
-                            packet.StatusItems[0].Change_EV[0].AppInfo = null;
+                                if (packet.StatusItems[0].Change_EV[0].AppInfo != null)
+                                {
+                                    user.UserDesc = packet.StatusItems[0].Change_EV[0].AppInfo;
+                                    packet.StatusItems[0].Change_EV[0].AppInfo = null;
+                                }
+                            }
                         }
                         users.Add(user);
                         TrafficController.asyncData.RemoveAt(i);

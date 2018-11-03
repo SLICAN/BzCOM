@@ -86,12 +86,12 @@ namespace ChatTest
         /// <param name="users"></param>
         private void TrafficController_OnUpdateStatus(TrafficController sender, List<User> users)
         {
-            EditBook(users);
             foreach (var item in users)
             {
                 if (item.UserState != Status.UNKNOWN)
                     SetColor(trafficController.SetColor(users));
             }
+            EditBook(users);
         }
 
         private void timer1_Tick(object Sender, EventArgs e)
