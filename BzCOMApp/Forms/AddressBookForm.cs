@@ -336,5 +336,15 @@ namespace ChatTest
                 //iteam.BackColor = Color.Bisque;
             }
         }
+
+        private void TextBoxDescription_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.TextBoxDescription.Text = String.Empty;
+        }
+
+        private void Pic_Close_2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

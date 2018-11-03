@@ -235,5 +235,10 @@ namespace ChatTest.Forms
             }
             return false;
         }
+
+        private void Pic_Close_2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -134,5 +134,10 @@ namespace ChatTest.Forms
                 isClick = false;
             }
         }
+
+        private void Pic_Close_2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

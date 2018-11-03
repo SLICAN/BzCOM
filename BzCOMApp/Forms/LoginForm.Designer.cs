@@ -36,13 +36,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ComboBoxIPAddress = new System.Windows.Forms.ComboBox();
             this.NumericUpDownPort = new System.Windows.Forms.NumericUpDown();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.Pic_Close_2 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
@@ -51,7 +47,7 @@
             this.labelLoginInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPort)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pic_Close_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -77,10 +73,12 @@
             // 
             this.TextBoxLogin.BackColor = System.Drawing.SystemColors.ControlLight;
             this.TextBoxLogin.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextBoxLogin.Font = new System.Drawing.Font("Franklin Gothic Demi", 15.75F);
             this.TextBoxLogin.Location = new System.Drawing.Point(106, 181);
             this.TextBoxLogin.Margin = new System.Windows.Forms.Padding(2);
+            this.TextBoxLogin.Multiline = true;
             this.TextBoxLogin.Name = "TextBoxLogin";
-            this.TextBoxLogin.Size = new System.Drawing.Size(233, 13);
+            this.TextBoxLogin.Size = new System.Drawing.Size(233, 25);
             this.TextBoxLogin.TabIndex = 1;
             this.TextBoxLogin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -88,11 +86,12 @@
             // 
             this.TextBoxPassword.BackColor = System.Drawing.SystemColors.ControlLight;
             this.TextBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBoxPassword.Location = new System.Drawing.Point(106, 231);
+            this.TextBoxPassword.Font = new System.Drawing.Font("Franklin Gothic Demi", 15.75F);
+            this.TextBoxPassword.Location = new System.Drawing.Point(106, 219);
             this.TextBoxPassword.Margin = new System.Windows.Forms.Padding(2);
             this.TextBoxPassword.Name = "TextBoxPassword";
             this.TextBoxPassword.PasswordChar = '*';
-            this.TextBoxPassword.Size = new System.Drawing.Size(233, 13);
+            this.TextBoxPassword.Size = new System.Drawing.Size(233, 24);
             this.TextBoxPassword.TabIndex = 3;
             this.TextBoxPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.TextBoxPassword.UseSystemPasswordChar = true;
@@ -143,61 +142,11 @@
             0});
             this.NumericUpDownPort.ValueChanged += new System.EventHandler(this.NumericUpDownPort_ValueChanged);
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(106, 244);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(233, 13);
-            this.textBox1.TabIndex = 11;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.UseSystemPasswordChar = true;
-            this.textBox1.WordWrap = false;
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Location = new System.Drawing.Point(106, 218);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(233, 13);
-            this.textBox2.TabIndex = 12;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox2.UseSystemPasswordChar = true;
-            this.textBox2.WordWrap = false;
-            // 
-            // textBox3
-            // 
-            this.textBox3.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Location = new System.Drawing.Point(106, 194);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(233, 13);
-            this.textBox3.TabIndex = 13;
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox4
-            // 
-            this.textBox4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox4.Location = new System.Drawing.Point(106, 169);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(233, 13);
-            this.textBox4.TabIndex = 14;
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.pictureBox2);
+            this.panel1.Controls.Add(this.Pic_Close_2);
             this.panel1.Controls.Add(this.pictureBox4);
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -215,15 +164,16 @@
             this.label1.TabIndex = 18;
             this.label1.Text = "BzCOM";
             // 
-            // pictureBox2
+            // Pic_Close_2
             // 
-            this.pictureBox2.Image = global::ChatTest.Properties.Resources._11;
-            this.pictureBox2.Location = new System.Drawing.Point(393, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 15;
-            this.pictureBox2.TabStop = false;
+            this.Pic_Close_2.Image = global::ChatTest.Properties.Resources._11;
+            this.Pic_Close_2.Location = new System.Drawing.Point(393, 2);
+            this.Pic_Close_2.Name = "Pic_Close_2";
+            this.Pic_Close_2.Size = new System.Drawing.Size(16, 16);
+            this.Pic_Close_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Pic_Close_2.TabIndex = 15;
+            this.Pic_Close_2.TabStop = false;
+            this.Pic_Close_2.Click += new System.EventHandler(this.Pic_Close_2_Click);
             // 
             // pictureBox4
             // 
@@ -295,10 +245,6 @@
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.SaveToFileCheckBox);
             this.Controls.Add(this.TextBoxPassword);
@@ -310,7 +256,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPort)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pic_Close_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
@@ -331,11 +277,7 @@
         private System.Windows.Forms.ComboBox ComboBoxIPAddress;
         private System.Windows.Forms.NumericUpDown NumericUpDownPort;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox Pic_Close_2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Panel panel1;
