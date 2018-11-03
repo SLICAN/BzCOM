@@ -12,6 +12,7 @@ namespace ChatTest
 {
     public partial class AddressBookForm : Form
     {
+        // test zmian
         private string currentNumber;
 
         private ListViewItem item;
