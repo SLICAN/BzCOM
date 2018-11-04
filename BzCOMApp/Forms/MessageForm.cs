@@ -19,6 +19,14 @@ namespace ChatTest.Forms
 
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
 
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
         (
@@ -50,6 +58,7 @@ namespace ChatTest.Forms
             if (!error)
             {
                 TypeText("ja", TextBoxMessage.Text, DateTime.Now);
+                TextBoxMessage.Clear();
             }
             else
                 MessageBox.Show("Nie udało się wysłać wiadomości", "Error");
@@ -89,7 +98,6 @@ namespace ChatTest.Forms
             {
                 /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
                 trafficController.SMSSend(nr, null, TextBoxMessage.Text, "", null);
-                TextBoxMessage.Clear();
             }
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
         }
@@ -236,9 +244,18 @@ namespace ChatTest.Forms
             return false;
         }
 
-        private void Pic_Close_2_Click(object sender, EventArgs e)
+        private void CloseButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void TitlePanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
     }
 }

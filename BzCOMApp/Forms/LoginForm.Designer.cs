@@ -28,30 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.ButtonLogin = new System.Windows.Forms.Button();
             this.TextBoxLogin = new System.Windows.Forms.TextBox();
             this.TextBoxPassword = new System.Windows.Forms.TextBox();
             this.SaveToFileCheckBox = new System.Windows.Forms.CheckBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ComboBoxIPAddress = new System.Windows.Forms.ComboBox();
             this.NumericUpDownPort = new System.Windows.Forms.NumericUpDown();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.Pic_Close_2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.TitlePanel = new System.Windows.Forms.Panel();
+            this.Title = new System.Windows.Forms.Label();
+            this.CloseButton = new System.Windows.Forms.PictureBox();
+            this.ResizeButton = new System.Windows.Forms.PictureBox();
+            this.HideButton = new System.Windows.Forms.PictureBox();
+            this.SettingsImage = new System.Windows.Forms.PictureBox();
+            this.LoginImage = new System.Windows.Forms.PictureBox();
             this.panelSettings = new System.Windows.Forms.Panel();
             this.labelLoginInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPort)).BeginInit();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Pic_Close_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.TitlePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CloseButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ResizeButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HideButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoginImage)).BeginInit();
             this.panelSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +71,7 @@
             // 
             this.TextBoxLogin.BackColor = System.Drawing.SystemColors.ControlLight;
             this.TextBoxLogin.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBoxLogin.Font = new System.Drawing.Font("Franklin Gothic Demi", 15.75F);
+            this.TextBoxLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
             this.TextBoxLogin.Location = new System.Drawing.Point(106, 181);
             this.TextBoxLogin.Margin = new System.Windows.Forms.Padding(2);
             this.TextBoxLogin.Multiline = true;
@@ -86,7 +84,7 @@
             // 
             this.TextBoxPassword.BackColor = System.Drawing.SystemColors.ControlLight;
             this.TextBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBoxPassword.Font = new System.Drawing.Font("Franklin Gothic Demi", 15.75F);
+            this.TextBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
             this.TextBoxPassword.Location = new System.Drawing.Point(106, 219);
             this.TextBoxPassword.Margin = new System.Windows.Forms.Padding(2);
             this.TextBoxPassword.Name = "TextBoxPassword";
@@ -108,10 +106,6 @@
             this.SaveToFileCheckBox.TabIndex = 6;
             this.SaveToFileCheckBox.Text = "Save to file ?";
             this.SaveToFileCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 30;
             // 
             // ComboBoxIPAddress
             // 
@@ -142,79 +136,80 @@
             0});
             this.NumericUpDownPort.ValueChanged += new System.EventHandler(this.NumericUpDownPort_ValueChanged);
             // 
-            // panel1
+            // TitlePanel
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.Pic_Close_2);
-            this.panel1.Controls.Add(this.pictureBox4);
-            this.panel1.Controls.Add(this.pictureBox3);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(423, 20);
-            this.panel1.TabIndex = 18;
+            this.TitlePanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.TitlePanel.Controls.Add(this.Title);
+            this.TitlePanel.Controls.Add(this.CloseButton);
+            this.TitlePanel.Controls.Add(this.ResizeButton);
+            this.TitlePanel.Controls.Add(this.HideButton);
+            this.TitlePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TitlePanel.Location = new System.Drawing.Point(0, 0);
+            this.TitlePanel.Name = "TitlePanel";
+            this.TitlePanel.Size = new System.Drawing.Size(423, 20);
+            this.TitlePanel.TabIndex = 18;
+            this.TitlePanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitlePanel_MouseDown);
             // 
-            // label1
+            // Title
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(206, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "BzCOM";
+            this.Title.AutoSize = true;
+            this.Title.Location = new System.Drawing.Point(206, 4);
+            this.Title.Name = "Title";
+            this.Title.Size = new System.Drawing.Size(43, 13);
+            this.Title.TabIndex = 18;
+            this.Title.Text = "BzCOM";
             // 
-            // Pic_Close_2
+            // CloseButton
             // 
-            this.Pic_Close_2.Image = global::ChatTest.Properties.Resources._11;
-            this.Pic_Close_2.Location = new System.Drawing.Point(393, 2);
-            this.Pic_Close_2.Name = "Pic_Close_2";
-            this.Pic_Close_2.Size = new System.Drawing.Size(16, 16);
-            this.Pic_Close_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Pic_Close_2.TabIndex = 15;
-            this.Pic_Close_2.TabStop = false;
-            this.Pic_Close_2.Click += new System.EventHandler(this.Pic_Close_2_Click);
+            this.CloseButton.Image = global::ChatTest.Properties.Resources._11;
+            this.CloseButton.Location = new System.Drawing.Point(393, 2);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(16, 16);
+            this.CloseButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.CloseButton.TabIndex = 15;
+            this.CloseButton.TabStop = false;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
-            // pictureBox4
+            // ResizeButton
             // 
-            this.pictureBox4.Image = global::ChatTest.Properties.Resources._3;
-            this.pictureBox4.Location = new System.Drawing.Point(345, 2);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 17;
-            this.pictureBox4.TabStop = false;
+            this.ResizeButton.Image = global::ChatTest.Properties.Resources._3;
+            this.ResizeButton.Location = new System.Drawing.Point(345, 2);
+            this.ResizeButton.Name = "ResizeButton";
+            this.ResizeButton.Size = new System.Drawing.Size(16, 16);
+            this.ResizeButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ResizeButton.TabIndex = 17;
+            this.ResizeButton.TabStop = false;
             // 
-            // pictureBox3
+            // HideButton
             // 
-            this.pictureBox3.Image = global::ChatTest.Properties.Resources._2;
-            this.pictureBox3.Location = new System.Drawing.Point(369, 2);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 16;
-            this.pictureBox3.TabStop = false;
+            this.HideButton.Image = global::ChatTest.Properties.Resources._2;
+            this.HideButton.Location = new System.Drawing.Point(369, 2);
+            this.HideButton.Name = "HideButton";
+            this.HideButton.Size = new System.Drawing.Size(16, 16);
+            this.HideButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.HideButton.TabIndex = 16;
+            this.HideButton.TabStop = false;
             // 
-            // pictureBox5
+            // SettingsImage
             // 
-            this.pictureBox5.Image = global::ChatTest.Properties.Resources.cog_icon;
-            this.pictureBox5.Location = new System.Drawing.Point(3, 24);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(52, 50);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 19;
-            this.pictureBox5.TabStop = false;
-            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
+            this.SettingsImage.Image = global::ChatTest.Properties.Resources.cog_icon;
+            this.SettingsImage.Location = new System.Drawing.Point(3, 24);
+            this.SettingsImage.Name = "SettingsImage";
+            this.SettingsImage.Size = new System.Drawing.Size(52, 50);
+            this.SettingsImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.SettingsImage.TabIndex = 19;
+            this.SettingsImage.TabStop = false;
+            this.SettingsImage.Click += new System.EventHandler(this.SettingsImage_Click);
             // 
-            // pictureBox1
+            // LoginImage
             // 
-            this.pictureBox1.Image = global::ChatTest.Properties.Resources.kisspng_computer_icons_avatar_user_profile_recommender_sys_5afe866a11a941_0921589115266299940724;
-            this.pictureBox1.Location = new System.Drawing.Point(161, 30);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            this.LoginImage.Image = global::ChatTest.Properties.Resources.kisspng_computer_icons_avatar_user_profile_recommender_sys_5afe866a11a941_0921589115266299940724;
+            this.LoginImage.Location = new System.Drawing.Point(161, 30);
+            this.LoginImage.Name = "LoginImage";
+            this.LoginImage.Size = new System.Drawing.Size(128, 128);
+            this.LoginImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LoginImage.TabIndex = 10;
+            this.LoginImage.TabStop = false;
             // 
             // panelSettings
             // 
@@ -230,9 +225,11 @@
             // labelLoginInfo
             // 
             this.labelLoginInfo.AutoSize = true;
-            this.labelLoginInfo.Location = new System.Drawing.Point(206, 360);
+            this.labelLoginInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
+            this.labelLoginInfo.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.labelLoginInfo.Location = new System.Drawing.Point(104, 348);
             this.labelLoginInfo.Name = "labelLoginInfo";
-            this.labelLoginInfo.Size = new System.Drawing.Size(0, 13);
+            this.labelLoginInfo.Size = new System.Drawing.Size(0, 25);
             this.labelLoginInfo.TabIndex = 21;
             // 
             // LoginForm
@@ -243,9 +240,9 @@
             this.ClientSize = new System.Drawing.Size(423, 382);
             this.Controls.Add(this.labelLoginInfo);
             this.Controls.Add(this.panelSettings);
-            this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.SettingsImage);
+            this.Controls.Add(this.TitlePanel);
+            this.Controls.Add(this.LoginImage);
             this.Controls.Add(this.SaveToFileCheckBox);
             this.Controls.Add(this.TextBoxPassword);
             this.Controls.Add(this.TextBoxLogin);
@@ -254,13 +251,13 @@
             this.Name = "LoginForm";
             this.Text = "LoginForm";
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPort)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Pic_Close_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.TitlePanel.ResumeLayout(false);
+            this.TitlePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CloseButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ResizeButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HideButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoginImage)).EndInit();
             this.panelSettings.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -273,16 +270,15 @@
         private System.Windows.Forms.TextBox TextBoxLogin;
         private System.Windows.Forms.TextBox TextBoxPassword;
         private System.Windows.Forms.CheckBox SaveToFileCheckBox;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ComboBox ComboBoxIPAddress;
         private System.Windows.Forms.NumericUpDown NumericUpDownPort;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox Pic_Close_2;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox LoginImage;
+        private System.Windows.Forms.PictureBox CloseButton;
+        private System.Windows.Forms.PictureBox HideButton;
+        private System.Windows.Forms.PictureBox ResizeButton;
+        private System.Windows.Forms.Panel TitlePanel;
+        private System.Windows.Forms.Label Title;
+        private System.Windows.Forms.PictureBox SettingsImage;
         private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.Label labelLoginInfo;
     }

@@ -15,6 +15,14 @@ namespace ChatTest.Forms
 
         private bool isClick = false;
 
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
         (
@@ -121,7 +129,12 @@ namespace ChatTest.Forms
                 this.ButtonLogin_Click(sender, e);
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void SettingsImage_Click(object sender, EventArgs e)
         {
             if (!isClick)
             {
@@ -135,9 +148,13 @@ namespace ChatTest.Forms
             }
         }
 
-        private void Pic_Close_2_Click(object sender, EventArgs e)
+        private void TitlePanel_MouseDown(object sender, MouseEventArgs e)
         {
-            Application.Exit();
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
     }
 }

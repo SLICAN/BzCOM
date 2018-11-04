@@ -30,14 +30,14 @@
         {
             this.labelWhat = new System.Windows.Forms.Label();
             this.labelWho = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.TitlePanel = new System.Windows.Forms.Panel();
+            this.Title = new System.Windows.Forms.Label();
+            this.WhoPanel = new System.Windows.Forms.Panel();
+            this.WhatPanel = new System.Windows.Forms.Panel();
+            this.Div = new System.Windows.Forms.Panel();
+            this.TitlePanel.SuspendLayout();
+            this.WhoPanel.SuspendLayout();
+            this.WhatPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelWhat
@@ -58,67 +58,67 @@
             this.labelWho.TabIndex = 1;
             this.labelWho.Text = "labelWho";
             // 
-            // panel1
+            // TitlePanel
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(434, 20);
-            this.panel1.TabIndex = 20;
+            this.TitlePanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.TitlePanel.Controls.Add(this.Title);
+            this.TitlePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TitlePanel.Location = new System.Drawing.Point(0, 0);
+            this.TitlePanel.Name = "TitlePanel";
+            this.TitlePanel.Size = new System.Drawing.Size(434, 20);
+            this.TitlePanel.TabIndex = 20;
             // 
-            // label1
+            // Title
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(190, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "BzCOM - Notification";
+            this.Title.AutoSize = true;
+            this.Title.Location = new System.Drawing.Point(190, 3);
+            this.Title.Name = "Title";
+            this.Title.Size = new System.Drawing.Size(105, 13);
+            this.Title.TabIndex = 18;
+            this.Title.Text = "BzCOM - Notification";
             // 
-            // panel2
+            // WhoPanel
             // 
-            this.panel2.Controls.Add(this.labelWho);
-            this.panel2.Location = new System.Drawing.Point(0, 19);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(434, 41);
-            this.panel2.TabIndex = 21;
+            this.WhoPanel.Controls.Add(this.labelWho);
+            this.WhoPanel.Location = new System.Drawing.Point(0, 19);
+            this.WhoPanel.Name = "WhoPanel";
+            this.WhoPanel.Size = new System.Drawing.Size(434, 41);
+            this.WhoPanel.TabIndex = 21;
             // 
-            // panel3
+            // WhatPanel
             // 
-            this.panel3.Controls.Add(this.labelWhat);
-            this.panel3.Location = new System.Drawing.Point(0, 66);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(434, 46);
-            this.panel3.TabIndex = 22;
+            this.WhatPanel.Controls.Add(this.labelWhat);
+            this.WhatPanel.Location = new System.Drawing.Point(0, 66);
+            this.WhatPanel.Name = "WhatPanel";
+            this.WhatPanel.Size = new System.Drawing.Size(434, 46);
+            this.WhatPanel.TabIndex = 22;
             // 
-            // panel4
+            // Div
             // 
-            this.panel4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panel4.Location = new System.Drawing.Point(0, 59);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(437, 7);
-            this.panel4.TabIndex = 2;
+            this.Div.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Div.Location = new System.Drawing.Point(0, 59);
+            this.Div.Name = "Div";
+            this.Div.Size = new System.Drawing.Size(437, 7);
+            this.Div.TabIndex = 2;
             // 
             // PopUpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 111);
-            this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.Div);
+            this.Controls.Add(this.WhatPanel);
+            this.Controls.Add(this.WhoPanel);
+            this.Controls.Add(this.TitlePanel);
             this.Name = "PopUpForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "PopUpForm";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.TitlePanel.ResumeLayout(false);
+            this.TitlePanel.PerformLayout();
+            this.WhoPanel.ResumeLayout(false);
+            this.WhoPanel.PerformLayout();
+            this.WhatPanel.ResumeLayout(false);
+            this.WhatPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -127,10 +127,10 @@
 
         public System.Windows.Forms.Label labelWhat;
         public System.Windows.Forms.Label labelWho;
-        private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel TitlePanel;
+        public System.Windows.Forms.Label Title;
+        private System.Windows.Forms.Panel WhoPanel;
+        private System.Windows.Forms.Panel WhatPanel;
+        private System.Windows.Forms.Panel Div;
     }
 }

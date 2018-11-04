@@ -37,19 +37,18 @@
             this.labelUnavailable = new System.Windows.Forms.Label();
             this.labelBrb = new System.Windows.Forms.Label();
             this.labelBusy = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.PopUpTimer = new System.Windows.Forms.Timer(this.components);
             this.ComboBoxStatus = new System.Windows.Forms.ComboBox();
             this.TextBoxDescription = new System.Windows.Forms.TextBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.Pic_Close_2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Pic_Close_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.TitlePanel = new System.Windows.Forms.Panel();
+            this.Title = new System.Windows.Forms.Label();
+            this.CloseButton = new System.Windows.Forms.PictureBox();
+            this.ResizeButton = new System.Windows.Forms.PictureBox();
+            this.HideButton = new System.Windows.Forms.PictureBox();
+            this.TitlePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CloseButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ResizeButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HideButton)).BeginInit();
             this.SuspendLayout();
             // 
             // ListViewAddressBook
@@ -128,9 +127,10 @@
             this.labelBusy.TabIndex = 28;
             this.labelBusy.Text = "BUSY";
             // 
-            // timer1
+            // PopUpTimer
             // 
-            this.timer1.Interval = 2000;
+            this.PopUpTimer.Interval = 2000;
+            this.PopUpTimer.Tick += new System.EventHandler(this.PopUpTimer_Tick);
             // 
             // ComboBoxStatus
             // 
@@ -156,71 +156,66 @@
             this.TextBoxDescription.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDescription_KeyPress);
             this.TextBoxDescription.Leave += new System.EventHandler(this.TextBoxDescription_Leave);
             // 
-            // imageList1
+            // TitlePanel
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.TitlePanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.TitlePanel.Controls.Add(this.Title);
+            this.TitlePanel.Controls.Add(this.CloseButton);
+            this.TitlePanel.Controls.Add(this.ResizeButton);
+            this.TitlePanel.Controls.Add(this.HideButton);
+            this.TitlePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TitlePanel.Location = new System.Drawing.Point(0, 0);
+            this.TitlePanel.Name = "TitlePanel";
+            this.TitlePanel.Size = new System.Drawing.Size(211, 20);
+            this.TitlePanel.TabIndex = 29;
+            this.TitlePanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitlePanel_MouseDown);
             // 
-            // panel1
+            // Title
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.Pic_Close_2);
-            this.panel1.Controls.Add(this.pictureBox4);
-            this.panel1.Controls.Add(this.pictureBox3);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(211, 20);
-            this.panel1.TabIndex = 29;
+            this.Title.AutoSize = true;
+            this.Title.Location = new System.Drawing.Point(73, 4);
+            this.Title.Name = "Title";
+            this.Title.Size = new System.Drawing.Size(43, 13);
+            this.Title.TabIndex = 30;
+            this.Title.Text = "BzCOM";
             // 
-            // label1
+            // CloseButton
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(73, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
-            this.label1.TabIndex = 30;
-            this.label1.Text = "BzCOM";
+            this.CloseButton.Image = global::ChatTest.Properties.Resources._11;
+            this.CloseButton.Location = new System.Drawing.Point(184, 2);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(16, 16);
+            this.CloseButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.CloseButton.TabIndex = 15;
+            this.CloseButton.TabStop = false;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click_1);
             // 
-            // Pic_Close_2
+            // ResizeButton
             // 
-            this.Pic_Close_2.Image = global::ChatTest.Properties.Resources._11;
-            this.Pic_Close_2.Location = new System.Drawing.Point(184, 2);
-            this.Pic_Close_2.Name = "Pic_Close_2";
-            this.Pic_Close_2.Size = new System.Drawing.Size(16, 16);
-            this.Pic_Close_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Pic_Close_2.TabIndex = 15;
-            this.Pic_Close_2.TabStop = false;
-            this.Pic_Close_2.Click += new System.EventHandler(this.Pic_Close_2_Click);
+            this.ResizeButton.Image = global::ChatTest.Properties.Resources._3;
+            this.ResizeButton.Location = new System.Drawing.Point(140, 2);
+            this.ResizeButton.Name = "ResizeButton";
+            this.ResizeButton.Size = new System.Drawing.Size(16, 16);
+            this.ResizeButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ResizeButton.TabIndex = 17;
+            this.ResizeButton.TabStop = false;
             // 
-            // pictureBox4
+            // HideButton
             // 
-            this.pictureBox4.Image = global::ChatTest.Properties.Resources._3;
-            this.pictureBox4.Location = new System.Drawing.Point(140, 2);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 17;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::ChatTest.Properties.Resources._2;
-            this.pictureBox3.Location = new System.Drawing.Point(162, 2);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 16;
-            this.pictureBox3.TabStop = false;
+            this.HideButton.Image = global::ChatTest.Properties.Resources._2;
+            this.HideButton.Location = new System.Drawing.Point(162, 2);
+            this.HideButton.Name = "HideButton";
+            this.HideButton.Size = new System.Drawing.Size(16, 16);
+            this.HideButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.HideButton.TabIndex = 16;
+            this.HideButton.TabStop = false;
             // 
             // AddressBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(211, 444);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.TitlePanel);
             this.Controls.Add(this.TextBoxDescription);
             this.Controls.Add(this.ComboBoxStatus);
             this.Controls.Add(this.labelBusy);
@@ -232,11 +227,11 @@
             this.Name = "AddressBookForm";
             this.Text = "BzCOM";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Pic_Close_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.TitlePanel.ResumeLayout(false);
+            this.TitlePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CloseButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ResizeButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HideButton)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,15 +246,14 @@
         private System.Windows.Forms.Label labelBrb;
         private System.Windows.Forms.Label labelBusy;
         private System.Windows.Forms.ColumnHeader order;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer PopUpTimer;
         private System.Windows.Forms.ComboBox ComboBoxStatus;
         private System.Windows.Forms.TextBox TextBoxDescription;
-        private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox Pic_Close_2;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel TitlePanel;
+        private System.Windows.Forms.PictureBox CloseButton;
+        private System.Windows.Forms.PictureBox ResizeButton;
+        private System.Windows.Forms.PictureBox HideButton;
+        private System.Windows.Forms.Label Title;
     }
 }
 

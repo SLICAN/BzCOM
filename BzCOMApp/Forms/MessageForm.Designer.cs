@@ -31,25 +31,25 @@
             this.components = new System.ComponentModel.Container();
             this.webBrowser11 = new System.Windows.Forms.WebBrowser();
             this.TextBoxMessage = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.TitlePanel = new System.Windows.Forms.Panel();
             this.labelWho = new System.Windows.Forms.Label();
-            this.Pic_Close_2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.CloseButton = new System.Windows.Forms.PictureBox();
+            this.ResizeButton = new System.Windows.Forms.PictureBox();
+            this.HideButton = new System.Windows.Forms.PictureBox();
+            this.Div = new System.Windows.Forms.Panel();
             this.ButtonItalic = new System.Windows.Forms.Button();
             this.ButtonBold = new System.Windows.Forms.Button();
             this.ButtonSend1 = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.Div2 = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Pic_Close_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.TitlePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CloseButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ResizeButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HideButton)).BeginInit();
+            this.Div.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +57,7 @@
             // 
             this.webBrowser11.IsWebBrowserContextMenuEnabled = false;
             this.webBrowser11.Location = new System.Drawing.Point(0, 19);
-            this.webBrowser11.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.webBrowser11.Margin = new System.Windows.Forms.Padding(2);
             this.webBrowser11.MinimumSize = new System.Drawing.Size(15, 16);
             this.webBrowser11.Name = "webBrowser11";
             this.webBrowser11.Size = new System.Drawing.Size(434, 285);
@@ -68,7 +68,7 @@
             // 
             this.TextBoxMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextBoxMessage.Location = new System.Drawing.Point(0, 0);
-            this.TextBoxMessage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TextBoxMessage.Margin = new System.Windows.Forms.Padding(2);
             this.TextBoxMessage.Multiline = true;
             this.TextBoxMessage.Name = "TextBoxMessage";
             this.TextBoxMessage.Size = new System.Drawing.Size(434, 39);
@@ -78,18 +78,19 @@
             this.TextBoxMessage.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBoxMessage1_KeyUp);
             this.TextBoxMessage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TextBoxMessage1_MouseUp);
             // 
-            // panel1
+            // TitlePanel
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel1.Controls.Add(this.labelWho);
-            this.panel1.Controls.Add(this.Pic_Close_2);
-            this.panel1.Controls.Add(this.pictureBox4);
-            this.panel1.Controls.Add(this.pictureBox3);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(434, 20);
-            this.panel1.TabIndex = 19;
+            this.TitlePanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.TitlePanel.Controls.Add(this.labelWho);
+            this.TitlePanel.Controls.Add(this.CloseButton);
+            this.TitlePanel.Controls.Add(this.ResizeButton);
+            this.TitlePanel.Controls.Add(this.HideButton);
+            this.TitlePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TitlePanel.Location = new System.Drawing.Point(0, 0);
+            this.TitlePanel.Name = "TitlePanel";
+            this.TitlePanel.Size = new System.Drawing.Size(434, 20);
+            this.TitlePanel.TabIndex = 19;
+            this.TitlePanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitlePanel_MouseDown);
             // 
             // labelWho
             // 
@@ -100,48 +101,48 @@
             this.labelWho.TabIndex = 18;
             this.labelWho.Text = "BzCOM";
             // 
-            // Pic_Close_2
+            // CloseButton
             // 
-            this.Pic_Close_2.Image = global::ChatTest.Properties.Resources._11;
-            this.Pic_Close_2.Location = new System.Drawing.Point(393, 2);
-            this.Pic_Close_2.Name = "Pic_Close_2";
-            this.Pic_Close_2.Size = new System.Drawing.Size(16, 16);
-            this.Pic_Close_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Pic_Close_2.TabIndex = 15;
-            this.Pic_Close_2.TabStop = false;
-            this.Pic_Close_2.Click += new System.EventHandler(this.Pic_Close_2_Click);
+            this.CloseButton.Image = global::ChatTest.Properties.Resources._11;
+            this.CloseButton.Location = new System.Drawing.Point(393, 2);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(16, 16);
+            this.CloseButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.CloseButton.TabIndex = 15;
+            this.CloseButton.TabStop = false;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
-            // pictureBox4
+            // ResizeButton
             // 
-            this.pictureBox4.Image = global::ChatTest.Properties.Resources._3;
-            this.pictureBox4.Location = new System.Drawing.Point(345, 2);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 17;
-            this.pictureBox4.TabStop = false;
+            this.ResizeButton.Image = global::ChatTest.Properties.Resources._3;
+            this.ResizeButton.Location = new System.Drawing.Point(345, 2);
+            this.ResizeButton.Name = "ResizeButton";
+            this.ResizeButton.Size = new System.Drawing.Size(16, 16);
+            this.ResizeButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ResizeButton.TabIndex = 17;
+            this.ResizeButton.TabStop = false;
             // 
-            // pictureBox3
+            // HideButton
             // 
-            this.pictureBox3.Image = global::ChatTest.Properties.Resources._2;
-            this.pictureBox3.Location = new System.Drawing.Point(369, 2);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 16;
-            this.pictureBox3.TabStop = false;
+            this.HideButton.Image = global::ChatTest.Properties.Resources._2;
+            this.HideButton.Location = new System.Drawing.Point(369, 2);
+            this.HideButton.Name = "HideButton";
+            this.HideButton.Size = new System.Drawing.Size(16, 16);
+            this.HideButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.HideButton.TabIndex = 16;
+            this.HideButton.TabStop = false;
             // 
-            // panel2
+            // Div
             // 
-            this.panel2.Controls.Add(this.ButtonItalic);
-            this.panel2.Controls.Add(this.ButtonBold);
-            this.panel2.Controls.Add(this.ButtonSend1);
-            this.panel2.Controls.Add(this.TextBoxMessage);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 308);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(434, 67);
-            this.panel2.TabIndex = 20;
+            this.Div.Controls.Add(this.ButtonItalic);
+            this.Div.Controls.Add(this.ButtonBold);
+            this.Div.Controls.Add(this.ButtonSend1);
+            this.Div.Controls.Add(this.TextBoxMessage);
+            this.Div.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Div.Location = new System.Drawing.Point(0, 308);
+            this.Div.Name = "Div";
+            this.Div.Size = new System.Drawing.Size(434, 67);
+            this.Div.TabIndex = 20;
             // 
             // ButtonItalic
             // 
@@ -171,20 +172,20 @@
             this.ButtonSend1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonSend1.ForeColor = System.Drawing.SystemColors.Control;
             this.ButtonSend1.Location = new System.Drawing.Point(405, 40);
-            this.ButtonSend1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonSend1.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonSend1.Name = "ButtonSend1";
             this.ButtonSend1.Size = new System.Drawing.Size(25, 25);
             this.ButtonSend1.TabIndex = 2;
             this.ButtonSend1.UseVisualStyleBackColor = false;
             this.ButtonSend1.Click += new System.EventHandler(this.ButtonSend_Click);
             // 
-            // panel3
+            // Div2
             // 
-            this.panel3.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel3.Location = new System.Drawing.Point(0, 305);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(434, 3);
-            this.panel3.TabIndex = 21;
+            this.Div2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.Div2.Location = new System.Drawing.Point(0, 305);
+            this.Div2.Name = "Div2";
+            this.Div2.Size = new System.Drawing.Size(434, 3);
+            this.Div2.TabIndex = 21;
             // 
             // contextMenuStrip1
             // 
@@ -219,20 +220,20 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 375);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.Div2);
+            this.Controls.Add(this.Div);
+            this.Controls.Add(this.TitlePanel);
             this.Controls.Add(this.webBrowser11);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MessageForm";
             this.Text = "MessageForm";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Pic_Close_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.TitlePanel.ResumeLayout(false);
+            this.TitlePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CloseButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ResizeButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HideButton)).EndInit();
+            this.Div.ResumeLayout(false);
+            this.Div.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -243,13 +244,13 @@
         public System.Windows.Forms.WebBrowser webBrowser11;
         public System.Windows.Forms.TextBox TextBoxMessage;
         public System.Windows.Forms.Button ButtonSend1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel TitlePanel;
         public System.Windows.Forms.Label labelWho;
-        private System.Windows.Forms.PictureBox Pic_Close_2;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.PictureBox CloseButton;
+        private System.Windows.Forms.PictureBox ResizeButton;
+        private System.Windows.Forms.PictureBox HideButton;
+        private System.Windows.Forms.Panel Div;
+        private System.Windows.Forms.Panel Div2;
         private System.Windows.Forms.Button ButtonBold;
         private System.Windows.Forms.Button ButtonItalic;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
