@@ -356,5 +356,23 @@ namespace ChatTest
             });
             return currentNumber;
         }
+
+        public bool protection_unavailable(string name)
+        {
+            string currentNumber = "";
+            bool test = false;
+            xmlInterpreter.UserInfo.ForEach(it =>
+            {
+                if (it.UserName == name)
+                {
+                    currentNumber = it.UserNumber;
+                    if (it.UserState == Status.UNAVAILABLE)
+                        test = true;
+                }
+
+            });
+            return test;
+        }
+
     }
 }

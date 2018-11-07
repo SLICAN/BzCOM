@@ -156,19 +156,26 @@ namespace ChatTest
                 currentNumber = trafficController.FindNumber(selectedItem.SubItems[1].Text);
                 var temp = ListViewAddressBook.FocusedItem.ListView;
                 trafficController.SetState(State.OpenedGate);
-                
-                //if (CheckOpened(messageForm.Text))
-                //{
-                //    MessageBox.Show("Juz otwarte");
-                //    //messageForm.Dispose();
-                //    messageForm.Show();
-                //}
-                //else {
-                //    messageForm.Show();
-                //}
-                messageForm.labelWho.Text = "Rozmowa z " + selectedItem.SubItems[1].Text;
-                messageForm.Show();
-                messageForm.nr = currentNumber;
+                /*
+                if (CheckOpened(messageForm.Text))
+                {
+                    MessageBox.Show("Juz otwarte");
+                    //messageForm.Dispose();
+                    messageForm.Show();
+                }
+                else {
+                    messageForm.Show();
+                }
+                */
+                if (!trafficController.protection_unavailable(selectedItem.SubItems[1].Text))
+                {
+                    trafficController.SetState(State.OpenedGate);
+                    messageForm.labelWho.Text = "Rozmowa z " + selectedItem.SubItems[1].Text;
+                    messageForm.Show();
+                    messageForm.nr = currentNumber;
+                }
+                else
+                    messageForm.Close();
             }
             else
                 MessageBox.Show("Najpierw musisz ustanowić połączenie!", "Warning");
