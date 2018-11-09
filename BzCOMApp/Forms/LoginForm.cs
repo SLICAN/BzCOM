@@ -43,9 +43,10 @@ namespace ChatTest.Forms
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
             trafficController.OnLoggedIn += TrafficController_OnLoggedIn;
 
-            if (File.Exists(@".\file.json"))
+            var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            if (File.Exists(path2 + "BzCOMfile.json"))
             {
-                string jsonRead = File.ReadAllText(@".\file.json");
+                string jsonRead = File.ReadAllText(path2 + "BzCOMfile.json");
                 dynamic resultRead = new JavaScriptSerializer().Deserialize<dynamic>(jsonRead);
                 TextBoxLogin.Text = resultRead["login"];
                 TextBoxPassword.Text = resultRead["password"];
@@ -70,10 +71,12 @@ namespace ChatTest.Forms
                         password = TextBoxPassword.Text
                     };
                     string jsonWrite = new JavaScriptSerializer().Serialize(loginFile);
-                    //File.WriteAllText(@"C:\Users\Michał Adamkowski\Documents\Projects\Slican\file.json", jsonWrite);
-                    File.WriteAllText(@".\file.json", jsonWrite);
+                    //File.WriteAllText(@".\file.json", jsonWrite);
+
+                    var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    File.WriteAllText(path + "BzCOMfile.json", jsonWrite);                              
                 }
-                
+
                 this.Hide();
                 trafficController.GetUsers();
                 new AddressBookForm();

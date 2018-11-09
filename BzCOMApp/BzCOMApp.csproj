@@ -145,6 +145,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\file.json" />
     <None Include="toc.yml" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,7 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="api\.gitignore" />
+    <None Include="Resources\files.json.txt" />
     <None Include="icons\cog-icon.png" />
     <None Include="icons\send-button.png" />
     <None Include="icons\3.png" />
