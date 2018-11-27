@@ -20,9 +20,7 @@ namespace ChatTest
         delegate void SetUsersCallBack(List<User> users);
 
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
-
-        // tworzenie obiektów formatki to nigdy nie jest dobry pomysł
-        private MessageForm messageForm = new MessageForm();
+        
 
         private PopUpForm popUpForm = new PopUpForm();
 
@@ -167,6 +165,9 @@ namespace ChatTest
                     messageForm.Show();
                 }
                 */
+                // tworzenie obiektów formatki to nigdy nie jest dobry pomysł
+                MessageForm messageForm = new MessageForm();
+
                 if (!trafficController.protection_unavailable(selectedItem.SubItems[1].Text))
                 {
                     trafficController.SetState(State.OpenedGate);
@@ -332,8 +333,8 @@ namespace ChatTest
 
         private void ListViewAddressBook_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
-            item = e.Item;
-            //e.Item.BackColor = Color.Black;
+            /*item = e.Item;
+            e.Item.BackColor = Color.Black;*/
         }
 
         private void ListViewAddressBook_MouseLeave(object sender, EventArgs e)

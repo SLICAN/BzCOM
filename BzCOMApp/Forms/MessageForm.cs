@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -12,6 +13,8 @@ namespace ChatTest.Forms
         private PopUpForm popUpForm = new PopUpForm();
 
         public string nr;
+
+        private bool messageSend = false;
 
         delegate void SetTextCallBack(string text);
 
@@ -55,13 +58,18 @@ namespace ChatTest.Forms
 
         private void TrafficController_OnSuccessMessageSend(TrafficController sender, bool error)
         {
-            if (!error)
+            if (messageSend)
             {
-                TypeText("ja", TextBoxMessage.Text, DateTime.Now);
-                TextBoxMessage.Clear();
-            }
-            else
-                MessageBox.Show("Nie udało się wysłać wiadomości", "Error");
+                if (!error)
+                {
+                    TypeText("ja", TextBoxMessage.Text, DateTime.Now);
+                    TextBoxMessage.Clear();
+                    messageSend = false;
+                }
+                else
+                    MessageBox.Show("Nie udało się wysłać wiadomości", "Error");
+            }            
+
         }
 
         /// <summary>
@@ -71,20 +79,25 @@ namespace ChatTest.Forms
         /// <param name="msgNow"></param>
         private void TrafficController_OnMessageReceived(TrafficController sender, Message msgNow)
         {
-            TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime);
+            if(Int32.Parse(nr) == msgNow.Number)
+            {
+                TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime);
+                
 
-            if (CheckOpened(Text))
-            {
-                //MessageBox.Show("OTWARTE OKNO");
+                if (CheckOpened(Text))
+                {
+                    //MessageBox.Show("OTWARTE OKNO");
+                }
+                else
+                {
+                    //MessageBox.Show("NIE OTWARTE OKNO");
+                    //timer1.Enabled = true;
+                    popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
+                    popUpForm.labelWhat.Text = msgNow.Text;
+                    popUpForm.ShowDialog();
+                }
             }
-            else
-            {
-                //MessageBox.Show("NIE OTWARTE OKNO");
-                //timer1.Enabled = true;
-                popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
-                popUpForm.labelWhat.Text = msgNow.Text;
-                popUpForm.ShowDialog();
-            }
+            
         }
 
         /// <summary>
@@ -93,11 +106,12 @@ namespace ChatTest.Forms
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonSend_Click(object sender, EventArgs e)
-        {
-            if (trafficController.GetState() == State.OpenedGate)
+        {            
+            if (trafficController.GetState() == State.OpenedGate && !TextBoxMessage.Text.Equals(""))
             {
                 /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
                 trafficController.SMSSend(nr, null, TextBoxMessage.Text, "", null);
+                messageSend = true;
             }
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
         }
