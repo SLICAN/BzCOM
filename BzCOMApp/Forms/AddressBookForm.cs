@@ -17,6 +17,8 @@ namespace ChatTest
 
         private ListViewItem item;
 
+        private List<MessageForm> openedConnections;
+
         delegate void SetUsersCallBack(List<User> users);
 
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
@@ -56,12 +58,31 @@ namespace ChatTest
             trafficController.OnUpdateStatus += TrafficController_OnUpdateStatus;
             trafficController.OnAddressBookGet += TrafficController_OnAddressBookGet;
             trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
+            trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
 
             foreach (var item in Enum.GetValues(typeof(Status)))
             {
                 if (item.ToString() != Status.UNKNOWN.ToString())
                     ComboBoxStatus.Items.Add(item);
             }
+
+            openedConnections = new List<MessageForm>();
+        }
+        private void TrafficController_OnMessageReceived(TrafficController sender, Message msgNow)
+        {
+            bool isConnectionOpened = false;
+            foreach (MessageForm messageForm in openedConnections)
+                if (msgNow.Number == messageForm.nr)
+                    isConnectionOpened = true;
+
+            if (!isConnectionOpened)
+            {
+                PopUpTimer.Enabled = true;
+                popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
+                popUpForm.labelWhat.Text = msgNow.Text;
+                popUpForm.ShowDialog();
+            }
+           
         }
 
         private void TrafficController_OnAddressBookGet(TrafficController sender, List<User> users)
@@ -166,17 +187,17 @@ namespace ChatTest
                 }
                 */
                 // tworzenie obiektów formatki to nigdy nie jest dobry pomysł
-                MessageForm messageForm = new MessageForm();
+                
 
                 if (!trafficController.protection_unavailable(selectedItem.SubItems[1].Text))
                 {
+                    MessageForm messageForm = new MessageForm(Int32.Parse(currentNumber));
                     trafficController.SetState(State.OpenedGate);
                     messageForm.labelWho.Text = "Rozmowa z " + selectedItem.SubItems[1].Text;
-                    messageForm.Show();
-                    messageForm.nr = currentNumber;
+                    messageForm.Show();                    
+                    messageForm.Initialize(openedConnections);
                 }
-                else
-                    messageForm.Close();
+                
             }
             else
                 MessageBox.Show("Najpierw musisz ustanowić połączenie!", "Warning");

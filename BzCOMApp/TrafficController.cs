@@ -26,6 +26,8 @@ namespace ChatTest
 
         public bool wrongLogin = false;
 
+        private List<Message> allMessages; //Wszystkie widomości wysłane i odebrane po włączeniu aplikacji
+
         public delegate void OnMessageReceivedDelegate(TrafficController sender, Message msg);
         public event OnMessageReceivedDelegate OnMessageReceived;
 
@@ -44,11 +46,14 @@ namespace ChatTest
         public delegate void OnSuccessDelegate(TrafficController sender, bool error);
         public event OnSuccessDelegate OnSuccessMessageSend;
 
+
         private TrafficController()
         {
             listener = new Thread(Start);
             listener.Start();
             xmlInterpreter = new XMLInterpreter(connection);
+
+            allMessages = new List<Message>();
         }
 
         public static TrafficController TrafficControllerInstance
@@ -276,6 +281,13 @@ namespace ChatTest
             //{
             await connection.SendingPacket(xmlCreator.SMSSend_REQ(number, smsId, text, dontBuffer, userData, out string rid));
             OnSuccessMessageSend.Invoke(this, xmlInterpreter.SMSError(GetResponse(rid)));
+
+            Message message = new Message();
+            message.Text = text;
+            message.Number = Int32.Parse(number);
+            message.DateTime = DateTime.Now;
+            message.IsMine = true;
+            allMessages.Add(message); //Zapisywanie wysłanej wiadomosci
             //}
         }
 
@@ -285,6 +297,7 @@ namespace ChatTest
             if (message.Text == null)
                 return;
             OnMessageReceived?.Invoke(this, message);
+            allMessages.Add(message); //Zapisywanie otrzymanej wiadomosci
         }
 
         public List<Message> GetMessagesExtended(List<XCTIP> data)
@@ -372,6 +385,15 @@ namespace ChatTest
 
             });
             return test;
+        }
+
+        public List<Message> GetMessagesByNumber(int nr) //Wiadomosci dla konkretnej konwersacji, szukane po id rozmowcy
+        {
+            List<Message> messages = new List<Message>();
+            foreach (Message message in allMessages)
+                if (nr == message.Number)
+                    messages.Add(message);
+            return messages;
         }
 
     }
