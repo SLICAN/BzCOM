@@ -4,11 +4,15 @@ using System.IO;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace ChatTest.Forms
 {
     public partial class LoginForm : Form
     {
+        bool drag = false;
+        Point start_point = new Point(0, 0);
+
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
 
         private PopUpForm popUpForm = new PopUpForm();
@@ -54,6 +58,16 @@ namespace ChatTest.Forms
             else
             {
                 return;
+            }
+        }
+        private const int CS_DropShadow = 0x00020000;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DropShadow;
+                return cp;
             }
         }
 
@@ -158,6 +172,132 @@ namespace ChatTest.Forms
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
+        }
+
+        private void LoginImage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ResizeButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            buttonExit.BackColor = Color.Red;
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            buttonExit.BackColor = ColorTranslator.FromHtml("0; 10; 18");
+        }
+
+        private void button1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (drag)
+            {
+                Point p = PointToScreen(e.Location);
+                this.Location = new Point(p.X - start_point.X, p.Y - start_point.Y);
+            }
+        }
+
+        private void buttonExit_MouseDown(object sender, MouseEventArgs e)
+        {
+            drag = true;
+            start_point = new Point(e.X, e.Y);
+        }
+
+        private void TextBoxLogin_TextChanged(object sender, EventArgs e)
+        {
+            
+          
+        }
+
+        private void TextBoxLogin_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void button2_MouseDown(object sender, MouseEventArgs e)
+        {
+            drag = true;
+            start_point = new Point(e.X, e.Y);
+        }
+
+        private void button2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (drag)
+            {
+                Point p = PointToScreen(e.Location);
+                this.Location = new Point(p.X - start_point.X, p.Y - start_point.Y);
+            }
+        }
+
+        private void buttonMinimize_MouseLeave(object sender, EventArgs e)
+        {
+            buttonMinimize.BackColor = ColorTranslator.FromHtml("0; 10; 18");
+        }
+
+        private void buttonMinimize_MouseEnter(object sender, EventArgs e)
+        {
+            buttonMinimize.BackColor = Color.Orange;
+        }
+
+        private void TextBoxLogin_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            
+        }
+
+        private void TextBoxLogin_Enter(object sender, EventArgs e)
+        {
+            panel1.BackColor = Color.Aqua;
+
+            if(TextBoxLogin.Text == "Login")
+            {
+                TextBoxLogin.Text = "";
+                TextBoxLogin.ForeColor = Color.White;
+            }
+        }
+
+        private void TextBoxLogin_Leave(object sender, EventArgs e)
+        {
+            panel1.BackColor = Color.White;
+            if (TextBoxLogin.Text == "")
+            {
+                TextBoxLogin.Text = "Login";
+                TextBoxLogin.ForeColor = Color.Silver;
+            }
+        }
+
+        private void TextBoxPassword_Enter(object sender, EventArgs e)
+        {
+            panel2.BackColor = Color.Aqua;
+           
+
+        }
+
+        private void TextBoxPassword_Leave(object sender, EventArgs e)
+        {
+            panel2.BackColor = Color.White;
+            
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

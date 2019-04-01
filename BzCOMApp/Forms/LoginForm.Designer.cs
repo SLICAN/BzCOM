@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.ButtonLogin = new System.Windows.Forms.Button();
             this.TextBoxLogin = new System.Windows.Forms.TextBox();
             this.TextBoxPassword = new System.Windows.Forms.TextBox();
@@ -35,33 +36,36 @@
             this.ComboBoxIPAddress = new System.Windows.Forms.ComboBox();
             this.NumericUpDownPort = new System.Windows.Forms.NumericUpDown();
             this.TitlePanel = new System.Windows.Forms.Panel();
+            this.buttonMinimize = new System.Windows.Forms.Button();
+            this.buttonExit = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.Label();
-            this.CloseButton = new System.Windows.Forms.PictureBox();
-            this.ResizeButton = new System.Windows.Forms.PictureBox();
-            this.HideButton = new System.Windows.Forms.PictureBox();
-            this.SettingsImage = new System.Windows.Forms.PictureBox();
-            this.LoginImage = new System.Windows.Forms.PictureBox();
             this.panelSettings = new System.Windows.Forms.Panel();
             this.labelLoginInfo = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.SettingsImage = new System.Windows.Forms.PictureBox();
+            this.LoginImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPort)).BeginInit();
             this.TitlePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CloseButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ResizeButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HideButton)).BeginInit();
+            this.panelSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoginImage)).BeginInit();
-            this.panelSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButtonLogin
             // 
-            this.ButtonLogin.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.ButtonLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
             this.ButtonLogin.FlatAppearance.BorderSize = 0;
             this.ButtonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonLogin.Location = new System.Drawing.Point(106, 290);
+            this.ButtonLogin.Font = new System.Drawing.Font("Arial", 11F);
+            this.ButtonLogin.Location = new System.Drawing.Point(97, 310);
             this.ButtonLogin.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonLogin.Name = "ButtonLogin";
-            this.ButtonLogin.Size = new System.Drawing.Size(233, 50);
+            this.ButtonLogin.Size = new System.Drawing.Size(203, 31);
             this.ButtonLogin.TabIndex = 0;
             this.ButtonLogin.Text = "Login";
             this.ButtonLogin.UseVisualStyleBackColor = false;
@@ -69,42 +73,51 @@
             // 
             // TextBoxLogin
             // 
-            this.TextBoxLogin.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.TextBoxLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(18)))));
             this.TextBoxLogin.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBoxLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
-            this.TextBoxLogin.Location = new System.Drawing.Point(106, 181);
+            this.TextBoxLogin.Font = new System.Drawing.Font("Arial", 11F);
+            this.TextBoxLogin.ForeColor = System.Drawing.Color.Silver;
+            this.TextBoxLogin.Location = new System.Drawing.Point(120, 193);
             this.TextBoxLogin.Margin = new System.Windows.Forms.Padding(2);
             this.TextBoxLogin.Multiline = true;
             this.TextBoxLogin.Name = "TextBoxLogin";
-            this.TextBoxLogin.Size = new System.Drawing.Size(233, 25);
+            this.TextBoxLogin.Size = new System.Drawing.Size(180, 19);
             this.TextBoxLogin.TabIndex = 1;
-            this.TextBoxLogin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxLogin.Text = "Login";
+            this.TextBoxLogin.Click += new System.EventHandler(this.TextBoxLogin_Click);
+            this.TextBoxLogin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBoxLogin_MouseClick);
+            this.TextBoxLogin.TextChanged += new System.EventHandler(this.TextBoxLogin_TextChanged);
+            this.TextBoxLogin.Enter += new System.EventHandler(this.TextBoxLogin_Enter);
+            this.TextBoxLogin.Leave += new System.EventHandler(this.TextBoxLogin_Leave);
             // 
             // TextBoxPassword
             // 
-            this.TextBoxPassword.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.TextBoxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(18)))));
             this.TextBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
-            this.TextBoxPassword.Location = new System.Drawing.Point(106, 219);
+            this.TextBoxPassword.Font = new System.Drawing.Font("Arial", 11F);
+            this.TextBoxPassword.ForeColor = System.Drawing.Color.White;
+            this.TextBoxPassword.Location = new System.Drawing.Point(120, 229);
             this.TextBoxPassword.Margin = new System.Windows.Forms.Padding(2);
             this.TextBoxPassword.Name = "TextBoxPassword";
             this.TextBoxPassword.PasswordChar = '*';
-            this.TextBoxPassword.Size = new System.Drawing.Size(233, 24);
+            this.TextBoxPassword.Size = new System.Drawing.Size(180, 17);
             this.TextBoxPassword.TabIndex = 3;
-            this.TextBoxPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.TextBoxPassword.UseSystemPasswordChar = true;
             this.TextBoxPassword.WordWrap = false;
+            this.TextBoxPassword.Enter += new System.EventHandler(this.TextBoxPassword_Enter);
             this.TextBoxPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxPassword_KeyPress);
+            this.TextBoxPassword.Leave += new System.EventHandler(this.TextBoxPassword_Leave);
             // 
             // SaveToFileCheckBox
             // 
             this.SaveToFileCheckBox.AutoSize = true;
-            this.SaveToFileCheckBox.Location = new System.Drawing.Point(180, 265);
+            this.SaveToFileCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SaveToFileCheckBox.Location = new System.Drawing.Point(158, 270);
             this.SaveToFileCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.SaveToFileCheckBox.Name = "SaveToFileCheckBox";
-            this.SaveToFileCheckBox.Size = new System.Drawing.Size(88, 17);
+            this.SaveToFileCheckBox.Size = new System.Drawing.Size(85, 17);
             this.SaveToFileCheckBox.TabIndex = 6;
-            this.SaveToFileCheckBox.Text = "Save to file ?";
+            this.SaveToFileCheckBox.Text = "Save to file?";
             this.SaveToFileCheckBox.UseVisualStyleBackColor = true;
             // 
             // ComboBoxIPAddress
@@ -138,85 +151,66 @@
             // 
             // TitlePanel
             // 
-            this.TitlePanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.TitlePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(18)))));
+            this.TitlePanel.Controls.Add(this.buttonMinimize);
+            this.TitlePanel.Controls.Add(this.buttonExit);
             this.TitlePanel.Controls.Add(this.Title);
-            this.TitlePanel.Controls.Add(this.CloseButton);
-            this.TitlePanel.Controls.Add(this.ResizeButton);
-            this.TitlePanel.Controls.Add(this.HideButton);
             this.TitlePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.TitlePanel.Location = new System.Drawing.Point(0, 0);
             this.TitlePanel.Name = "TitlePanel";
-            this.TitlePanel.Size = new System.Drawing.Size(423, 20);
+            this.TitlePanel.Size = new System.Drawing.Size(401, 32);
             this.TitlePanel.TabIndex = 18;
             this.TitlePanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitlePanel_MouseDown);
+            // 
+            // buttonMinimize
+            // 
+            this.buttonMinimize.FlatAppearance.BorderSize = 0;
+            this.buttonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMinimize.Image = global::ChatTest.Properties.Resources.substract__3_;
+            this.buttonMinimize.Location = new System.Drawing.Point(328, 0);
+            this.buttonMinimize.Name = "buttonMinimize";
+            this.buttonMinimize.Size = new System.Drawing.Size(35, 29);
+            this.buttonMinimize.TabIndex = 27;
+            this.buttonMinimize.UseVisualStyleBackColor = true;
+            this.buttonMinimize.Click += new System.EventHandler(this.button2_Click);
+            this.buttonMinimize.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button2_MouseDown);
+            this.buttonMinimize.MouseEnter += new System.EventHandler(this.buttonMinimize_MouseEnter);
+            this.buttonMinimize.MouseLeave += new System.EventHandler(this.buttonMinimize_MouseLeave);
+            this.buttonMinimize.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button2_MouseMove);
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.FlatAppearance.BorderSize = 0;
+            this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExit.Image = global::ChatTest.Properties.Resources.multiply1;
+            this.buttonExit.Location = new System.Drawing.Point(366, 0);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(35, 29);
+            this.buttonExit.TabIndex = 26;
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.button1_Click);
+            this.buttonExit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonExit_MouseDown);
+            this.buttonExit.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
+            this.buttonExit.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
+            this.buttonExit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button1_MouseMove);
             // 
             // Title
             // 
             this.Title.AutoSize = true;
-            this.Title.Location = new System.Drawing.Point(206, 4);
+            this.Title.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.Title.ForeColor = System.Drawing.Color.Gainsboro;
+            this.Title.Location = new System.Drawing.Point(8, 3);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(43, 13);
+            this.Title.Size = new System.Drawing.Size(59, 16);
             this.Title.TabIndex = 18;
             this.Title.Text = "BzCOM";
             // 
-            // CloseButton
-            // 
-            this.CloseButton.Image = global::ChatTest.Properties.Resources._11;
-            this.CloseButton.Location = new System.Drawing.Point(393, 2);
-            this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(16, 16);
-            this.CloseButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.CloseButton.TabIndex = 15;
-            this.CloseButton.TabStop = false;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
-            // 
-            // ResizeButton
-            // 
-            this.ResizeButton.Image = global::ChatTest.Properties.Resources._3;
-            this.ResizeButton.Location = new System.Drawing.Point(345, 2);
-            this.ResizeButton.Name = "ResizeButton";
-            this.ResizeButton.Size = new System.Drawing.Size(16, 16);
-            this.ResizeButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ResizeButton.TabIndex = 17;
-            this.ResizeButton.TabStop = false;
-            // 
-            // HideButton
-            // 
-            this.HideButton.Image = global::ChatTest.Properties.Resources._2;
-            this.HideButton.Location = new System.Drawing.Point(369, 2);
-            this.HideButton.Name = "HideButton";
-            this.HideButton.Size = new System.Drawing.Size(16, 16);
-            this.HideButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.HideButton.TabIndex = 16;
-            this.HideButton.TabStop = false;
-            // 
-            // SettingsImage
-            // 
-            this.SettingsImage.Image = global::ChatTest.Properties.Resources.cog_icon;
-            this.SettingsImage.Location = new System.Drawing.Point(3, 24);
-            this.SettingsImage.Name = "SettingsImage";
-            this.SettingsImage.Size = new System.Drawing.Size(52, 50);
-            this.SettingsImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.SettingsImage.TabIndex = 19;
-            this.SettingsImage.TabStop = false;
-            this.SettingsImage.Click += new System.EventHandler(this.SettingsImage_Click);
-            // 
-            // LoginImage
-            // 
-            this.LoginImage.Image = global::ChatTest.Properties.Resources.kisspng_computer_icons_avatar_user_profile_recommender_sys_5afe866a11a941_0921589115266299940724;
-            this.LoginImage.Location = new System.Drawing.Point(161, 30);
-            this.LoginImage.Name = "LoginImage";
-            this.LoginImage.Size = new System.Drawing.Size(128, 128);
-            this.LoginImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.LoginImage.TabIndex = 10;
-            this.LoginImage.TabStop = false;
-            // 
             // panelSettings
             // 
-            this.panelSettings.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panelSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
             this.panelSettings.Controls.Add(this.ComboBoxIPAddress);
             this.panelSettings.Controls.Add(this.NumericUpDownPort);
-            this.panelSettings.Location = new System.Drawing.Point(3, 76);
+            this.panelSettings.Location = new System.Drawing.Point(7, 89);
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(108, 82);
             this.panelSettings.TabIndex = 20;
@@ -226,18 +220,78 @@
             // 
             this.labelLoginInfo.AutoSize = true;
             this.labelLoginInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
-            this.labelLoginInfo.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.labelLoginInfo.Location = new System.Drawing.Point(104, 348);
+            this.labelLoginInfo.ForeColor = System.Drawing.Color.Silver;
+            this.labelLoginInfo.Location = new System.Drawing.Point(81, 373);
             this.labelLoginInfo.Name = "labelLoginInfo";
             this.labelLoginInfo.Size = new System.Drawing.Size(0, 25);
             this.labelLoginInfo.TabIndex = 21;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Location = new System.Drawing.Point(97, 217);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(203, 1);
+            this.panel1.TabIndex = 24;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Location = new System.Drawing.Point(97, 251);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(203, 1);
+            this.panel2.TabIndex = 25;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::ChatTest.Properties.Resources._lock;
+            this.pictureBox3.Location = new System.Drawing.Point(97, 229);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(18, 19);
+            this.pictureBox3.TabIndex = 23;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::ChatTest.Properties.Resources.person;
+            this.pictureBox2.Location = new System.Drawing.Point(97, 193);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(18, 19);
+            this.pictureBox2.TabIndex = 22;
+            this.pictureBox2.TabStop = false;
+            // 
+            // SettingsImage
+            // 
+            this.SettingsImage.Image = global::ChatTest.Properties.Resources.settings_gears;
+            this.SettingsImage.Location = new System.Drawing.Point(20, 47);
+            this.SettingsImage.Name = "SettingsImage";
+            this.SettingsImage.Size = new System.Drawing.Size(47, 36);
+            this.SettingsImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.SettingsImage.TabIndex = 19;
+            this.SettingsImage.TabStop = false;
+            this.SettingsImage.Click += new System.EventHandler(this.SettingsImage_Click);
+            // 
+            // LoginImage
+            // 
+            this.LoginImage.Image = ((System.Drawing.Image)(resources.GetObject("LoginImage.Image")));
+            this.LoginImage.Location = new System.Drawing.Point(137, 43);
+            this.LoginImage.Name = "LoginImage";
+            this.LoginImage.Size = new System.Drawing.Size(128, 128);
+            this.LoginImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LoginImage.TabIndex = 10;
+            this.LoginImage.TabStop = false;
+            this.LoginImage.Click += new System.EventHandler(this.LoginImage_Click);
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(423, 382);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(18)))));
+            this.ClientSize = new System.Drawing.Size(401, 463);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.labelLoginInfo);
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.SettingsImage);
@@ -250,15 +304,15 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LoginForm";
             this.Text = "LoginForm";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPort)).EndInit();
             this.TitlePanel.ResumeLayout(false);
             this.TitlePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CloseButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ResizeButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HideButton)).EndInit();
+            this.panelSettings.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoginImage)).EndInit();
-            this.panelSettings.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,13 +327,16 @@
         private System.Windows.Forms.ComboBox ComboBoxIPAddress;
         private System.Windows.Forms.NumericUpDown NumericUpDownPort;
         private System.Windows.Forms.PictureBox LoginImage;
-        private System.Windows.Forms.PictureBox CloseButton;
-        private System.Windows.Forms.PictureBox HideButton;
-        private System.Windows.Forms.PictureBox ResizeButton;
         private System.Windows.Forms.Panel TitlePanel;
         private System.Windows.Forms.Label Title;
         private System.Windows.Forms.PictureBox SettingsImage;
         private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.Label labelLoginInfo;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.Button buttonMinimize;
     }
 }

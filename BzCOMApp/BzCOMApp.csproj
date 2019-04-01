@@ -166,6 +166,14 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="api\.gitignore" />
+    <None Include="Resources\multiply1.png" />
+    <None Include="Resources\lock.png" />
+    <None Include="Resources\person.png" />
+    <None Include="Resources\substract %283%29.png" />
+    <None Include="Resources\multiply.png" />
+    <None Include="Resources\settings-gears1.png" />
+    <None Include="Resources\settings-gears.png" />
+    <None Include="Resources\multiple-users-silhouette %281%29.png" />
     <None Include="Resources\files.json.txt" />
     <None Include="icons\cog-icon.png" />
     <None Include="icons\send-button.png" />
