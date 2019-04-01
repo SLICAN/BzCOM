@@ -127,7 +127,7 @@ namespace ChatTest.Forms
         /// <param name="e"></param>
         private void ComboBoxIPAddress_SelectedIndexChanged(object sender, EventArgs e)
         {
-            trafficController.SetIPAddress(IPAddress.Parse(ComboBoxIPAddress.Text));
+            trafficController.SetIPAddress(IPAddress.Parse(textBoxIP.Text));
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace ChatTest.Forms
         /// <param name="e"></param>
         private void NumericUpDownPort_ValueChanged(object sender, EventArgs e)
         {
-            trafficController.SetPort(Convert.ToInt32(NumericUpDownPort.Value));
+            trafficController.SetPort(Int32.Parse(textBoxPort.Text));
         }
 
         private void TextBoxPassword_KeyPress(object sender, KeyPressEventArgs e)
@@ -298,6 +298,27 @@ namespace ChatTest.Forms
         private void LoginForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void panelSettings_Paint(object sender, PaintEventArgs e)
+        {
+            if (panelSettings.BorderStyle == BorderStyle.FixedSingle)
+            {
+                int thickness = 2;
+                int halfThickness = thickness / 2;
+                using (Pen p = new Pen(Color.FromArgb(65, 174, 207), thickness))
+                {
+                    e.Graphics.DrawRectangle(p, new Rectangle(halfThickness, halfThickness,
+                        panelSettings.ClientSize.Width - thickness,
+                        panelSettings.ClientSize.Height - thickness));
+
+                }
+            }
+        }
+
+        private void textBoxIP_MouseUp(object sender, MouseEventArgs e)
+        {
+            textBoxIP.SelectionStart = 0;
         }
     }
 }

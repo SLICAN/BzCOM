@@ -33,13 +33,10 @@
             this.TextBoxLogin = new System.Windows.Forms.TextBox();
             this.TextBoxPassword = new System.Windows.Forms.TextBox();
             this.SaveToFileCheckBox = new System.Windows.Forms.CheckBox();
-            this.ComboBoxIPAddress = new System.Windows.Forms.ComboBox();
-            this.NumericUpDownPort = new System.Windows.Forms.NumericUpDown();
             this.TitlePanel = new System.Windows.Forms.Panel();
             this.buttonMinimize = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.Label();
-            this.panelSettings = new System.Windows.Forms.Panel();
             this.labelLoginInfo = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -47,13 +44,15 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.SettingsImage = new System.Windows.Forms.PictureBox();
             this.LoginImage = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPort)).BeginInit();
+            this.panelSettings = new System.Windows.Forms.Panel();
+            this.textBoxIP = new System.Windows.Forms.MaskedTextBox();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
             this.TitlePanel.SuspendLayout();
-            this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoginImage)).BeginInit();
+            this.panelSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButtonLogin
@@ -62,7 +61,7 @@
             this.ButtonLogin.FlatAppearance.BorderSize = 0;
             this.ButtonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonLogin.Font = new System.Drawing.Font("Arial", 11F);
-            this.ButtonLogin.Location = new System.Drawing.Point(97, 310);
+            this.ButtonLogin.Location = new System.Drawing.Point(97, 279);
             this.ButtonLogin.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonLogin.Name = "ButtonLogin";
             this.ButtonLogin.Size = new System.Drawing.Size(203, 31);
@@ -112,42 +111,13 @@
             // 
             this.SaveToFileCheckBox.AutoSize = true;
             this.SaveToFileCheckBox.ForeColor = System.Drawing.Color.White;
-            this.SaveToFileCheckBox.Location = new System.Drawing.Point(158, 270);
+            this.SaveToFileCheckBox.Location = new System.Drawing.Point(156, 330);
             this.SaveToFileCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.SaveToFileCheckBox.Name = "SaveToFileCheckBox";
-            this.SaveToFileCheckBox.Size = new System.Drawing.Size(85, 17);
+            this.SaveToFileCheckBox.Size = new System.Drawing.Size(87, 17);
             this.SaveToFileCheckBox.TabIndex = 6;
-            this.SaveToFileCheckBox.Text = "Save to file?";
+            this.SaveToFileCheckBox.Text = "Remeber Me";
             this.SaveToFileCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // ComboBoxIPAddress
-            // 
-            this.ComboBoxIPAddress.FormattingEnabled = true;
-            this.ComboBoxIPAddress.Location = new System.Drawing.Point(8, 19);
-            this.ComboBoxIPAddress.Margin = new System.Windows.Forms.Padding(2);
-            this.ComboBoxIPAddress.Name = "ComboBoxIPAddress";
-            this.ComboBoxIPAddress.Size = new System.Drawing.Size(92, 21);
-            this.ComboBoxIPAddress.TabIndex = 3;
-            this.ComboBoxIPAddress.Text = "212.122.223.102";
-            this.ComboBoxIPAddress.SelectedIndexChanged += new System.EventHandler(this.ComboBoxIPAddress_SelectedIndexChanged);
-            // 
-            // NumericUpDownPort
-            // 
-            this.NumericUpDownPort.Location = new System.Drawing.Point(8, 45);
-            this.NumericUpDownPort.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.NumericUpDownPort.Name = "NumericUpDownPort";
-            this.NumericUpDownPort.Size = new System.Drawing.Size(93, 20);
-            this.NumericUpDownPort.TabIndex = 4;
-            this.NumericUpDownPort.Value = new decimal(new int[] {
-            5529,
-            0,
-            0,
-            0});
-            this.NumericUpDownPort.ValueChanged += new System.EventHandler(this.NumericUpDownPort_ValueChanged);
             // 
             // TitlePanel
             // 
@@ -204,17 +174,6 @@
             this.Title.Size = new System.Drawing.Size(59, 16);
             this.Title.TabIndex = 18;
             this.Title.Text = "BzCOM";
-            // 
-            // panelSettings
-            // 
-            this.panelSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
-            this.panelSettings.Controls.Add(this.ComboBoxIPAddress);
-            this.panelSettings.Controls.Add(this.NumericUpDownPort);
-            this.panelSettings.Location = new System.Drawing.Point(7, 89);
-            this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(108, 82);
-            this.panelSettings.TabIndex = 20;
-            this.panelSettings.Visible = false;
             // 
             // labelLoginInfo
             // 
@@ -282,18 +241,56 @@
             this.LoginImage.TabStop = false;
             this.LoginImage.Click += new System.EventHandler(this.LoginImage_Click);
             // 
+            // panelSettings
+            // 
+            this.panelSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(18)))));
+            this.panelSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSettings.Controls.Add(this.textBoxIP);
+            this.panelSettings.Controls.Add(this.textBoxPort);
+            this.panelSettings.Location = new System.Drawing.Point(11, 89);
+            this.panelSettings.Name = "panelSettings";
+            this.panelSettings.Size = new System.Drawing.Size(99, 82);
+            this.panelSettings.TabIndex = 26;
+            this.panelSettings.Visible = false;
+            this.panelSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSettings_Paint);
+            // 
+            // textBoxIP
+            // 
+            this.textBoxIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
+            this.textBoxIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxIP.Location = new System.Drawing.Point(4, 18);
+            this.textBoxIP.Mask = "###.###.###.###";
+            this.textBoxIP.Name = "textBoxIP";
+            this.textBoxIP.Size = new System.Drawing.Size(90, 20);
+            this.textBoxIP.SkipLiterals = false;
+            this.textBoxIP.TabIndex = 2;
+            this.textBoxIP.Text = "221122223102";
+            this.textBoxIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxIP.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textBoxIP_MouseUp);
+            // 
+            // textBoxPort
+            // 
+            this.textBoxPort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
+            this.textBoxPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPort.Location = new System.Drawing.Point(4, 44);
+            this.textBoxPort.MaxLength = 4;
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(90, 20);
+            this.textBoxPort.TabIndex = 1;
+            this.textBoxPort.Text = "5529";
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(18)))));
             this.ClientSize = new System.Drawing.Size(401, 463);
+            this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.labelLoginInfo);
-            this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.SettingsImage);
             this.Controls.Add(this.TitlePanel);
             this.Controls.Add(this.LoginImage);
@@ -305,14 +302,14 @@
             this.Name = "LoginForm";
             this.Text = "LoginForm";
             this.Load += new System.EventHandler(this.LoginForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownPort)).EndInit();
             this.TitlePanel.ResumeLayout(false);
             this.TitlePanel.PerformLayout();
-            this.panelSettings.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoginImage)).EndInit();
+            this.panelSettings.ResumeLayout(false);
+            this.panelSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,13 +321,10 @@
         private System.Windows.Forms.TextBox TextBoxLogin;
         private System.Windows.Forms.TextBox TextBoxPassword;
         private System.Windows.Forms.CheckBox SaveToFileCheckBox;
-        private System.Windows.Forms.ComboBox ComboBoxIPAddress;
-        private System.Windows.Forms.NumericUpDown NumericUpDownPort;
         private System.Windows.Forms.PictureBox LoginImage;
         private System.Windows.Forms.Panel TitlePanel;
         private System.Windows.Forms.Label Title;
         private System.Windows.Forms.PictureBox SettingsImage;
-        private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.Label labelLoginInfo;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
@@ -338,5 +332,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Button buttonMinimize;
+        private System.Windows.Forms.Panel panelSettings;
+        private System.Windows.Forms.MaskedTextBox textBoxIP;
+        private System.Windows.Forms.TextBox textBoxPort;
     }
 }
