@@ -210,8 +210,8 @@ namespace ChatTest.Forms
 
         private void buttonExit_MouseDown(object sender, MouseEventArgs e)
         {
-            drag = true;
-            start_point = new Point(e.X, e.Y);
+            //drag = true;
+            //start_point = new Point(e.X, e.Y);
         }
 
         private void TextBoxLogin_TextChanged(object sender, EventArgs e)
@@ -232,8 +232,8 @@ namespace ChatTest.Forms
 
         private void button2_MouseDown(object sender, MouseEventArgs e)
         {
-            drag = true;
-            start_point = new Point(e.X, e.Y);
+            //drag = true;
+            //start_point = new Point(e.X, e.Y);
         }
 
         private void button2_MouseMove(object sender, MouseEventArgs e)
