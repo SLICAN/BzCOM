@@ -123,10 +123,40 @@ namespace ChatTest.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap connection {
+            get {
+                object obj = ResourceManager.GetObject("connection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap kisspng_computer_icons_avatar_user_profile_recommender_sys_5afe866a11a941_0921589115266299940724 {
             get {
                 object obj = ResourceManager.GetObject("kisspng-computer-icons-avatar-user-profile-recommender-sys-5afe866a11a941.0921589" +
                         "115266299940724", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap lockAqua {
+            get {
+                object obj = ResourceManager.GetObject("lockAqua", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Logo {
+            get {
+                object obj = ResourceManager.GetObject("Logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -174,6 +204,16 @@ namespace ChatTest.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PersonAqua {
+            get {
+                object obj = ResourceManager.GetObject("PersonAqua", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap send_button {
             get {
                 object obj = ResourceManager.GetObject("send-button", resourceCulture);
@@ -197,6 +237,16 @@ namespace ChatTest.Properties {
         internal static System.Drawing.Bitmap settings_gears1 {
             get {
                 object obj = ResourceManager.GetObject("settings-gears1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap settings_gearsAqua {
+            get {
+                object obj = ResourceManager.GetObject("settings-gearsAqua", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

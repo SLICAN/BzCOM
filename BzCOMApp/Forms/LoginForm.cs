@@ -44,7 +44,7 @@ namespace ChatTest.Forms
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.AllowTransparency = true;
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
+          //  Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
             trafficController.OnLoggedIn += TrafficController_OnLoggedIn;
 
             var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -264,26 +264,34 @@ namespace ChatTest.Forms
         private void TextBoxLogin_Enter(object sender, EventArgs e)
         {
             panel1.BackColor = Color.Aqua;
-
-            if(TextBoxLogin.Text == "Login")
+            pictureBox2.Image = ((System.Drawing.Image)(Properties.Resources.PersonAqua));
+            if (TextBoxLogin.Text == "Login")
             {
                 TextBoxLogin.Text = "";
                 TextBoxLogin.ForeColor = Color.White;
+                //  this.pictureBox2.Image = Image.FromFile(Application.StartupPath + "\\" + "1.png");
+                // pictureBox2.Image = Image.FromFile(@"icons\1.png");
+                // this.pictureBox2.Load("lock.png");
+                
+             
             }
         }
 
         private void TextBoxLogin_Leave(object sender, EventArgs e)
         {
+            pictureBox2.Image = ((System.Drawing.Image)(Properties.Resources.person));
             panel1.BackColor = Color.White;
             if (TextBoxLogin.Text == "")
             {
                 TextBoxLogin.Text = "Login";
                 TextBoxLogin.ForeColor = Color.Silver;
+             
             }
         }
 
         private void TextBoxPassword_Enter(object sender, EventArgs e)
         {
+            pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources.lockAqua));
             panel2.BackColor = Color.Aqua;
            
 
@@ -291,6 +299,7 @@ namespace ChatTest.Forms
 
         private void TextBoxPassword_Leave(object sender, EventArgs e)
         {
+            pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources._lock));
             panel2.BackColor = Color.White;
             
         }
@@ -319,6 +328,41 @@ namespace ChatTest.Forms
         private void textBoxIP_MouseUp(object sender, MouseEventArgs e)
         {
             textBoxIP.SelectionStart = 0;
+        }
+
+        private void TextBoxPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SettingsImage_MouseEnter(object sender, EventArgs e)
+        {
+            SettingsImage.Image = ((System.Drawing.Image)(Properties.Resources.settings_gearsAqua));
+        }
+
+        private void SettingsImage_MouseLeave(object sender, EventArgs e)
+        {
+            SettingsImage.Image = ((System.Drawing.Image)(Properties.Resources.settings_gears1));
+        }
+
+        private void textBoxIP_Enter(object sender, EventArgs e)
+        {
+            textBoxIP.BackColor = ColorTranslator.FromHtml("65; 174; 207");
+        }
+
+        private void textBoxIP_Leave(object sender, EventArgs e)
+        {
+            textBoxIP.BackColor = Color.Silver;
+        }
+
+        private void textBoxPort_Enter(object sender, EventArgs e)
+        {
+            textBoxPort.BackColor = ColorTranslator.FromHtml("65; 174; 207");
+        }
+
+        private void textBoxPort_Leave(object sender, EventArgs e)
+        {
+            textBoxPort.BackColor = Color.Silver;
         }
     }
 }

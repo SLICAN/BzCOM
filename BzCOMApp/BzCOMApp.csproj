@@ -166,6 +166,11 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="api\.gitignore" />
+    <None Include="Resources\Logo.png" />
+    <None Include="Resources\connection.png" />
+    <None Include="Resources\settings-gearsAqua.png" />
+    <None Include="Resources\lockAqua.png" />
+    <None Include="Resources\PersonAqua.png" />
     <None Include="Resources\multiply1.png" />
     <None Include="Resources\lock.png" />
     <None Include="Resources\person.png" />

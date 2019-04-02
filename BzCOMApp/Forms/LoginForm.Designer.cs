@@ -34,25 +34,27 @@
             this.TextBoxPassword = new System.Windows.Forms.TextBox();
             this.SaveToFileCheckBox = new System.Windows.Forms.CheckBox();
             this.TitlePanel = new System.Windows.Forms.Panel();
-            this.buttonMinimize = new System.Windows.Forms.Button();
-            this.buttonExit = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.Label();
             this.labelLoginInfo = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.SettingsImage = new System.Windows.Forms.PictureBox();
-            this.LoginImage = new System.Windows.Forms.PictureBox();
             this.panelSettings = new System.Windows.Forms.Panel();
             this.textBoxIP = new System.Windows.Forms.MaskedTextBox();
             this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.SettingsImage = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonMinimize = new System.Windows.Forms.Button();
+            this.buttonExit = new System.Windows.Forms.Button();
+            this.LoginImage = new System.Windows.Forms.PictureBox();
             this.TitlePanel.SuspendLayout();
+            this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoginImage)).BeginInit();
-            this.panelSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButtonLogin
@@ -103,6 +105,7 @@
             this.TextBoxPassword.TabIndex = 3;
             this.TextBoxPassword.UseSystemPasswordChar = true;
             this.TextBoxPassword.WordWrap = false;
+            this.TextBoxPassword.TextChanged += new System.EventHandler(this.TextBoxPassword_TextChanged);
             this.TextBoxPassword.Enter += new System.EventHandler(this.TextBoxPassword_Enter);
             this.TextBoxPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxPassword_KeyPress);
             this.TextBoxPassword.Leave += new System.EventHandler(this.TextBoxPassword_Leave);
@@ -122,6 +125,7 @@
             // TitlePanel
             // 
             this.TitlePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(18)))));
+            this.TitlePanel.Controls.Add(this.pictureBox1);
             this.TitlePanel.Controls.Add(this.buttonMinimize);
             this.TitlePanel.Controls.Add(this.buttonExit);
             this.TitlePanel.Controls.Add(this.Title);
@@ -132,44 +136,12 @@
             this.TitlePanel.TabIndex = 18;
             this.TitlePanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitlePanel_MouseDown);
             // 
-            // buttonMinimize
-            // 
-            this.buttonMinimize.FlatAppearance.BorderSize = 0;
-            this.buttonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMinimize.Image = global::ChatTest.Properties.Resources.substract__3_;
-            this.buttonMinimize.Location = new System.Drawing.Point(328, 0);
-            this.buttonMinimize.Name = "buttonMinimize";
-            this.buttonMinimize.Size = new System.Drawing.Size(35, 29);
-            this.buttonMinimize.TabIndex = 27;
-            this.buttonMinimize.UseVisualStyleBackColor = true;
-            this.buttonMinimize.Click += new System.EventHandler(this.button2_Click);
-            this.buttonMinimize.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button2_MouseDown);
-            this.buttonMinimize.MouseEnter += new System.EventHandler(this.buttonMinimize_MouseEnter);
-            this.buttonMinimize.MouseLeave += new System.EventHandler(this.buttonMinimize_MouseLeave);
-            this.buttonMinimize.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button2_MouseMove);
-            // 
-            // buttonExit
-            // 
-            this.buttonExit.FlatAppearance.BorderSize = 0;
-            this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExit.Image = global::ChatTest.Properties.Resources.multiply1;
-            this.buttonExit.Location = new System.Drawing.Point(366, 0);
-            this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(35, 29);
-            this.buttonExit.TabIndex = 26;
-            this.buttonExit.UseVisualStyleBackColor = true;
-            this.buttonExit.Click += new System.EventHandler(this.button1_Click);
-            this.buttonExit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonExit_MouseDown);
-            this.buttonExit.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
-            this.buttonExit.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
-            this.buttonExit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button1_MouseMove);
-            // 
             // Title
             // 
             this.Title.AutoSize = true;
             this.Title.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.Title.ForeColor = System.Drawing.Color.Gainsboro;
-            this.Title.Location = new System.Drawing.Point(8, 3);
+            this.Title.Location = new System.Drawing.Point(45, 9);
             this.Title.Name = "Title";
             this.Title.Size = new System.Drawing.Size(59, 16);
             this.Title.TabIndex = 18;
@@ -201,6 +173,51 @@
             this.panel2.Size = new System.Drawing.Size(203, 1);
             this.panel2.TabIndex = 25;
             // 
+            // panelSettings
+            // 
+            this.panelSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(18)))));
+            this.panelSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSettings.Controls.Add(this.textBoxIP);
+            this.panelSettings.Controls.Add(this.textBoxPort);
+            this.panelSettings.Location = new System.Drawing.Point(8, 101);
+            this.panelSettings.Name = "panelSettings";
+            this.panelSettings.Size = new System.Drawing.Size(107, 59);
+            this.panelSettings.TabIndex = 26;
+            this.panelSettings.Visible = false;
+            this.panelSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSettings_Paint);
+            // 
+            // textBoxIP
+            // 
+            this.textBoxIP.BackColor = System.Drawing.Color.Silver;
+            this.textBoxIP.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.textBoxIP.Location = new System.Drawing.Point(3, 12);
+            this.textBoxIP.Mask = "###.###.###.###";
+            this.textBoxIP.Name = "textBoxIP";
+            this.textBoxIP.Size = new System.Drawing.Size(99, 13);
+            this.textBoxIP.SkipLiterals = false;
+            this.textBoxIP.TabIndex = 2;
+            this.textBoxIP.Text = "221122223102";
+            this.textBoxIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxIP.Enter += new System.EventHandler(this.textBoxIP_Enter);
+            this.textBoxIP.Leave += new System.EventHandler(this.textBoxIP_Leave);
+            this.textBoxIP.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textBoxIP_MouseUp);
+            // 
+            // textBoxPort
+            // 
+            this.textBoxPort.BackColor = System.Drawing.Color.Silver;
+            this.textBoxPort.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.textBoxPort.Location = new System.Drawing.Point(3, 31);
+            this.textBoxPort.MaxLength = 4;
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(99, 13);
+            this.textBoxPort.TabIndex = 1;
+            this.textBoxPort.Text = "5529";
+            this.textBoxPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxPort.Enter += new System.EventHandler(this.textBoxPort_Enter);
+            this.textBoxPort.Leave += new System.EventHandler(this.textBoxPort_Leave);
+            // 
             // pictureBox3
             // 
             this.pictureBox3.Image = global::ChatTest.Properties.Resources._lock;
@@ -221,14 +238,57 @@
             // 
             // SettingsImage
             // 
-            this.SettingsImage.Image = global::ChatTest.Properties.Resources.settings_gears;
-            this.SettingsImage.Location = new System.Drawing.Point(20, 47);
+            this.SettingsImage.Image = global::ChatTest.Properties.Resources.settings_gears1;
+            this.SettingsImage.Location = new System.Drawing.Point(12, 59);
             this.SettingsImage.Name = "SettingsImage";
             this.SettingsImage.Size = new System.Drawing.Size(47, 36);
             this.SettingsImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.SettingsImage.TabIndex = 19;
             this.SettingsImage.TabStop = false;
             this.SettingsImage.Click += new System.EventHandler(this.SettingsImage_Click);
+            this.SettingsImage.MouseEnter += new System.EventHandler(this.SettingsImage_MouseEnter);
+            this.SettingsImage.MouseLeave += new System.EventHandler(this.SettingsImage_MouseLeave);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ChatTest.Properties.Resources.Logo;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(27, 23);
+            this.pictureBox1.TabIndex = 28;
+            this.pictureBox1.TabStop = false;
+            // 
+            // buttonMinimize
+            // 
+            this.buttonMinimize.FlatAppearance.BorderSize = 0;
+            this.buttonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMinimize.Image = global::ChatTest.Properties.Resources.substract__3_;
+            this.buttonMinimize.Location = new System.Drawing.Point(328, 0);
+            this.buttonMinimize.Name = "buttonMinimize";
+            this.buttonMinimize.Size = new System.Drawing.Size(35, 29);
+            this.buttonMinimize.TabIndex = 27;
+            this.buttonMinimize.UseVisualStyleBackColor = true;
+            this.buttonMinimize.Click += new System.EventHandler(this.button2_Click);
+            this.buttonMinimize.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button2_MouseDown);
+            this.buttonMinimize.MouseEnter += new System.EventHandler(this.buttonMinimize_MouseEnter);
+            this.buttonMinimize.MouseLeave += new System.EventHandler(this.buttonMinimize_MouseLeave);
+            this.buttonMinimize.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button2_MouseMove);
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.FlatAppearance.BorderSize = 0;
+            this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExit.Image = global::ChatTest.Properties.Resources.multiply1;
+            this.buttonExit.Location = new System.Drawing.Point(362, 0);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(39, 29);
+            this.buttonExit.TabIndex = 26;
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.button1_Click);
+            this.buttonExit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonExit_MouseDown);
+            this.buttonExit.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
+            this.buttonExit.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
+            this.buttonExit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button1_MouseMove);
             // 
             // LoginImage
             // 
@@ -240,44 +300,6 @@
             this.LoginImage.TabIndex = 10;
             this.LoginImage.TabStop = false;
             this.LoginImage.Click += new System.EventHandler(this.LoginImage_Click);
-            // 
-            // panelSettings
-            // 
-            this.panelSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(18)))));
-            this.panelSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelSettings.Controls.Add(this.textBoxIP);
-            this.panelSettings.Controls.Add(this.textBoxPort);
-            this.panelSettings.Location = new System.Drawing.Point(11, 89);
-            this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(99, 82);
-            this.panelSettings.TabIndex = 26;
-            this.panelSettings.Visible = false;
-            this.panelSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSettings_Paint);
-            // 
-            // textBoxIP
-            // 
-            this.textBoxIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
-            this.textBoxIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxIP.Location = new System.Drawing.Point(4, 18);
-            this.textBoxIP.Mask = "###.###.###.###";
-            this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(90, 20);
-            this.textBoxIP.SkipLiterals = false;
-            this.textBoxIP.TabIndex = 2;
-            this.textBoxIP.Text = "221122223102";
-            this.textBoxIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxIP.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textBoxIP_MouseUp);
-            // 
-            // textBoxPort
-            // 
-            this.textBoxPort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
-            this.textBoxPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxPort.Location = new System.Drawing.Point(4, 44);
-            this.textBoxPort.MaxLength = 4;
-            this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(90, 20);
-            this.textBoxPort.TabIndex = 1;
-            this.textBoxPort.Text = "5529";
             // 
             // LoginForm
             // 
@@ -304,12 +326,13 @@
             this.Load += new System.EventHandler(this.LoginForm_Load);
             this.TitlePanel.ResumeLayout(false);
             this.TitlePanel.PerformLayout();
+            this.panelSettings.ResumeLayout(false);
+            this.panelSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoginImage)).EndInit();
-            this.panelSettings.ResumeLayout(false);
-            this.panelSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -335,5 +358,6 @@
         private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.MaskedTextBox textBoxIP;
         private System.Windows.Forms.TextBox textBoxPort;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
