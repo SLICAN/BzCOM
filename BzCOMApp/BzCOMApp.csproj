@@ -166,6 +166,17 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="api\.gitignore" />
+    <None Include="Resources\avatar%281%29.png" />
+    <None Include="Resources\questions-circular-button.png" />
+    <None Include="Resources\group%281%29.png" />
+    <None Include="Resources\notepad.png" />
+    <None Include="Resources\loupe.png" />
+    <None Include="Resources\user.png" />
+    <None Include="Resources\block-user.png" />
+    <None Include="Resources\add-user.png" />
+    <None Include="Resources\group.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\settings.png" />
     <None Include="Resources\Logo.png" />
     <None Include="Resources\connection.png" />
     <None Include="Resources\settings-gearsAqua.png" />

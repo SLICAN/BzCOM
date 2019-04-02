@@ -392,5 +392,30 @@ namespace ChatTest
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+
+        private void buttonExitMain_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonMinimalizeMain_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Bitmaps|*.bmp|jpegs|*.jpg";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox1.ImageLocation = openFileDialog.FileName;
+            }
+        }
     }
 }
