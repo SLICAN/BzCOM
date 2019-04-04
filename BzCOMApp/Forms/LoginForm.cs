@@ -364,5 +364,12 @@ namespace ChatTest.Forms
         {
             textBoxPort.BackColor = Color.Silver;
         }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            this.WindowState = FormWindowState.Normal;
+            notifyIcon1.Visible = false;
+        }
     }
 }

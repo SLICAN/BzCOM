@@ -7,7 +7,10 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
-
+using Windows.UI;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
+using System.Windows.Threading;
 namespace ChatTest
 {
     public partial class AddressBookForm : Form
@@ -22,7 +25,6 @@ namespace ChatTest
         delegate void SetUsersCallBack(List<User> users);
 
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
-        
 
         private PopUpForm popUpForm = new PopUpForm();
 
@@ -45,13 +47,14 @@ namespace ChatTest
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
+
         public AddressBookForm()
         {
             InitializeComponent();
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.AllowTransparency = true;
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
+           // Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
 
             PopUpTimer.Tick += new EventHandler(PopUpTimer_Tick);
 
@@ -77,13 +80,15 @@ namespace ChatTest
 
             if (!isConnectionOpened)
             {
-                PopUpTimer.Enabled = true;
-                popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
-                popUpForm.labelWhat.Text = msgNow.Text;
-                popUpForm.ShowDialog();
+               
+                //PopUpTimer.Enabled = true;
+                //popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
+                //popUpForm.labelWhat.Text = msgNow.Text;
+                //popUpForm.ShowDialog();
             }
            
         }
+
 
         private void TrafficController_OnAddressBookGet(TrafficController sender, List<User> users)
         {
@@ -406,6 +411,11 @@ namespace ChatTest
         private void buttonMinimalizeMain_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+                notifyIcon1.Visible = true;
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -415,6 +425,32 @@ namespace ChatTest
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 pictureBox1.ImageLocation = openFileDialog.FileName;
+            }
+        }
+
+        private void AddressBookForm_Resize(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            this.WindowState = FormWindowState.Normal;
+            notifyIcon1.Visible = false;
+        }
+
+        private void AddressBookForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void titlePanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
     }

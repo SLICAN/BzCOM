@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.ButtonLogin = new System.Windows.Forms.Button();
             this.TextBoxLogin = new System.Windows.Forms.TextBox();
             this.TextBoxPassword = new System.Windows.Forms.TextBox();
             this.SaveToFileCheckBox = new System.Windows.Forms.CheckBox();
             this.TitlePanel = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonMinimize = new System.Windows.Forms.Button();
+            this.buttonExit = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.Label();
             this.labelLoginInfo = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -44,16 +48,14 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.SettingsImage = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonMinimize = new System.Windows.Forms.Button();
-            this.buttonExit = new System.Windows.Forms.Button();
             this.LoginImage = new System.Windows.Forms.PictureBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.TitlePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoginImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -135,6 +137,47 @@
             this.TitlePanel.Size = new System.Drawing.Size(401, 32);
             this.TitlePanel.TabIndex = 18;
             this.TitlePanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitlePanel_MouseDown);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ChatTest.Properties.Resources.Logo;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(27, 23);
+            this.pictureBox1.TabIndex = 28;
+            this.pictureBox1.TabStop = false;
+            // 
+            // buttonMinimize
+            // 
+            this.buttonMinimize.FlatAppearance.BorderSize = 0;
+            this.buttonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMinimize.Image = global::ChatTest.Properties.Resources.substract__3_;
+            this.buttonMinimize.Location = new System.Drawing.Point(328, 0);
+            this.buttonMinimize.Name = "buttonMinimize";
+            this.buttonMinimize.Size = new System.Drawing.Size(35, 29);
+            this.buttonMinimize.TabIndex = 27;
+            this.buttonMinimize.UseVisualStyleBackColor = true;
+            this.buttonMinimize.Click += new System.EventHandler(this.button2_Click);
+            this.buttonMinimize.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button2_MouseDown);
+            this.buttonMinimize.MouseEnter += new System.EventHandler(this.buttonMinimize_MouseEnter);
+            this.buttonMinimize.MouseLeave += new System.EventHandler(this.buttonMinimize_MouseLeave);
+            this.buttonMinimize.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button2_MouseMove);
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.FlatAppearance.BorderSize = 0;
+            this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExit.Image = global::ChatTest.Properties.Resources.multiply1;
+            this.buttonExit.Location = new System.Drawing.Point(362, 0);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(39, 29);
+            this.buttonExit.TabIndex = 26;
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.button1_Click);
+            this.buttonExit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonExit_MouseDown);
+            this.buttonExit.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
+            this.buttonExit.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
+            this.buttonExit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button1_MouseMove);
             // 
             // Title
             // 
@@ -249,47 +292,6 @@
             this.SettingsImage.MouseEnter += new System.EventHandler(this.SettingsImage_MouseEnter);
             this.SettingsImage.MouseLeave += new System.EventHandler(this.SettingsImage_MouseLeave);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::ChatTest.Properties.Resources.Logo;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(27, 23);
-            this.pictureBox1.TabIndex = 28;
-            this.pictureBox1.TabStop = false;
-            // 
-            // buttonMinimize
-            // 
-            this.buttonMinimize.FlatAppearance.BorderSize = 0;
-            this.buttonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMinimize.Image = global::ChatTest.Properties.Resources.substract__3_;
-            this.buttonMinimize.Location = new System.Drawing.Point(328, 0);
-            this.buttonMinimize.Name = "buttonMinimize";
-            this.buttonMinimize.Size = new System.Drawing.Size(35, 29);
-            this.buttonMinimize.TabIndex = 27;
-            this.buttonMinimize.UseVisualStyleBackColor = true;
-            this.buttonMinimize.Click += new System.EventHandler(this.button2_Click);
-            this.buttonMinimize.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button2_MouseDown);
-            this.buttonMinimize.MouseEnter += new System.EventHandler(this.buttonMinimize_MouseEnter);
-            this.buttonMinimize.MouseLeave += new System.EventHandler(this.buttonMinimize_MouseLeave);
-            this.buttonMinimize.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button2_MouseMove);
-            // 
-            // buttonExit
-            // 
-            this.buttonExit.FlatAppearance.BorderSize = 0;
-            this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExit.Image = global::ChatTest.Properties.Resources.multiply1;
-            this.buttonExit.Location = new System.Drawing.Point(362, 0);
-            this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(39, 29);
-            this.buttonExit.TabIndex = 26;
-            this.buttonExit.UseVisualStyleBackColor = true;
-            this.buttonExit.Click += new System.EventHandler(this.button1_Click);
-            this.buttonExit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonExit_MouseDown);
-            this.buttonExit.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
-            this.buttonExit.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
-            this.buttonExit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button1_MouseMove);
-            // 
             // LoginImage
             // 
             this.LoginImage.Image = ((System.Drawing.Image)(resources.GetObject("LoginImage.Image")));
@@ -300,6 +302,12 @@
             this.LoginImage.TabIndex = 10;
             this.LoginImage.TabStop = false;
             this.LoginImage.Click += new System.EventHandler(this.LoginImage_Click);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "BzCOM";
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // LoginForm
             // 
@@ -326,12 +334,12 @@
             this.Load += new System.EventHandler(this.LoginForm_Load);
             this.TitlePanel.ResumeLayout(false);
             this.TitlePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoginImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -359,5 +367,6 @@
         private System.Windows.Forms.MaskedTextBox textBoxIP;
         private System.Windows.Forms.TextBox textBoxPort;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
