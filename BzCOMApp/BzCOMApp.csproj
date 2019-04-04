@@ -173,6 +173,8 @@
     <Content Include="api\.gitignore" />
     <Content Include="Resources\awatar.png" />
     <Content Include="Resources\icons8-bookmark-32.png" />
+    <None Include="Resources\unlockAqua.png" />
+    <None Include="Resources\unlock.png" />
     <None Include="Resources\icons8-bookmark-321.png" />
     <Content Include="Resources\icons8-chat-26.png" />
     <None Include="Resources\icons8-chat-261.png" />

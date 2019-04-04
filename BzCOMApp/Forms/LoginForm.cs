@@ -10,6 +10,9 @@ namespace ChatTest.Forms
 {
     public partial class LoginForm : Form
     {
+
+        int padlock=0;
+        int kolor = 0;
         bool drag = false;
         Point start_point = new Point(0, 0);
 
@@ -100,7 +103,7 @@ namespace ChatTest.Forms
 
             if (trafficController.wrongLogin)
             {
-                labelLoginInfo.Text = "ZŁY LOGIN LUB HASŁO";
+                labelLoginInfo.Text = "Zły login lub hasło";
                 trafficController.wrongLogin = false;
             }
           
@@ -263,8 +266,14 @@ namespace ChatTest.Forms
 
         private void TextBoxLogin_Enter(object sender, EventArgs e)
         {
+
             panel1.BackColor = Color.Aqua;
+
+            
             pictureBox2.Image = ((System.Drawing.Image)(Properties.Resources.PersonAqua));
+
+
+
             if (TextBoxLogin.Text == "Login")
             {
                 TextBoxLogin.Text = "";
@@ -291,7 +300,19 @@ namespace ChatTest.Forms
 
         private void TextBoxPassword_Enter(object sender, EventArgs e)
         {
-            pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources.lockAqua));
+
+           
+
+            if (padlock == 1)
+            {
+                pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources.unlockAqua));
+                kolor = 1;
+            }
+            else if (padlock == 0)
+            {
+                pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources.lockAqua));
+                kolor = 1;
+            }
             panel2.BackColor = Color.Aqua;
            
 
@@ -299,7 +320,17 @@ namespace ChatTest.Forms
 
         private void TextBoxPassword_Leave(object sender, EventArgs e)
         {
-            pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources._lock));
+            if (padlock == 1)
+            {
+
+                pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources.unlock));
+                kolor = 0;
+            }
+            else if(padlock==0)
+            {
+                pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources._lock));
+                kolor = 0;
+            }
             panel2.BackColor = Color.White;
             
         }
@@ -370,6 +401,53 @@ namespace ChatTest.Forms
             Show();
             this.WindowState = FormWindowState.Normal;
             notifyIcon1.Visible = false;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+         
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+          
+
+            if(padlock==0)
+            {
+
+                TextBoxPassword.UseSystemPasswordChar = false;
+                padlock = 1;
+
+
+                if (kolor == 1)
+                {
+                    pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources.unlockAqua));
+                }
+              
+                else if(kolor == 0 )
+                {
+                    pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources.unlock));
+                }
+
+            }
+
+            else if (padlock==1)
+            {
+                TextBoxPassword.UseSystemPasswordChar = true;
+                padlock = 0;
+               // pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources._lock));
+
+                if (kolor == 1)
+                {
+                    pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources.lockAqua));
+                }
+
+                else if (kolor == 0)
+                {
+                    pictureBox3.Image = ((System.Drawing.Image)(Properties.Resources._lock));
+                }
+            }
         }
     }
 }
