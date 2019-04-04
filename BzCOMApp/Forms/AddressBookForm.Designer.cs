@@ -38,31 +38,31 @@
             this.TextBoxDescription = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.labelNick = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.buttonSettings = new System.Windows.Forms.Button();
-            this.buttonArchives = new System.Windows.Forms.Button();
-            this.buttonGroupMaker = new System.Windows.Forms.Button();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.buttonFavorite = new System.Windows.Forms.Button();
-            this.buttonIgnored = new System.Windows.Forms.Button();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonPad = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.buttonExitMain = new System.Windows.Forms.Button();
             this.buttonMinimalizeMain = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.labelNick = new System.Windows.Forms.Label();
+            this.buttonPad = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.buttonFavorite = new System.Windows.Forms.Button();
+            this.buttonIgnored = new System.Windows.Forms.Button();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.buttonSettings = new System.Windows.Forms.Button();
+            this.buttonArchives = new System.Windows.Forms.Button();
+            this.buttonGroupMaker = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // ListViewAddressBook
@@ -142,6 +142,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(375, 33);
             this.panel2.TabIndex = 37;
+            this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDown);
             // 
             // label1
             // 
@@ -152,159 +153,6 @@
             this.label1.Size = new System.Drawing.Size(43, 13);
             this.label1.TabIndex = 29;
             this.label1.Text = "BzCOM";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.labelNick);
-            this.panel1.Controls.Add(this.buttonPad);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.ComboBoxStatus);
-            this.panel1.Controls.Add(this.TextBoxDescription);
-            this.panel1.Location = new System.Drawing.Point(2, 53);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(375, 99);
-            this.panel1.TabIndex = 40;
-            // 
-            // labelNick
-            // 
-            this.labelNick.AutoSize = true;
-            this.labelNick.BackColor = System.Drawing.Color.Silver;
-            this.labelNick.Location = new System.Drawing.Point(210, 14);
-            this.labelNick.Name = "labelNick";
-            this.labelNick.Size = new System.Drawing.Size(63, 13);
-            this.labelNick.TabIndex = 39;
-            this.labelNick.Text = "NICKNAME";
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.pictureBox3);
-            this.panel3.Controls.Add(this.textBox1);
-            this.panel3.Controls.Add(this.buttonFavorite);
-            this.panel3.Controls.Add(this.buttonIgnored);
-            this.panel3.Controls.Add(this.buttonAdd);
-            this.panel3.Location = new System.Drawing.Point(2, 187);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(375, 49);
-            this.panel3.TabIndex = 41;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(36, 15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(214, 20);
-            this.textBox1.TabIndex = 36;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(20)))));
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.buttonSettings);
-            this.panel4.Controls.Add(this.buttonArchives);
-            this.panel4.Controls.Add(this.buttonGroupMaker);
-            this.panel4.Location = new System.Drawing.Point(2, 599);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(375, 49);
-            this.panel4.TabIndex = 42;
-            // 
-            // buttonSettings
-            // 
-            this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSettings.Image = global::ChatTest.Properties.Resources.settings;
-            this.buttonSettings.Location = new System.Drawing.Point(330, 4);
-            this.buttonSettings.Name = "buttonSettings";
-            this.buttonSettings.Size = new System.Drawing.Size(40, 40);
-            this.buttonSettings.TabIndex = 34;
-            this.buttonSettings.UseVisualStyleBackColor = true;
-            // 
-            // buttonArchives
-            // 
-            this.buttonArchives.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonArchives.Image = global::ChatTest.Properties.Resources.folder;
-            this.buttonArchives.Location = new System.Drawing.Point(54, 5);
-            this.buttonArchives.Name = "buttonArchives";
-            this.buttonArchives.Size = new System.Drawing.Size(40, 40);
-            this.buttonArchives.TabIndex = 33;
-            this.buttonArchives.UseVisualStyleBackColor = true;
-            // 
-            // buttonGroupMaker
-            // 
-            this.buttonGroupMaker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonGroupMaker.Image = global::ChatTest.Properties.Resources.group;
-            this.buttonGroupMaker.Location = new System.Drawing.Point(8, 5);
-            this.buttonGroupMaker.Name = "buttonGroupMaker";
-            this.buttonGroupMaker.Size = new System.Drawing.Size(40, 40);
-            this.buttonGroupMaker.TabIndex = 32;
-            this.buttonGroupMaker.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::ChatTest.Properties.Resources.loupe;
-            this.pictureBox3.Location = new System.Drawing.Point(3, 9);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(32, 29);
-            this.pictureBox3.TabIndex = 37;
-            this.pictureBox3.TabStop = false;
-            // 
-            // buttonFavorite
-            // 
-            this.buttonFavorite.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
-            this.buttonFavorite.FlatAppearance.BorderSize = 2;
-            this.buttonFavorite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonFavorite.Image = global::ChatTest.Properties.Resources.user;
-            this.buttonFavorite.Location = new System.Drawing.Point(338, 9);
-            this.buttonFavorite.Name = "buttonFavorite";
-            this.buttonFavorite.Size = new System.Drawing.Size(31, 31);
-            this.buttonFavorite.TabIndex = 33;
-            this.buttonFavorite.UseVisualStyleBackColor = true;
-            // 
-            // buttonIgnored
-            // 
-            this.buttonIgnored.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
-            this.buttonIgnored.FlatAppearance.BorderSize = 2;
-            this.buttonIgnored.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonIgnored.Image = global::ChatTest.Properties.Resources.block_user;
-            this.buttonIgnored.Location = new System.Drawing.Point(300, 9);
-            this.buttonIgnored.Name = "buttonIgnored";
-            this.buttonIgnored.Size = new System.Drawing.Size(31, 31);
-            this.buttonIgnored.TabIndex = 35;
-            this.buttonIgnored.UseVisualStyleBackColor = true;
-            // 
-            // buttonAdd
-            // 
-            this.buttonAdd.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
-            this.buttonAdd.FlatAppearance.BorderSize = 2;
-            this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAdd.Image = global::ChatTest.Properties.Resources.add_user;
-            this.buttonAdd.Location = new System.Drawing.Point(260, 9);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(31, 31);
-            this.buttonAdd.TabIndex = 34;
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // buttonPad
-            // 
-            this.buttonPad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPad.Image = global::ChatTest.Properties.Resources.notepad;
-            this.buttonPad.Location = new System.Drawing.Point(10, 30);
-            this.buttonPad.Name = "buttonPad";
-            this.buttonPad.Size = new System.Drawing.Size(40, 48);
-            this.buttonPad.TabIndex = 39;
-            this.buttonPad.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Image = global::ChatTest.Properties.Resources.avatar_1_;
-            this.pictureBox1.Location = new System.Drawing.Point(279, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(93, 91);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 38;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // pictureBox2
             // 
@@ -348,6 +196,159 @@
             this.buttonHelp.TabIndex = 27;
             this.buttonHelp.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.labelNick);
+            this.panel1.Controls.Add(this.buttonPad);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.ComboBoxStatus);
+            this.panel1.Controls.Add(this.TextBoxDescription);
+            this.panel1.Location = new System.Drawing.Point(2, 53);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(375, 99);
+            this.panel1.TabIndex = 40;
+            // 
+            // labelNick
+            // 
+            this.labelNick.AutoSize = true;
+            this.labelNick.BackColor = System.Drawing.Color.Silver;
+            this.labelNick.Location = new System.Drawing.Point(210, 14);
+            this.labelNick.Name = "labelNick";
+            this.labelNick.Size = new System.Drawing.Size(63, 13);
+            this.labelNick.TabIndex = 39;
+            this.labelNick.Text = "NICKNAME";
+            // 
+            // buttonPad
+            // 
+            this.buttonPad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPad.Image = global::ChatTest.Properties.Resources.notepad;
+            this.buttonPad.Location = new System.Drawing.Point(10, 30);
+            this.buttonPad.Name = "buttonPad";
+            this.buttonPad.Size = new System.Drawing.Size(40, 48);
+            this.buttonPad.TabIndex = 39;
+            this.buttonPad.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Silver;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Image = global::ChatTest.Properties.Resources.avatar_1_;
+            this.pictureBox1.Location = new System.Drawing.Point(279, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(93, 91);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 38;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.pictureBox3);
+            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.buttonFavorite);
+            this.panel3.Controls.Add(this.buttonIgnored);
+            this.panel3.Controls.Add(this.buttonAdd);
+            this.panel3.Location = new System.Drawing.Point(2, 187);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(375, 49);
+            this.panel3.TabIndex = 41;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::ChatTest.Properties.Resources.loupe;
+            this.pictureBox3.Location = new System.Drawing.Point(3, 9);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(32, 29);
+            this.pictureBox3.TabIndex = 37;
+            this.pictureBox3.TabStop = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(36, 15);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(214, 20);
+            this.textBox1.TabIndex = 36;
+            // 
+            // buttonFavorite
+            // 
+            this.buttonFavorite.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
+            this.buttonFavorite.FlatAppearance.BorderSize = 2;
+            this.buttonFavorite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonFavorite.Image = global::ChatTest.Properties.Resources.user;
+            this.buttonFavorite.Location = new System.Drawing.Point(338, 9);
+            this.buttonFavorite.Name = "buttonFavorite";
+            this.buttonFavorite.Size = new System.Drawing.Size(31, 31);
+            this.buttonFavorite.TabIndex = 33;
+            this.buttonFavorite.UseVisualStyleBackColor = true;
+            // 
+            // buttonIgnored
+            // 
+            this.buttonIgnored.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
+            this.buttonIgnored.FlatAppearance.BorderSize = 2;
+            this.buttonIgnored.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonIgnored.Image = global::ChatTest.Properties.Resources.block_user;
+            this.buttonIgnored.Location = new System.Drawing.Point(300, 9);
+            this.buttonIgnored.Name = "buttonIgnored";
+            this.buttonIgnored.Size = new System.Drawing.Size(31, 31);
+            this.buttonIgnored.TabIndex = 35;
+            this.buttonIgnored.UseVisualStyleBackColor = true;
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(174)))), ((int)(((byte)(207)))));
+            this.buttonAdd.FlatAppearance.BorderSize = 2;
+            this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAdd.Image = global::ChatTest.Properties.Resources.add_user;
+            this.buttonAdd.Location = new System.Drawing.Point(260, 9);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(31, 31);
+            this.buttonAdd.TabIndex = 34;
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(20)))));
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.buttonSettings);
+            this.panel4.Controls.Add(this.buttonArchives);
+            this.panel4.Controls.Add(this.buttonGroupMaker);
+            this.panel4.Location = new System.Drawing.Point(2, 599);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(375, 49);
+            this.panel4.TabIndex = 42;
+            // 
+            // buttonSettings
+            // 
+            this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSettings.Image = global::ChatTest.Properties.Resources.settings;
+            this.buttonSettings.Location = new System.Drawing.Point(330, 4);
+            this.buttonSettings.Name = "buttonSettings";
+            this.buttonSettings.Size = new System.Drawing.Size(40, 40);
+            this.buttonSettings.TabIndex = 34;
+            this.buttonSettings.UseVisualStyleBackColor = true;
+            // 
+            // buttonArchives
+            // 
+            this.buttonArchives.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonArchives.Image = global::ChatTest.Properties.Resources.folder;
+            this.buttonArchives.Location = new System.Drawing.Point(54, 5);
+            this.buttonArchives.Name = "buttonArchives";
+            this.buttonArchives.Size = new System.Drawing.Size(40, 40);
+            this.buttonArchives.TabIndex = 33;
+            this.buttonArchives.UseVisualStyleBackColor = true;
+            // 
+            // buttonGroupMaker
+            // 
+            this.buttonGroupMaker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGroupMaker.Image = global::ChatTest.Properties.Resources.group;
+            this.buttonGroupMaker.Location = new System.Drawing.Point(8, 5);
+            this.buttonGroupMaker.Name = "buttonGroupMaker";
+            this.buttonGroupMaker.Size = new System.Drawing.Size(40, 40);
+            this.buttonGroupMaker.TabIndex = 32;
+            this.buttonGroupMaker.UseVisualStyleBackColor = true;
+            // 
             // AddressBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,14 +366,14 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
