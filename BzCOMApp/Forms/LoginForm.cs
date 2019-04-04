@@ -15,7 +15,7 @@ namespace ChatTest.Forms
 
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
 
-        private PopUpForm popUpForm = new PopUpForm();
+        //private PopUpForm popUpForm = new PopUpForm();
 
         private bool isClick = false;
 
@@ -73,7 +73,7 @@ namespace ChatTest.Forms
 
         private void TrafficController_OnLoggedIn(TrafficController sender, string info)
         {
-            popUpForm.labelWhat.Text = info;
+            //popUpForm.labelWhat.Text = info;
             /// Changes the status displayed in combobox, when you logged in
             if (trafficController.GetState() == State.LoggedIn)
             {
