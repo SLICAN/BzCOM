@@ -11,7 +11,7 @@ namespace ChatTest.Forms
     {
         private int CursorPosition;
 
-        private PopUpForm popUpForm = new PopUpForm();
+        //private PopUpForm popUpForm = new PopUpForm();
 
         public int nr;
 

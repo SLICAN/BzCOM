@@ -24,7 +24,7 @@ namespace ChatTest
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
         
 
-        private PopUpForm popUpForm = new PopUpForm();
+        //private PopUpForm popUpForm = new PopUpForm();
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -53,7 +53,7 @@ namespace ChatTest
             this.AllowTransparency = true;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
 
-            PopUpTimer.Tick += new EventHandler(PopUpTimer_Tick);
+            //PopUpTimer.Tick += new EventHandler(PopUpTimer_Tick);
 
             trafficController.OnUpdateStatus += TrafficController_OnUpdateStatus;
             trafficController.OnAddressBookGet += TrafficController_OnAddressBookGet;
@@ -77,10 +77,10 @@ namespace ChatTest
 
             if (!isConnectionOpened)
             {
-                PopUpTimer.Enabled = true;
-                popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
-                popUpForm.labelWhat.Text = msgNow.Text;
-                popUpForm.ShowDialog();
+                //PopUpTimer.Enabled = true;
+                //popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
+                //popUpForm.labelWhat.Text = msgNow.Text;
+                //popUpForm.ShowDialog();
             }
            
         }
@@ -288,11 +288,11 @@ namespace ChatTest
                                 lvi.SubItems[0].Text = stateIndex.ToString();
                                 //SetText("Użytkownik " + item.UserName + " zaktualizował swój status!");
 
-                                PopUpTimer.Enabled = true;
+                                //PopUpTimer.Enabled = true;
                                 Console.WriteLine(stateIndex.ToString());
-                                popUpForm.labelWho.Text = item.UserName;
-                                popUpForm.labelWhat.Text = "Użytkownik zaktualizował swój status!";
-                                popUpForm.ShowDialog();
+                                //popUpForm.labelWho.Text = item.UserName;
+                                //popUpForm.labelWhat.Text = "Użytkownik zaktualizował swój status!";
+                                //popUpForm.ShowDialog();
 
                                 ListViewAddressBook.Sort();
                             }
@@ -301,10 +301,10 @@ namespace ChatTest
                                 lvi.SubItems[2].Text = item.UserDesc;
                                 //SetText("Użytkownik " + item.UserName + " zaktualizował swój opis!");
 
-                                PopUpTimer.Enabled = true;
-                                popUpForm.labelWho.Text = item.UserName;
-                                popUpForm.labelWhat.Text = "Użytkownik zaktualizował swój opis!";
-                                popUpForm.ShowDialog();
+                                //PopUpTimer.Enabled = true;
+                                //popUpForm.labelWho.Text = item.UserName;
+                                //popUpForm.labelWhat.Text = "Użytkownik zaktualizował swój opis!";
+                                //popUpForm.ShowDialog();
                             }
                         }
                     }
@@ -380,7 +380,7 @@ namespace ChatTest
         {
             // Set the caption to the current time.  
             Console.WriteLine("Tick");
-            popUpForm.Hide();
+            //popUpForm.Hide();
             PopUpTimer.Enabled = false;
         }
 
