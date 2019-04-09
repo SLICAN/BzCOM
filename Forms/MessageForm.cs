@@ -1,5 +1,6 @@
-﻿
+
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -10,11 +11,15 @@ namespace ChatTest.Forms
     {
         private int CursorPosition;
 
-        private PopUpForm popUpForm = new PopUpForm();
+        //private PopUpForm popUpForm = new PopUpForm();
 
-        public string nr;
+        public DateTime messageSendTime; // Zmienna pod dokładny czas wysłania wiadomości.
+
+        public int nr;
 
         private bool messageSend = false;
+
+        private List<MessageForm> openedConnections;
 
         delegate void SetTextCallBack(string text);
 
@@ -41,28 +46,55 @@ namespace ChatTest.Forms
             int nHeightEllipse // width of ellipse
         );
 
-        public MessageForm()
+        public MessageForm(int _nr)
         {
             InitializeComponent();
+
+            this.nr = _nr;
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.AllowTransparency = true;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
 
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
-            trafficController.OnSuccessMessageSend += TrafficController_OnSuccessMessageSend;
+            trafficController.OnSuccessMessageSend += TrafficController_OnSuccessMessageSend;           
 
             webBrowser11.Navigate("about:blank");
-            webBrowser11.Document.Write("<html><head><style>body,table { font-size: 8pt; font-family: Verdana; margin: 3px 3px 3px 3px; font-color: black; } </style></head><body width=\"" + (webBrowser11.ClientSize.Width - 20).ToString() + "\">");
+            webBrowser11.Document.Write("<html><head><style>body,table { font-size: 8pt; font-family: Verdana; margin: 3px 3px 3px 3px; font-color: black; } </style>" +
+                "</head><body width=\"" + (webBrowser11.ClientSize.Width - 20).ToString() + "\">");
+
+            LoadMessages(trafficController.GetMessagesByNumber(nr));
         }
 
-        private void TrafficController_OnSuccessMessageSend(TrafficController sender, bool error)
+        public void Initialize(List<MessageForm> openedConnections)
+        {
+            this.openedConnections = openedConnections;
+            openedConnections.Add(this);
+        }
+
+        private void LoadMessages(List<Message> messages)
+        {
+            foreach(Message message in messages)
+            {
+                if (message.IsMine)
+                {
+                    TypeText("ja", message.Text, message.DateTime);
+                } else
+                {
+                    TypeText(trafficController.FindName(message.Number.ToString()), message.Text, message.DateTime);
+                }
+            }
+            
+        }
+
+
+        private void TrafficController_OnSuccessMessageSend(TrafficController sender, bool error) // Ten fragment działa
         {
             if (messageSend)
             {
                 if (!error)
                 {
-                    TypeText("ja", TextBoxMessage.Text, DateTime.Now);
+                    TypeText("ja", TextBoxMessage.Text, messageSendTime);
                     TextBoxMessage.Clear();
                     messageSend = false;
                 }
@@ -79,23 +111,23 @@ namespace ChatTest.Forms
         /// <param name="msgNow"></param>
         private void TrafficController_OnMessageReceived(TrafficController sender, Message msgNow)
         {
-            if(Int32.Parse(nr) == msgNow.Number)
+            if(nr == msgNow.Number)
             {
                 TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime);
-                
-
-                if (CheckOpened(Text))
+               
+                //MessageBox.Show(msgNow.Text);
+                /*if (CheckOpened(Text))
                 {
                     //MessageBox.Show("OTWARTE OKNO");
                 }
                 else
                 {
-                    //MessageBox.Show("NIE OTWARTE OKNO");
+                    MessageBox.Show("NIE OTWARTE OKNO");
                     //timer1.Enabled = true;
                     popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
                     popUpForm.labelWhat.Text = msgNow.Text;
                     popUpForm.ShowDialog();
-                }
+                }*/                
             }
             
         }
@@ -105,12 +137,23 @@ namespace ChatTest.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+
+        // Ważna informacja względem możliwej chęci użycia userData:
+        // Parametr ten służy do przesyłania dodatkowych informacji takich jak "czy drugi użytkownik pisze w tej chwili 
+        // wiadomość". Obecnie ta zmienna jest wykorzystywana do przechowywania dokładnego czasu wysłania wiadomości
+        // dzięki czemu i u nadawcy jak i u odbiorcy czas dokładnie się zgadza.
+        // Jednakże, jeżeli ktoś będzie chciał chciał dodatkowo wykorzystać ten parametr, należy będzie
+        // stworzyć interpreter który oddzieli informacje o czasie, jakiejś dodatkowej rzeczy
+        // i ich nie pomyli. W przeciwnym wypadku będzie walić błędami.
+        //
+        // Bezpośredni odczyt wiadomości: Klasa "XMLInterpreter.cs", funkcja "GetSMSReceive_EV()"
         private void ButtonSend_Click(object sender, EventArgs e)
         {            
             if (trafficController.GetState() == State.OpenedGate && !TextBoxMessage.Text.Equals(""))
             {
+                messageSendTime = System.DateTime.Now;
                 /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
-                trafficController.SMSSend(nr, null, TextBoxMessage.Text, "", null);
+                trafficController.SMSSend(nr.ToString(), null, TextBoxMessage.Text, "", "" + messageSendTime);
                 messageSend = true;
             }
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
@@ -260,6 +303,7 @@ namespace ChatTest.Forms
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            openedConnections.Remove(this);
             this.Close();
         }
 
