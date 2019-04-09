@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -262,10 +262,13 @@ namespace ChatTest
                         i++;
                         continue;
                     }
-
-                    message.DateTime = Convert.ToDateTime(packet.SMSItems[0].Receive_EV[0].RecvTime);
+                    
+                    message.DateTime = Convert.ToDateTime(packet.SMSItems[0].Receive_EV[0].UserData);
                     message.Number = Convert.ToInt32(packet.SMSItems[0].Receive_EV[0].Number);
                     message.Text = packet.SMSItems[0].Receive_EV[0].Text;
+                    //message.userData = COŚ;  Jakby w przyszłości było potrzebne to można wykorzystać.
+                    // Najpierw jednak sprawdzić adnotację względem userData w klasie "Messageform.cs"
+                    // bo ta może być ciągle wykorzystywana.
                     packet.SMSItems[0].Receive_EV = null;
                     TrafficController.asyncData.Remove(packet);
                 }
