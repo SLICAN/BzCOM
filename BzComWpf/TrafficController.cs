@@ -7,7 +7,6 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using Brushes = System.Windows.Media.Brushes;
 
 namespace BzCOMWpf
 {
@@ -214,6 +213,7 @@ namespace BzCOMWpf
             }
         }
 
+        
         public void GetChangedStatus()
         {
             List<User> users = xmlInterpreter.GetChangedStatus();
@@ -221,33 +221,6 @@ namespace BzCOMWpf
                 return;
             OnUpdateStatus?.Invoke(this, users);
         }
-
-       /* public List<User> SetColor(List<User> listToSet)
-        {
-            List<User> users = new List<User>();
-            foreach (var user in listToSet)
-            {
-                if (user.UserState == Status.AVAILABLE)
-                {
-                    user.StateColor = Brushes.GreenYellow;
-                }
-                if (user.UserState == Status.BRB)
-                {
-                    user.StateColor = Brushes.Lavender;
-                }
-                else if (user.UserState == Status.BUSY)
-                {
-                    user.StateColor = Brushes.Red;
-                }
-                else if (user.UserState == Status.UNAVAILABLE)
-                {
-                    user.StateColor = Brushes.Purple;
-                }
-                users.Add(user);
-            }
-
-            return users;
-        }*/
 
         public static ConcurrentDictionary<string, XCTIP> responses = new ConcurrentDictionary<string, XCTIP>();
         public static List<XCTIP> asyncData = new List<XCTIP>();
@@ -370,6 +343,17 @@ namespace BzCOMWpf
                     currentNumber = item.UserNumber;
             });
             return currentNumber;
+        }
+
+        public string GetDescriptionByNumber(string number)
+        {
+            string description = "";
+            xmlInterpreter.UserInfo.ForEach(item =>
+            {
+                if (number == item.UserNumber)
+                    description = item.UserDesc;
+            });
+            return description;
         }
 
         public bool protection_unavailable(string name)

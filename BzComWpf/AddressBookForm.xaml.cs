@@ -23,8 +23,8 @@ namespace BzCOMWpf
     public partial class AddressBookForm : Window
     {
         private string currentNumber;
-
-        private ListViewItem item;
+        private string descrption;
+        //private ListViewItem item;
 
         private List<ChatMessage> openedConnections;
 
@@ -49,14 +49,12 @@ namespace BzCOMWpf
             trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
 
-            foreach (var item in Enum.GetValues(typeof(Status)))
-            {
-                if (item.ToString() != Status.UNKNOWN.ToString())
-                    ComboBoxStatus.Items.Add(item);
-            }
 
+            openedConnections = new List<ChatMessage>();
+            
         }
 
+        #region TrafficController
         private void TrafficController_OnMessageReceived(TrafficController sender, Message msgNow)
         {
             bool isConnectionOpened = false;
@@ -64,6 +62,7 @@ namespace BzCOMWpf
                 if (msgNow.Number == messageForm.nr)
                     isConnectionOpened = true;
 
+            
             if (!isConnectionOpened)
             {
 
@@ -103,37 +102,13 @@ namespace BzCOMWpf
         /// <param name="sender"></param>
         /// <param name="users"></param>
        private void TrafficController_OnUpdateStatus(TrafficController sender, List<User> users)
-        {
+        {          
             EditBook(users);
         }
 
-        /// <summary>
-        /// Symuluje hint'a
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxDescription_Enter(object sender, EventArgs e)
-        {
-            if (TextBoxDescription.Text == "Wpisz i naciśnij enter")
-            {
-                TextBoxDescription.Text = "";
-                
-            }
-        }
+        #endregion
 
-        /// <summary>
-        /// Symuluje hint'a
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxDescription_Leave(object sender, EventArgs e)
-        {
-            if (TextBoxDescription.Text == "")
-            {
-                TextBoxDescription.Text = "Wpisz i naciśnij enter";
-               // TextBoxDescription.ForeColor = Color.Silver;
-            }
-        }
+        #region Ksiazka
         /// <summary>
         /// Ustaw książkę, ukryj pierszą kolumnę 
         /// (będzie ona służyła tylko do rozpoznawania statusów w kodzie, 
@@ -155,14 +130,14 @@ namespace BzCOMWpf
                 Dispatcher.Invoke(f, new object[] { bookList });
             }
         }
-
         /// <summary>
         /// Edytuj książkę po otrzymaniu zmian, sortuj kontakty od dostępnego
         /// </summary>
         /// <param name="bookList"></param>
         private void EditBook(List<User> bookList)
         {
-           if (ListViewAddressBook.Dispatcher.Thread == Thread.CurrentThread)
+            
+            if (ListViewAddressBook.Dispatcher.Thread == Thread.CurrentThread)
             {
                      foreach (var user_item in bookList)
                      {
@@ -172,7 +147,6 @@ namespace BzCOMWpf
                         {
                             if (user_item.UserState != Status.UNKNOWN)
                             {
-
                                 item.UserState = user_item.UserState.ToString();
                                 Console.WriteLine(item.UserState);
                                 //view.SortDescriptions.Add(new SortDescription("UserState", ListSortDirection.Ascending));
@@ -187,81 +161,13 @@ namespace BzCOMWpf
                     }                         
                 ListViewAddressBook.Items.Refresh();
             }
+
             else
             {
                 SetUsersCallBack f = new SetUsersCallBack(EditBook);
                 Dispatcher.Invoke(f, new object[] { bookList });
             }
         }
-
-
-        /// <summary>
-        /// Zmień status w ComboBox'ie
-        /// </summary>
-        /// <param name="text"></param>
-        private void ChangeComboBox(string text)
-        {
-            ComboBoxStatus.Text = text;
-        }
-
-
-        private void TextBoxDescription_MouseClick(object sender, MouseEventArgs e)
-        {
-            this.TextBoxDescription.Text = String.Empty;
-        }
-
-        private void CloseButton_Click_1(object sender, EventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-      /*  private void PopUpTimer_Tick(object sender, EventArgs e)
-        {
-            // Set the caption to the current time.  
-            Console.WriteLine("Tick");
-            //popUpForm.Hide();
-            PopUpTimer.Enabled = false;
-        }*/
-
-        //private void TitlePanel_MouseDown(object sender, MouseEventArgs e)
-        //{
-        //    if (e.Button == MouseButtons.Left)
-        //    {
-        //        ReleaseCapture();
-        //        SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-        //    }
-        //}
-
-        private void buttonExitMain_Click(object sender, EventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-        /// <summary>
-        /// Wyślij informacje o zmianie statusu na serwer
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ComboBoxStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate)
-                trafficController.SetStatus((Status)Enum.Parse(typeof(Status), ComboBoxStatus.Text));
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            trafficController.CloseConnection();
-        }
-        /// <summary>
-        /// Wyślij chęć zmiany opisu na serwer
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxDescription_KeyDown(object sender, KeyEventArgs e)
-        {
-            if ((trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate) && e.Key == Key.Enter)
-                trafficController.SetDescription(ComboBoxStatus.Text, TextBoxDescription.Text);
-        }
-
 
         /// <summary>
         /// Podwójne kliknięcie na danym kontakcie otwiera z nim rozmowę, numer telefonu zostaje zapisany jako bieżący
@@ -276,13 +182,15 @@ namespace BzCOMWpf
                 currentNumber = trafficController.FindNumber(selectedItem.UserName);
                 trafficController.SetState(State.OpenedGate);
 
-
-                if (!trafficController.protection_unavailable(selectedItem.UserState))
+                
+                if (!trafficController.protection_unavailable(selectedItem.UserName))
                 {
                     ChatMessage messageForm = new ChatMessage(Int32.Parse(currentNumber));
                     trafficController.SetState(State.OpenedGate);
                     messageForm.Show();
+                    //messageForm.nr = Int32.Parse(currentNumber);
                     messageForm.Initialize(openedConnections);
+                    /// Opcja z messageform initialize moze zadziala
                 }
 
             }
@@ -290,7 +198,134 @@ namespace BzCOMWpf
                 MessageBox.Show("Najpierw musisz ustanowić połączenie!", "Warning");
 
         }
+        #endregion
+
+        #region ComboBoxStatus
+        private void ComboBoxStatus_Loaded(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in Enum.GetValues(typeof(Status)))
+            {
+               if (item.ToString() != Status.UNKNOWN.ToString())
+
+                    ComboBoxStatus.Items.Add(item);
+            }
+           // ComboBoxStatus.ItemsSource = Enum.GetValues(typeof(Status));
+            ComboBoxStatus.SelectedItem = ComboBoxStatus.Items[0];
+        }
+
+        /// <summary>
+        /// Wyślij informacje o zmianie statusu na serwer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ComboBoxStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate)
+                trafficController.SetStatus((Status)Enum.Parse(typeof(Status), ComboBoxStatus.SelectedItem.ToString()));
+            Console.WriteLine(ComboBoxStatus.Text);
+        }
+
+        /// <summary>
+        /// Zmień status w ComboBox'ie
+        /// </summary>
+        /// <param name="text"></param>
+        private void ChangeComboBox(string text)
+        {
+            ComboBoxStatus.Text = text;
+        }
+
+        #endregion
+
+        #region Opis
+        /// <summary>
+        /// Wyślij chęć zmiany opisu na serwer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxDescription_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate) && e.Key == Key.Enter)
+                trafficController.SetDescription(ComboBoxStatus.Text, TextBoxDescription.Text);
+        }
+        /// <summary>
+        /// Symuluje hint'a
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxDescription_Leave(object sender, EventArgs e)
+        {
+            if (TextBoxDescription.Text == "")
+            {
+                TextBoxDescription.Text = "Wpisz i naciśnij enter";
+                // TextBoxDescription.ForeColor = Color.Silver;
+            }
+        }
+
+        /// <summary>
+        /// Symuluje hint'a
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxDescription_Enter(object sender, EventArgs e)
+        {
+            if (TextBoxDescription.Text == "Wpisz i naciśnij enter")
+            {
+                TextBoxDescription.Text = "";
+
+            }
+        }
+        #endregion
+
+
+
+
+
+        private void CloseButton_Click_1(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        /*  private void PopUpTimer_Tick(object sender, EventArgs e)
+          {
+              // Set the caption to the current time.  
+              Console.WriteLine("Tick");
+              //popUpForm.Hide();
+              PopUpTimer.Enabled = false;
+          }*/
+
+        //private void TitlePanel_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    if (e.Button == MouseButtons.Left)
+        //    {
+        //        ReleaseCapture();
+        //        SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+        //    }
+        //}
+
+        private void buttonExitMain_Click(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            trafficController.CloseConnection();
+        }
+
+        private void MessageBoxButtons_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            descrption = trafficController.GetDescriptionByNumber("102");
+            TextBoxDescription.Text = descrption;
+        }
     }
+
+
 
     public class MyItem
     {

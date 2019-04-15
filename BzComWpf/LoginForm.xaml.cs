@@ -26,16 +26,16 @@ namespace BzCOMWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        int padlock = 0;
-        int kolor = 0;
-        bool drag = false;
+        //int padlock = 0;
+   
+        //bool drag = false;
         Point start_point = new Point(0, 0);
  
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
 
         //private PopUpForm popUpForm = new PopUpForm();
 
-        private bool isClick = false;
+        //private bool isClick = false;
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -44,17 +44,7 @@ namespace BzCOMWpf
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-            int nLeftRect,     // x-coordinate of upper-left corner
-            int nTopRect,      // y-coordinate of upper-left corner
-            int nRightRect,    // x-coordinate of lower-right corner
-            int nBottomRect,   // y-coordinate of lower-right corner
-            int nWidthEllipse, // height of ellipse
-            int nHeightEllipse // width of ellipse
-        );
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -75,16 +65,6 @@ namespace BzCOMWpf
                 return;
             }
         }
-        private const int CS_DropShadow = 0x00020000;
-        //protected override CreateParams CreateParams
-        //{
-        //    get
-        //    {
-        //        CreateParams cp = base.CreateParams;
-        //        cp.ClassStyle |= CS_DropShadow;
-        //        return cp;
-        //    }
-        //}
 
         private void TrafficController_OnLoggedIn(TrafficController sender, string info)
         {

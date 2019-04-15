@@ -23,13 +23,11 @@ namespace BzCOMWpf
     {
         private int CursorPosition;
 
-        //private PopUpForm popUpForm = new PopUpForm();
-
         public int nr;
 
         private bool messageSend = false;
 
-        private List<ChatMessage> openedConnections { get; set; }
+        private List<ChatMessage> openedConnections;
 
         delegate void SetTextCallBack(string text);
 
@@ -43,14 +41,16 @@ namespace BzCOMWpf
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
+
         public ChatMessage(int _nr)
         {
             InitializeComponent();
             this.nr = _nr;
 
-           
+
             trafficController.OnSuccessMessageSend += TrafficController_OnSuccessMessageSend;
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
+
             Webbrowser.Navigate("about:blank");
             Webbrowser.Document.Write("<html><head><style>body,table { font-size: 8pt; font-family: Verdana; margin: 3px 3px 3px 3px; font-color: black; } </style>" +
                 "</head><body width=\"" + (Webbrowser.ClientSize.Width - 20).ToString() + "\">");
@@ -58,9 +58,10 @@ namespace BzCOMWpf
             LoadMessages(trafficController.GetMessagesByNumber(nr));
         }
 
-        public void Initialize(ChatMessage connection)
-        {   
-            openedConnections.Add(connection);
+        public void Initialize(List<ChatMessage> _openedConnection)
+        {
+            openedConnections = _openedConnection;
+            openedConnections.Add(this);
         }
 
         private void LoadMessages(List<Message> messages)
@@ -101,12 +102,11 @@ namespace BzCOMWpf
         private void TrafficController_OnMessageReceived(TrafficController sender, Message msgNow)
         {    
             if (nr == msgNow.Number)
-            {
-                
+            {         
                 TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime);
             }
             else
-            {
+            {        
                 Console.WriteLine("MSG" + msgNow.Number);
             }
 
@@ -126,7 +126,7 @@ namespace BzCOMWpf
             SetScroll();
         }
 
-        /// <summary>
+       /// <summary>
         /// Scrolluj na dół
         /// </summary>
         private void SetScroll()
@@ -143,7 +143,7 @@ namespace BzCOMWpf
             }
         }
 
-        /// <summary>
+      /// <summary>
         /// Wpisz na webBrowser
         /// </summary>
         /// <param name="text"></param>
@@ -191,6 +191,11 @@ namespace BzCOMWpf
                 messageSend = true;
             }
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
+        }
+
+        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+
         }
     }
 }

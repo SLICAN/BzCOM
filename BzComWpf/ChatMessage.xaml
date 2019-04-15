@@ -9,11 +9,13 @@
         Title="ChatMessage" Height="460" Width="380" Closing="Window_Closing">
     <Border>
         <Grid>
-            <WindowsFormsHost HorizontalAlignment="Left" Height="341" Margin="10,10,0,0" VerticalAlignment="Top" Width="352">
+
+            <TextBox x:Name="TextBoxMessage" HorizontalAlignment="Left" Height="23" Margin="86,378,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <Button x:Name="ButtonSend" Content="Send" HorizontalAlignment="Left" Margin="235,378,0,0" VerticalAlignment="Top" Width="75" Click="ButtonSend_Click_1"/>
+            <WindowsFormsHost HorizontalAlignment="Left" Height="351" Margin="10,22,0,0" VerticalAlignment="Top" Width="352">
                 <wf1:WebBrowser x:Name="Webbrowser"/>
             </WindowsFormsHost>
-            <TextBox x:Name="TextBoxMessage" HorizontalAlignment="Left" Height="23" Margin="86,378,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-            <Button x:Name="ButtonSend" Content="Send" HorizontalAlignment="Left" Margin="235,378,0,0" VerticalAlignment="Top" Width="75" Click="ButtonSend_Click_1"/>
+            
         </Grid>
     </Border>
 </Window>

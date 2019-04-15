@@ -66,9 +66,6 @@
     <Compile Include="ChatMessage.xaml.cs">
       <DependentUpon>ChatMessage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MessagePage.xaml.cs">
-      <DependentUpon>MessagePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Modules\Contact.cs" />
     <Compile Include="Modules\GSM.cs" />
     <Compile Include="Modules\Log.cs" />
@@ -105,10 +102,6 @@
       <DependentUpon>LoginForm.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MessagePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modules\Message.cs" />
