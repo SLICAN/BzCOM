@@ -1,0 +1,19 @@
+﻿<Window x:Class="BzCOMWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BzCOMWpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="486.351" Width="366.295">
+    <Grid>
+        <TextBox x:Name="TextBoxIp" HorizontalAlignment="Left" Height="23" Margin="0,35,0,0" TextWrapping="Wrap" Text="221.122.223.102" VerticalAlignment="Top" Width="101" TextChanged="TextBoxIp_TextChanged"/>
+        <Button x:Name="ButtonLogin" Content="Button" HorizontalAlignment="Left" Margin="133,253,0,0" VerticalAlignment="Top" Width="75" Click="ButtonLogin_Click"/>
+        <TextBox x:Name="TextBoxPort" HorizontalAlignment="Left" Height="23" Margin="0,63,0,0" TextWrapping="Wrap" Text="5529" VerticalAlignment="Top" Width="101" TextChanged="TextBoxPort_TextChanged"/>
+        <TextBox x:Name="TextBoxLogin" HorizontalAlignment="Left" Height="23" Margin="114,180,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TextBoxPassword" HorizontalAlignment="Left" Height="23" Margin="114,208,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <CheckBox x:Name="SaveToFileCheckBox" Content="CheckBox" HorizontalAlignment="Left" Margin="30,241,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <Label x:Name="labelLoginInfo" Content="Label" HorizontalAlignment="Left" Margin="151,320,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
