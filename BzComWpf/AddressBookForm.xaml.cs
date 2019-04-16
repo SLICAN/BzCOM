@@ -26,8 +26,8 @@ namespace BzCOMWpf
         private string descrption;
         //private ListViewItem item;
 
-        private List<ChatMessage> openedConnections;
-
+        private List<ChatPage> openedConnections;
+        public ChatMessage messageForm;
         delegate void SetUsersCallBack(List<User> users);
 
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
@@ -48,9 +48,10 @@ namespace BzCOMWpf
             trafficController.OnAddressBookGet += TrafficController_OnAddressBookGet;
             trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
-
-
-            openedConnections = new List<ChatMessage>();
+            messageForm = new ChatMessage();
+            
+            messageForm.Hide();
+            openedConnections = new List<ChatPage>();
             
         }
 
@@ -58,7 +59,7 @@ namespace BzCOMWpf
         private void TrafficController_OnMessageReceived(TrafficController sender, Message msgNow)
         {
             bool isConnectionOpened = false;
-            foreach (ChatMessage messageForm in openedConnections)
+            foreach (ChatPage messageForm in openedConnections)
                 if (msgNow.Number == messageForm.nr)
                     isConnectionOpened = true;
 
@@ -185,12 +186,14 @@ namespace BzCOMWpf
                 
                 if (!trafficController.protection_unavailable(selectedItem.UserName))
                 {
-                    ChatMessage messageForm = new ChatMessage(Int32.Parse(currentNumber));
+                    
                     trafficController.SetState(State.OpenedGate);
                     messageForm.Show();
                     //messageForm.nr = Int32.Parse(currentNumber);
+                    messageForm.ConnectionsListView.Items.Add(new ConnectionItem { UserName = selectedItem.UserName, UserNumber = currentNumber });
                     messageForm.Initialize(openedConnections);
                     /// Opcja z messageform initialize moze zadziala
+                   
                 }
 
             }
@@ -332,6 +335,7 @@ namespace BzCOMWpf
         public string UserState { get; set; }
         public string UserName { get; set; }
         public string UserDesc { get; set; }
+        public string UserNumber { get; set; }
            
     }
 }

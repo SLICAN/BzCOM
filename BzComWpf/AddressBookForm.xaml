@@ -7,19 +7,13 @@
         mc:Ignorable="d"
         Title="AddressBookForm" Height="574.809" Width="406.261" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid Margin="0,0,2,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="16*"/>
-            <ColumnDefinition Width="163*"/>
-            <ColumnDefinition Width="45*"/>
-            <ColumnDefinition Width="150*"/>
-            <ColumnDefinition Width="22*"/>
-        </Grid.ColumnDefinitions>
         <ListView x:Name="ListViewAddressBook" HorizontalAlignment="Left" Height="339" Margin="10,76,0,0" VerticalAlignment="Top" Width="339" Grid.ColumnSpan="4" MouseDoubleClick="ListViewAddressBook_DoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding UserState}"/>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding UserName}"/>
                     <GridViewColumn Header="Desc" DisplayMemberBinding="{Binding UserDesc}"/>
+                    <GridViewColumn Header="NUmber" DisplayMemberBinding="{Binding UserNumber}"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>

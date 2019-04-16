@@ -1,0 +1,22 @@
+﻿<Page x:Class="BzCOMWpf.ChatPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BzCOMWpf"  
+      xmlns:uc1="http://www.quickzip.org/BaseControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="450
+      "
+      Title="">
+    <Grid>
+        <StackPanel>
+            <TextBlock x:Name="Chat" Background="AliceBlue" Height="300" FontFamily="Segoe Script" FontSize="20"/>
+            <TextBox x:Name="TextBoxMessage" Height="60" Background="Cyan">
+                
+            </TextBox>
+            <Button Content="Send" Height="20" Click="Button_Click"/>
+        </StackPanel>
+        
+    </Grid>
+</Page>
