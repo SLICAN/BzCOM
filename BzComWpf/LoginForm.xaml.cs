@@ -119,5 +119,56 @@ namespace BzCOMWpf
         {
             trafficController.SetPort(Int32.Parse(TextBoxPort.Text));
         }
+
+        private void MenuPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+           
+        }
+
+        private void MenuPanel_DragEnter(object sender, DragEventArgs e)
+        {
+            
+
+            // Begin dragging the window
+          
+        }
+
+        private void MenuPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void ButtonExit_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void ButtonExit_MouseEnter(object sender, MouseEventArgs e)
+        {
+            buttonExit.Background = Brushes.Orange;
+        }
+
+        private void ButtonExit_MouseLeave(object sender, MouseEventArgs e)
+        {
+           buttonExit.Background = new SolidColorBrush(Color.FromRgb(0, 10, 18 ));
+        }
+
+        private void ButtonExit_MouseMove(object sender, MouseEventArgs e)
+        {
+            buttonExit.Background = Brushes.Orange;
+        }
     }
-}
+
+    }
+

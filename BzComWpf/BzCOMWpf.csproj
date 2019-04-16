@@ -146,6 +146,31 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\GrafikiPanel\LogoBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiPanel\ExitPanel.png" />
+    <Resource Include="Images\GrafikiPanel\LogoPanel.png" />
+    <Resource Include="Images\GrafikiPanel\MinimizePanel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiPanel\settingsWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiPanel\settingsAqua.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiPanel\lock.png" />
+    <Resource Include="Images\GrafikiPanel\lockAqua.png" />
+    <Resource Include="Images\GrafikiPanel\unlock.png" />
+    <Resource Include="Images\GrafikiPanel\unlockAqua.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiPanel\person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiPanel\PersonAqua.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
