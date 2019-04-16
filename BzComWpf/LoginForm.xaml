@@ -5,15 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BzCOMWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="486.351" Width="366.295">
-    <Grid>
+        
+        Title="BzCOM" Height="502" Width="417" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
+    <Grid Background="#212121">
+        <Grid  Height="32" Background="Aqua" VerticalAlignment="Top">
+        </Grid>
         <TextBox x:Name="TextBoxIp" HorizontalAlignment="Left" Height="23" Margin="0,35,0,0" TextWrapping="Wrap" Text="221.122.223.102" VerticalAlignment="Top" Width="101" TextChanged="TextBoxIp_TextChanged"/>
-        <Button x:Name="ButtonLogin" Content="Button" HorizontalAlignment="Left" Margin="133,253,0,0" VerticalAlignment="Top" Width="75" Click="ButtonLogin_Click"/>
-        <TextBox x:Name="TextBoxPort" HorizontalAlignment="Left" Height="23" Margin="0,63,0,0" TextWrapping="Wrap" Text="5529" VerticalAlignment="Top" Width="101" TextChanged="TextBoxPort_TextChanged"/>
-        <TextBox x:Name="TextBoxLogin" HorizontalAlignment="Left" Height="23" Margin="114,180,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="TextBoxPassword" HorizontalAlignment="Left" Height="23" Margin="114,208,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <CheckBox x:Name="SaveToFileCheckBox" Content="CheckBox" HorizontalAlignment="Left" Margin="30,241,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <Label x:Name="labelLoginInfo" Content="Label" HorizontalAlignment="Left" Margin="151,320,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonLogin" FontSize="11pt" BorderThickness="0" Content="Login" HorizontalAlignment="Left" Margin="114,282,0,0" VerticalAlignment="Top" Width="203" Click="ButtonLogin_Click" Height="31" Background="#41AECF"/>
+        <TextBox x:Name="TextBoxPort"  HorizontalAlignment="Left" Height="23" Margin="0,63,0,0" TextWrapping="Wrap" Text="5529" VerticalAlignment="Top" Width="101" TextChanged="TextBoxPort_TextChanged"/>
+        <TextBox x:Name="TextBoxLogin" FontFamily="arial" BorderThickness="0"  FontSize="11pt" Foreground="White" Background="#212121" HorizontalAlignment="Left" Height="19" Margin="139,192,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="178"/>
+        <TextBox x:Name="TextBoxPassword" FontFamily="arial" BorderThickness="0" FontSize="11pt" Background="#212121" Foreground="White" HorizontalAlignment="Left" Height="19" Margin="139,232,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="178"/>
+        <CheckBox x:Name="SaveToFileCheckBox" Foreground="Silver" Content="CheckBox" HorizontalAlignment="Left" Margin="163,343,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <Label x:Name="labelLoginInfo" Content="Label" HorizontalAlignment="Left" Margin="163,413,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.912,1.61"/>
+        <Image HorizontalAlignment="Left" Height="18" Margin="114,193,0,0" VerticalAlignment="Top" Width="24" RenderTransformOrigin="0.464,-1.217"/>
+        <Separator HorizontalAlignment="Left" Background="White" Height="1" Margin="114,216,0,0" VerticalAlignment="Top" Width="203"/>
+        <Separator HorizontalAlignment="Left" Background="White" Height="1" Margin="114,255,0,0" VerticalAlignment="Top" Width="203"/>
+        <Button Content="Button" BorderThickness="0" HorizontalAlignment="Left" Margin="378,0,0,0" VerticalAlignment="Top" Width="39" Height="32"/>
+        <Button Content="Button" BorderThickness="0" HorizontalAlignment="Left" Margin="339,0,0,0" VerticalAlignment="Top" Width="39" Height="32"/>
 
     </Grid>
 </Window>
