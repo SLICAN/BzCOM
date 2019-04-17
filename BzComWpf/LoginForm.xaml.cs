@@ -26,8 +26,12 @@ namespace BzCOMWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        int padlock = 0;
+        int kolor = 0;
+
         //int padlock = 0;
-   
+
         //bool drag = false;
         Point start_point = new Point(0, 0);
  
@@ -58,7 +62,7 @@ namespace BzCOMWpf
                 string jsonRead = File.ReadAllText(path2 + "BzCOMfile.json");
                 dynamic resultRead = new JavaScriptSerializer().Deserialize<dynamic>(jsonRead);
                 TextBoxLogin.Text = resultRead["login"];
-                TextBoxPassword.Text = resultRead["password"];
+                TextBoxPassword.Password = resultRead["password"];
             }
             else
             {
@@ -77,7 +81,7 @@ namespace BzCOMWpf
                     SaveToJSON loginFile = new SaveToJSON()
                     {
                         login = TextBoxLogin.Text,
-                        password = TextBoxPassword.Text
+                        password = TextBoxPassword.Password
                     };
                     string jsonWrite = new JavaScriptSerializer().Serialize(loginFile);
                     //File.WriteAllText(@".\file.json", jsonWrite);
@@ -106,7 +110,7 @@ namespace BzCOMWpf
             labelLoginInfo.Content = "";
             if (trafficController.GetState() == State.Connected)
             {
-                trafficController.LogIn(TextBoxLogin.Text, TextBoxPassword.Text);
+                trafficController.LogIn(TextBoxLogin.Text, TextBoxPassword.Password);
             }
         }
 
@@ -120,24 +124,11 @@ namespace BzCOMWpf
             trafficController.SetPort(Int32.Parse(TextBoxPort.Text));
         }
 
-        private void MenuPanel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
+     
 
-           
-        }
+     
 
-        private void MenuPanel_DragEnter(object sender, DragEventArgs e)
-        {
-            
-
-            // Begin dragging the window
-          
-        }
-
-        private void MenuPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
+    
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
@@ -149,24 +140,74 @@ namespace BzCOMWpf
             this.WindowState = WindowState.Minimized;
         }
 
-        private void ButtonExit_MouseDown(object sender, MouseButtonEventArgs e)
+        
+
+     
+        private void Glowny_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+      
+
+        private void TextBoxLogin_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (TextBoxLogin.Text == "Login")
+            {
+                TextBoxLogin.Text = "";
+                TextBoxLogin.Foreground = Brushes.White;
+               
+
+            }
+
+            separatorLogin.Background = Brushes.Aqua;   
+            imageLogin.Source = new BitmapImage(new Uri(@"/Images/GrafikiPanel/PersonAqua.png", UriKind.Relative));
+        }
+
+        
+        private void TextBoxLogin_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+            if (TextBoxLogin.Text=="")
+            {
+
+                TextBoxLogin.Text = "Login";
+                TextBoxLogin.Foreground = Brushes.Silver;
+
+            }
+           
+
+
+            separatorLogin.Background = Brushes.White;
+            imageLogin.Source = new BitmapImage(new Uri(@"/Images/GrafikiPanel/person.png", UriKind.Relative));
+        }
+
+        private void TextBoxLogin_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void ButtonExit_MouseEnter(object sender, MouseEventArgs e)
+        private void TextBoxLogin_Loaded(object sender, RoutedEventArgs e)
         {
-            buttonExit.Background = Brushes.Orange;
+         
+
         }
 
-        private void ButtonExit_MouseLeave(object sender, MouseEventArgs e)
+        private void TextBoxPassword_LostFocus(object sender, RoutedEventArgs e)
         {
-           buttonExit.Background = new SolidColorBrush(Color.FromRgb(0, 10, 18 ));
+            separatorPassword.Background = Brushes.White;
+            imagePassword.Source = new BitmapImage(new Uri(@"/Images/GrafikiPanel/lock.png", UriKind.Relative));
         }
 
-        private void ButtonExit_MouseMove(object sender, MouseEventArgs e)
+        private void TextBoxPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            buttonExit.Background = Brushes.Orange;
+            separatorPassword.Background = Brushes.Aqua;
+            imagePassword.Source = new BitmapImage(new Uri(@"/Images/GrafikiPanel/lockAqua.png", UriKind.Relative));
+        }
+
+        private void ImagePassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 
