@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Windows.Threading;
 
 namespace BzCOMWpf
 {
@@ -28,18 +28,26 @@ namespace BzCOMWpf
         delegate void SetTextCallBack(string text);
         delegate void SetScrollCallBack();
         private bool messageSend = false;
-
+        
         public ChatPage(int idx, int _nr)
         {
            
             nr = _nr;
-           
+       
             InitializeComponent();
             Title = nr.ToString();
             trafficController.OnSuccessMessageSend += TrafficController_OnSuccessMessageSend;
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
+           /* Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
+            {
+                var navWindow = Window.GetWindow(this) as NavigationWindow;
+                if (navWindow != null) navWindow.ShowsNavigationUI = false;
+            }));*/
+        
+            
 
             LoadMessages(trafficController.GetMessagesByNumber(nr));
+         
         }
 
         private void LoadMessages(List<Message> messages)
@@ -99,7 +107,7 @@ namespace BzCOMWpf
         public void TypeText(string who, string message, DateTime datatime)
         {
             //Chat.Text += who + " : " + message;
-            SetTextHTML(who + "" + datatime + "\n");
+            SetTextHTML(who + ": " + datatime + "\n");
             SetTextHTML("" + message + "\n");
             SetTextHTML("");
             //SetScroll();
@@ -132,9 +140,7 @@ namespace BzCOMWpf
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
         }
 
-        private void HtmlTextBlock_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
+
+

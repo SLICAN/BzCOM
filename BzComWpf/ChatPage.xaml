@@ -11,12 +11,12 @@
       Title="">
     <Grid>
         <StackPanel>
-            <TextBlock x:Name="Chat" Background="AliceBlue" Height="300" FontFamily="Segoe Script" FontSize="20"/>
+            <TextBlock x:Name="Chat" Height="320" FontFamily="Segoe UI Light" FontSize="14" />
             <TextBox x:Name="TextBoxMessage" Height="60" Background="Cyan">
-                
             </TextBox>
             <Button Content="Send" Height="20" Click="Button_Click"/>
         </StackPanel>
-        
+
     </Grid>
 </Page>
+

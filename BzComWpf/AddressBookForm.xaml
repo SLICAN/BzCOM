@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AddressBookForm" Height="574.809" Width="406.261" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid Margin="0,0,2,0">
-        <ListView x:Name="ListViewAddressBook" HorizontalAlignment="Left" Height="339" Margin="10,76,0,0" VerticalAlignment="Top" Width="339" Grid.ColumnSpan="4" MouseDoubleClick="ListViewAddressBook_DoubleClick">
+        <ListView x:Name="ListViewAddressBook" HorizontalAlignment="Left" Height="339" Margin="10,76,0,0" VerticalAlignment="Top" Width="339" Grid.ColumnSpan="4" MouseDoubleClick="ListViewAddressBook_DoubleClick" Tag="Lista">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding UserState}"/>

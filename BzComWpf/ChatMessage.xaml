@@ -6,18 +6,25 @@
         xmlns:local="clr-namespace:BzCOMWpf"
         xmlns:wf1="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         mc:Ignorable="d"
-        Title="ChatMessage" Height="440" Width="600" Closing="Window_Closing" Background="#FF222222">
+        Title="ChatMessage" Height="440" Width="600" Closing="Window_Closing">
     <Border>
-        <DockPanel Background="Aqua">
-            <ListView x:Name="ConnectionsListView" Width="150" MouseDoubleClick="ConnectionsListView_MouseDoubleClick">
+        <DockPanel Background="#FF444444">
+            <ListView x:Name="ConnectionsListView" Width="200" MouseDoubleClick="ConnectionsListView_MouseDoubleClick">
                 <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding UserName}"/>
-                        <GridViewColumn Header="Numer" DisplayMemberBinding="{Binding UserNumber}"/>
+                    <GridView x:Name="GridViewPanel">
+                        <GridViewColumn Header="Nazwa" Width="80" DisplayMemberBinding="{Binding UserName}"/>
+                        <GridViewColumn Header="Numer" Width="50" DisplayMemberBinding="{Binding UserNumber}"/>
+                        <GridViewColumn Header="Delete">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Click="DeleteConnection" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Frame x:Name="_mainFrame" Width="450"/>
+            <Frame x:Name="_mainFrame" Width="450" NavigationUIVisibility="Hidden"/>
          </DockPanel>
     </Border>
 </Window>

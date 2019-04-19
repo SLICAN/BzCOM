@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.ComponentModel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace BzCOMWpf
 {
@@ -34,7 +35,7 @@ namespace BzCOMWpf
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
-
+        public bool znaleziony;
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
@@ -49,7 +50,7 @@ namespace BzCOMWpf
             trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
             messageForm = new ChatMessage();
-            
+       
             messageForm.Hide();
             openedConnections = new List<ChatPage>();
             
@@ -177,30 +178,53 @@ namespace BzCOMWpf
         /// <param name="e"></param>
         private void ListViewAddressBook_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+            znaleziony = false;
+            //messageForm.ConnectionsListView.Items.Add(new ConnectionItem { UserName = "test", UserNumber = "test" });
             if (trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate)
             {
                 MyItem selectedItem = (MyItem)ListViewAddressBook.SelectedItems[0];
                 currentNumber = trafficController.FindNumber(selectedItem.UserName);
                 trafficController.SetState(State.OpenedGate);
 
-                
+
                 if (!trafficController.protection_unavailable(selectedItem.UserName))
                 {
-                    
+
                     trafficController.SetState(State.OpenedGate);
                     messageForm.Show();
-                    //messageForm.nr = Int32.Parse(currentNumber);
-                    messageForm.ConnectionsListView.Items.Add(new ConnectionItem { UserName = selectedItem.UserName, UserNumber = currentNumber });
-                    messageForm.Initialize(openedConnections);
-                    /// Opcja z messageform initialize moze zadziala
-                   
+
+                    ConnectionItem connectionItem = new ConnectionItem { UserName = selectedItem.UserName, UserNumber = currentNumber };
+
+                    if (messageForm.ConnectionsListView.HasItems == true) //Sprawdz czy lista posiada itemy jesli nie to dodaj
+                    {
+                        foreach (ConnectionItem item in messageForm.ConnectionsListView.Items)
+                        {
+                            if (item.UserName == selectedItem.UserName)
+                            {
+                                znaleziony = true;
+                            }
+                        }
+                        if (znaleziony == true)                          //Jesli lista posiada juz ten item 
+                        {
+                            Console.WriteLine("Połączenie juz istnieje");
+                        }
+                        else
+                        {
+                            messageForm.ConnectionsListView.Items.Add(connectionItem);
+                            messageForm.Initialize(openedConnections);
+                        }
+                    }
+                    else
+                    {
+                        messageForm.ConnectionsListView.Items.Add(connectionItem);
+                        messageForm.Initialize(openedConnections);
+                    }
+                    }
                 }
+                else
+                    MessageBox.Show("Najpierw musisz ustanowić połączenie!", "Warning");
 
             }
-            else
-                MessageBox.Show("Najpierw musisz ustanowić połączenie!", "Warning");
-
-        }
         #endregion
 
         #region ComboBoxStatus
@@ -212,7 +236,6 @@ namespace BzCOMWpf
 
                     ComboBoxStatus.Items.Add(item);
             }
-           // ComboBoxStatus.ItemsSource = Enum.GetValues(typeof(Status));
             ComboBoxStatus.SelectedItem = ComboBoxStatus.Items[0];
         }
 
