@@ -172,5 +172,10 @@
   <ItemGroup>
     <Resource Include="Images\GrafikiPanel\PersonAqua.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiPozostale\ExitReszta.png" />
+    <Resource Include="Images\GrafikiPozostale\LogoReszta.png" />
+    <Resource Include="Images\GrafikiPozostale\MinimizeReszta.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
