@@ -16,8 +16,7 @@ using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Web.Script.Serialization;
-
-
+using System.Reflection;
 
 namespace BzCOMWpf
 {
@@ -240,6 +239,7 @@ namespace BzCOMWpf
                 TextBoxPassword.Visibility = System.Windows.Visibility.Visible;
                 TextBoxPassword.Text = PasswordBoxPassword.Password;
                 TextBoxPassword.Focus();
+                TextBoxPassword.SelectionStart = TextBoxPassword.Text.Length;
                 padlock = 1;
 
                 if(kolor==1)
@@ -260,7 +260,13 @@ namespace BzCOMWpf
                 PasswordBoxPassword.Visibility = System.Windows.Visibility.Visible;
                 TextBoxPassword.Visibility = System.Windows.Visibility.Collapsed;
                 PasswordBoxPassword.Password = TextBoxPassword.Text;
+                SetSelection(PasswordBoxPassword, (TextBoxPassword.Text).Length, 0);
                 PasswordBoxPassword.Focus();
+                SetSelection(PasswordBoxPassword, (TextBoxPassword.Text).Length, 0);
+                // PasswordBoxPassword. = PasswordBoxPassword.Password.Length;
+                //  SetSelection(PasswordBoxPassword, 2, 0);
+
+
                 padlock = 0;
 
                 if (kolor == 1)
@@ -329,11 +335,16 @@ namespace BzCOMWpf
         private void PasswordBoxPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
             TextBoxPassword.Text = PasswordBoxPassword.Password;
+            SetSelection(PasswordBoxPassword, (TextBoxPassword.Text).Length, 0);
         }
 
         private void TextBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
             PasswordBoxPassword.Password = TextBoxPassword.Text;
+        }
+        private void SetSelection(PasswordBox passwordBox, int start, int length)
+        {
+            passwordBox.GetType().GetMethod("Select", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(passwordBox, new object[] { start, length });
         }
     }
     }
