@@ -5,9 +5,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BzCOMWpf"
         mc:Ignorable="d"
-        Title="AddressBookForm" Height="574.809" Width="406.261" Closing="Window_Closing" Loaded="Window_Loaded">
-    <Grid Margin="0,0,2,0">
-        <ListView x:Name="ListViewAddressBook" HorizontalAlignment="Left" Height="339" Margin="10,76,0,0" VerticalAlignment="Top" Width="339" Grid.ColumnSpan="4" MouseDoubleClick="ListViewAddressBook_DoubleClick">
+        Title="AddressBookForm" Height="530"  Width="313" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
+    <Grid x:Name="gridGlowny" MouseDown="GridGlowny_MouseDown">
+        <DockPanel x:Name="menuPanel"  Background="#0D0D0D" Width="313" Height="25" VerticalAlignment="Top" >
+
+            <Image Source="/Images/GrafikiPozostale/LogoReszta.png"  HorizontalAlignment="Left" Stretch="None" Width="17"  Margin="10,0,0,0">
+
+
+            </Image>
+            <Label HorizontalAlignment="Left" FontWeight="Bold"   Height="23" FontFamily="arial" Foreground="Silver" VerticalContentAlignment="Center" FontSize="8pt" Content="BzCOM" Width="58"  />
+
+            <Button x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#0D0D0D"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Red"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Image  Source="/Images/GrafikiPozostale/ExitReszta.png" Width="12" Height="12" RenderTransformOrigin="0.629,0.552"></Image>
+
+
+            </Button>
+            <Button x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
+
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#0D0D0D"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Orange"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Image  Source="/Images/GrafikiPozostale/MinimizeReszta.png" Width="12" Height="12"></Image>
+
+
+            </Button>
+
+        </DockPanel>
+        <ListView x:Name="ListViewAddressBook" HorizontalAlignment="Left" Height="340" Margin="0,131,0,0" VerticalAlignment="Top" Width="313" MouseDoubleClick="ListViewAddressBook_DoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding UserState}"/>
@@ -38,9 +99,12 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <ComboBox x:Name="ComboBoxStatus" HorizontalAlignment="Left" Margin="31.902,38,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded" Grid.Column="1"/>
-        <TextBox x:Name="TextBoxDescription" HorizontalAlignment="Left" Height="23" Margin="31.902,15,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" KeyDown="TextBoxDescription_KeyDown" Grid.Column="1"/>
+        <ComboBox x:Name="ComboBoxStatus" HorizontalAlignment="Left" Margin="144,74,0,0" VerticalAlignment="Top" Width="97" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded"/>
+        <TextBox x:Name="TextBoxDescription" HorizontalAlignment="Left" Height="22" Margin="105,39,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="185" KeyDown="TextBoxDescription_KeyDown"/>
         <Button x:Name="MessageBoxButtons" Content="Button" HorizontalAlignment="Left" Margin="54.902,476,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="MessageBoxButtons_Click"/>
+
+        <DockPanel x:Name="bottomPanel"  Background="#0D0D0D" Width="313"  Height="20" VerticalAlignment="Bottom" >
+        </DockPanel>
 
     </Grid>
 </Window>

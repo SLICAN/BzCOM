@@ -326,6 +326,21 @@ namespace BzCOMWpf
             descrption = trafficController.GetDescriptionByNumber("102");
             TextBoxDescription.Text = descrption;
         }
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void GridGlowny_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 
 
