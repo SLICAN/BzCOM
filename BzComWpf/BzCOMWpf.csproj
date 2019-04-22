@@ -177,5 +177,9 @@
     <Resource Include="Images\GrafikiPozostale\LogoReszta.png" />
     <Resource Include="Images\GrafikiPozostale\MinimizeReszta.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\settingsSilver.png" />
+    <Resource Include="Images\GrafikiMenu\settingsWhite.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

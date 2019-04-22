@@ -9,18 +9,32 @@
         Title="BzCOM" Height="457" Width="417" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
     <Grid x:Name="Glowny" Background="#0D0D0D" MouseDown="Glowny_MouseDown">
 
-        <TextBox x:Name="TextBoxIp"  VerticalContentAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="22" Margin="17,101,0,0" TextWrapping="Wrap" Text="221.122.223.102" VerticalAlignment="Top" Width="100" TextChanged="TextBoxIp_TextChanged" PreviewMouseDown="TextBoxIp_PreviewMouseDown" LostFocus="TextBoxIp_LostFocus"/>
-        <Button x:Name="ButtonLogin" FontSize="11pt" BorderThickness="0" Content="Login" HorizontalAlignment="Left" Margin="107,282,0,0" VerticalAlignment="Top" Width="203" Click="ButtonLogin_Click" Height="31" Background="#41AECF"/>
-        <TextBox x:Name="TextBoxPort" VerticalContentAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="22" Margin="17,128,0,0" TextWrapping="Wrap" Text="5529" VerticalAlignment="Top" Width="100" TextChanged="TextBoxPort_TextChanged" LostFocus="TextBoxPort_LostFocus" PreviewMouseDown="TextBoxPort_PreviewMouseDown"/>
-        <TextBox x:Name="TextBoxLogin"  FontFamily="arial" BorderThickness="0"  FontSize="11pt" Foreground="White" Background="#0D0D0D" HorizontalAlignment="Left" Height="19" Margin="128,192,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" PreviewMouseDown="TextBoxLogin_PreviewMouseDown" LostFocus="TextBoxLogin_LostFocus" TextChanged="TextBoxLogin_TextChanged" Loaded="TextBoxLogin_Loaded">
+        <TextBox x:Name="TextBoxIp"   VerticalContentAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="22" Margin="17,101,0,0" TextWrapping="Wrap" Text="221.122.223.102" VerticalAlignment="Top" Width="100" TextChanged="TextBoxIp_TextChanged" PreviewMouseDown="TextBoxIp_PreviewMouseDown" LostFocus="TextBoxIp_LostFocus" >
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </TextBox.Resources>
+           
+
+        </TextBox>
+        <Button x:Name="ButtonLogin"  FontSize="11pt" BorderThickness="0" Content="Login" HorizontalAlignment="Left" Margin="107,282,0,0" VerticalAlignment="Top" Width="203" Click="ButtonLogin_Click" Height="31" Background="#41AECF"/>
+        <TextBox x:Name="TextBoxPort" VerticalContentAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="22" Margin="17,128,0,0" TextWrapping="Wrap" Text="5529" VerticalAlignment="Top" Width="100" TextChanged="TextBoxPort_TextChanged" LostFocus="TextBoxPort_LostFocus" PreviewMouseDown="TextBoxPort_PreviewMouseDown">
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox x:Name="TextBoxLogin" MaxLength="14" FontFamily="arial" BorderThickness="0"  FontSize="11pt" Foreground="White" Background="#0D0D0D" HorizontalAlignment="Left" Height="19" Margin="128,192,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" PreviewMouseDown="TextBoxLogin_PreviewMouseDown" LostFocus="TextBoxLogin_LostFocus" TextChanged="TextBoxLogin_TextChanged" Loaded="TextBoxLogin_Loaded">
 
 
         </TextBox>
 
 
-        <TextBox x:Name="TextBoxPassword"   FontFamily="arial" BorderThickness="0" FontSize="11pt" Background="#0D0D0D" Foreground="White" HorizontalAlignment="Left" Height="19" Margin="128,232,0,0"  VerticalAlignment="Top" Width="182" LostFocus="TextBoxPassword_LostFocus" PreviewMouseDown="TextBoxPassword_PreviewMouseDown" TextChanged="TextBoxPassword_TextChanged"/>
+        <TextBox x:Name="TextBoxPassword" MaxLength="14"  FontFamily="arial" BorderThickness="0" FontSize="11pt" Background="#0D0D0D" Foreground="White" HorizontalAlignment="Left" Height="19" Margin="128,232,0,0"  VerticalAlignment="Top" Width="182" LostFocus="TextBoxPassword_LostFocus" PreviewMouseDown="TextBoxPassword_PreviewMouseDown" TextChanged="TextBoxPassword_TextChanged"/>
 
-        <PasswordBox x:Name="PasswordBoxPassword"   FontFamily="arial" BorderThickness="0" FontSize="11pt" Background="#0D0D0D" Foreground="White" HorizontalAlignment="Left" Height="19" Margin="128,232,0,0"  VerticalAlignment="Top" Width="182" LostFocus="TextBoxPassword_LostFocus" PreviewMouseDown="TextBoxPassword_PreviewMouseDown" PasswordChanged="PasswordBoxPassword_PasswordChanged"/>
+        <PasswordBox x:Name="PasswordBoxPassword" MaxLength="14"  FontFamily="arial" BorderThickness="0" FontSize="11pt" Background="#0D0D0D" Foreground="White" HorizontalAlignment="Left" Height="19" Margin="128,232,0,0"  VerticalAlignment="Top" Width="182" LostFocus="TextBoxPassword_LostFocus" PreviewMouseDown="TextBoxPassword_PreviewMouseDown" PasswordChanged="PasswordBoxPassword_PasswordChanged"/>
        
         <CheckBox x:Name="SaveToFileCheckBox" Foreground="Silver" Content="Remember me" HorizontalAlignment="Left" Margin="159,343,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <Label x:Name="labelLoginInfo" FontSize="11pt"  HorizontalAlignment="Left" Margin="143,389,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.912,1.61" Foreground="Silver" />

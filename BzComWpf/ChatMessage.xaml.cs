@@ -104,6 +104,21 @@ namespace BzCOMWpf
             //Dalej jest kilka polaczen xd, albo to dlatego                           
             
         }
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void MenuPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
     public class ConnectionItem

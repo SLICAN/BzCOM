@@ -53,7 +53,7 @@ namespace BzCOMWpf
        
             messageForm.Hide();
             openedConnections = new List<ChatPage>();
-            
+              
         }
 
         #region TrafficController
@@ -348,6 +348,7 @@ namespace BzCOMWpf
         {
             descrption = trafficController.GetDescriptionByNumber("102");
             TextBoxDescription.Text = descrption;
+            TextBoxDescription.Text = "Wpisz opis i naciśnij enter";
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
@@ -363,6 +364,43 @@ namespace BzCOMWpf
         private void GridGlowny_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void TextBoxDescription_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //TextBoxDescription.Background = Brushes.Aqua;
+            //    TextBoxDescription.Background = new SolidColorBrush(Color.FromRgb(21, 21, 21));
+            // TextBoxDescription.BorderBrush = Brushes.Red;
+            TextBoxDescription.Foreground = Brushes.White;
+
+            if (TextBoxDescription.Text == "Wpisz opis i naciśnij enter")
+            {
+
+                TextBoxDescription.Text = "";
+               
+
+            }
+        }
+
+        private void TextBoxDescription_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           // TextBoxDescription.Foreground = Brushes.Aqua;
+        }
+
+        private void TextBoxDescription_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void TextBoxDescription_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBoxDescription.Foreground = Brushes.Silver;
+            if (TextBoxDescription.Text == "")
+            {
+                TextBoxDescription.Text = "Wpisz opis i naciśnij enter";
+                TextBoxDescription.Background = new SolidColorBrush(Color.FromRgb(13, 13, 13));
+                // TextBoxDescription.ForeColor = Color.Silver;
+            }
         }
     }
 
