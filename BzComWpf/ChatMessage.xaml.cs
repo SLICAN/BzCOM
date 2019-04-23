@@ -26,12 +26,12 @@ namespace BzCOMWpf
         private int CursorPosition;
 
         private int nr;
-
+        public int nr_z_sel_item;
         private bool messageSend = false;
 
         private List<ChatPage> openedConnections;
-        public int idx = 0;
-
+        public int idx;
+        private bool istnieje;
         delegate void SetTextCallBack(string text);
 
         delegate void SetScrollCallBack();
@@ -55,15 +55,34 @@ namespace BzCOMWpf
 
         public void Initialize(List<ChatPage> _openedConnection)
         {
-            foreach (ConnectionItem item in ConnectionsListView.Items)
-            {
-                nr = Int32.Parse(item.UserNumber);
-                Console.WriteLine("Numer itemu: " + nr);         
-            }
+            istnieje = false;
+            idx = 0;
+            //nr_z_sel_item = Int32.Parse(selected);
             openedConnections = _openedConnection;
-            openedConnections.Add(new ChatPage(idx, nr));
-            _mainFrame.Navigate(openedConnections[idx]);
-            idx++;
+            //openedConnections.Add(new ChatPage(idx, nr));
+            foreach (ChatPage chatPage in openedConnections)
+            {
+                if(chatPage.nr == nr){istnieje = true;}
+            }
+            if (istnieje == true)
+            {
+                foreach (ChatPage chatPage in openedConnections)
+                {
+                    if(chatPage.nr == nr_z_sel_item)
+                    {
+                        idx = openedConnections.IndexOf(chatPage);
+                    }
+                }
+                _mainFrame.Navigate(openedConnections[idx]); }
+            else {
+                ChatPage strona = new ChatPage(nr);
+                openedConnections.Add(strona);
+                idx = openedConnections.IndexOf(strona);
+                Console.WriteLine("Index w elsie"+ idx);
+                _mainFrame.Navigate(openedConnections[idx]); //Bug wyswietlil idx 1
+            }
+            
+            
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -93,15 +112,8 @@ namespace BzCOMWpf
                 Console.WriteLine(chatPage.ToString());
                 Console.WriteLine(selected);
             }
-
-            openedConnections.RemoveAt(selected);
-            //Console.WriteLine(selected);
-            //int index = openedConnections.FindIndex()
             ConnectionsListView.Items.Remove(item);        
-            idx--;
-            
-            //Nie usuwa sie ChatPage
-            //Dalej jest kilka polaczen xd, albo to dlatego                           
+                  
             
         }
     }

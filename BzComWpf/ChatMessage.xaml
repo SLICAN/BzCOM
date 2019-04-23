@@ -24,7 +24,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Frame x:Name="_mainFrame" Width="450" NavigationUIVisibility="Hidden"/>
+            <Frame x:Name="_mainFrame" Width="390"/>
          </DockPanel>
     </Border>
 </Window>

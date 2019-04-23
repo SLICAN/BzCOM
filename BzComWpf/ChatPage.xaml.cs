@@ -29,7 +29,7 @@ namespace BzCOMWpf
         delegate void SetScrollCallBack();
         private bool messageSend = false;
         
-        public ChatPage(int idx, int _nr)
+        public ChatPage(int _nr)
         {
            
             nr = _nr;
