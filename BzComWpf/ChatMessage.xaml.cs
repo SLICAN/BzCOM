@@ -23,9 +23,7 @@ namespace BzCOMWpf
     /// </summary>
     public partial class ChatMessage : Window
     {
-        private int CursorPosition;
-
-        private int nr;
+       
         public int nr_z_sel_item;
         private bool messageSend = false;
 
@@ -53,7 +51,7 @@ namespace BzCOMWpf
         }
 
 
-        public void Initialize(List<ChatPage> _openedConnection)
+        public void Initialize(List<ChatPage> _openedConnection,int nr)
         {
             istnieje = false;
             idx = 0;

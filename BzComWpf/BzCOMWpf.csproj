@@ -66,13 +66,13 @@
     <Compile Include="AddressBookForm.xaml.cs">
       <DependentUpon>AddressBookForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Awatar.cs" />
     <Compile Include="ChatPage.xaml.cs">
       <DependentUpon>ChatPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChatMessage.xaml.cs">
       <DependentUpon>ChatMessage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HtmlTextBlockTest.xaml.cs" />
     <Compile Include="Modules\Contact.cs" />
     <Compile Include="Modules\GSM.cs" />
     <Compile Include="Modules\Log.cs" />
@@ -97,10 +97,6 @@
     <Page Include="ChatMessage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="HtmlTextBlockTest.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="LoginForm.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -180,6 +176,9 @@
   <ItemGroup>
     <Resource Include="Images\GrafikiMenu\settingsSilver.png" />
     <Resource Include="Images\GrafikiMenu\settingsWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\avatar_placeholder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

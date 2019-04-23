@@ -14,7 +14,6 @@ using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.ComponentModel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.IO;
 using System.Web.Script.Serialization;
 
@@ -28,7 +27,8 @@ namespace BzCOMWpf
         private string currentNumber;
         private string descrption;
         //private ListViewItem item;
-
+        //ImageSource MyImage= new BitmapImage(new Uri("", UriKind.Relative));
+        string url1 = "/Images/GrafikiMenu/avatar_placeholder.png";
         private List<ChatPage> openedConnections;
         public ChatMessage messageForm;
         delegate void SetUsersCallBack(List<User> users);
@@ -47,6 +47,7 @@ namespace BzCOMWpf
         public AddressBookForm()
         {
             InitializeComponent();
+      
             trafficController.OnUpdateStatus += TrafficController_OnUpdateStatus;
             trafficController.OnAddressBookGet += TrafficController_OnAddressBookGet;
             trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
@@ -121,11 +122,16 @@ namespace BzCOMWpf
         /// <param name="bookList"></param>
         public void SetBook(List<User> bookList)
         {
+
+            var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var img = new BitmapImage(new Uri("/Images/GrafikiMenu/avatar_placeholder.png", UriKind.Relative));
              if (ListViewAddressBook.Dispatcher.Thread == Thread.CurrentThread)
             {
                 foreach (var item in bookList)
                 {
-                    ListViewAddressBook.Items.Add(new MyItem { UserState = item.UserState.ToString(), UserName = item.UserName, UserDesc = item.UserDesc});
+                    ListViewAddressBook.Items.Add(new MyItem { UserState = item.UserState.ToString(), UserName = item.UserName, UserDesc = item.UserDesc,Image = img});
+                    Utworz_pliki_json(item);
+                    //Wypelnij_pliki_json(item);
                 }           
             }
             else
@@ -213,13 +219,13 @@ namespace BzCOMWpf
                         else
                         {
                             messageForm.ConnectionsListView.Items.Add(connectionItem);
-                            messageForm.Initialize(openedConnections);
+                            messageForm.Initialize(openedConnections, Int32.Parse(currentNumber));
                         }
                     }
                     else
                     {
                         messageForm.ConnectionsListView.Items.Add(connectionItem);
-                        messageForm.Initialize(openedConnections);
+                        messageForm.Initialize(openedConnections,Int32.Parse(currentNumber));
                     }
                     }
                 }
@@ -413,6 +419,52 @@ namespace BzCOMWpf
                 // TextBoxDescription.ForeColor = Color.Silver;
             }
         }
+
+        public void Utworz_pliki_json(User user)
+        {
+            var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            if (File.Exists(path2 + user.UserName + ".json")){ return; }
+            else
+            {
+                File.Create(path2 + user.UserName + ".json");
+                
+            }
+        }
+        //public void Wypelnij_pliki_json(User user)
+        //{
+        //    var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //    Awatar awatar = new Awatar()
+        //    {
+        //        UserName = user.UserName,
+        //        Url = user.UserNumber,
+        //    };
+        //    string jsonWrite = serializer.Serialize(awatar);
+        //    //File.WriteAllText(@".\file.json", jsonWrite);
+
+      
+        //    File.WriteAllText(path2 + user.UserName + ".json", jsonWrite);
+        //}
+
+        private void MessageBoxButtons_Click_1(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".png";
+            //dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
+            Nullable<bool> result = dlg.ShowDialog();
+
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                
+                string filename = dlg.FileName;
+                var img = new BitmapImage(new Uri(filename, UriKind.Relative));
+                //MyImage = img;
+                
+            }
+        }
     }
 
 
@@ -422,7 +474,7 @@ namespace BzCOMWpf
         public string UserState { get; set; }
         public string UserName { get; set; }
         public string UserDesc { get; set; }
-        public string UserNumber { get; set; }
+        public ImageSource Image { get; set; }
            
     }
 }

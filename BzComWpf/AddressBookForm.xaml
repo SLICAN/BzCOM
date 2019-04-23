@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BzCOMWpf"
         mc:Ignorable="d"
-        Title="AddressBookForm" Height="530"  Width="313" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
+        Title="AddressBookForm" Height="530"  Width="340" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
     <Grid x:Name="gridGlowny" MouseDown="GridGlowny_MouseDown">
         <DockPanel x:Name="menuPanel"  Background="#0D0D0D" Width="313" Height="25" VerticalAlignment="Top" >
 
@@ -68,13 +68,18 @@
             </Button>
 
         </DockPanel>
-        <ListView x:Name="ListViewAddressBook" HorizontalAlignment="Left" Height="340" Margin="0,131,0,0" VerticalAlignment="Top" Width="313" MouseDoubleClick="ListViewAddressBook_DoubleClick">
+        <ListView x:Name="ListViewAddressBook" HorizontalAlignment="Left" Height="340" Margin="0,131,0,0" VerticalAlignment="Top" Width="340" MouseDoubleClick="ListViewAddressBook_DoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding UserState}"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding UserName}"/>
-                    <GridViewColumn Header="Desc" DisplayMemberBinding="{Binding UserDesc}"/>
-                    <GridViewColumn Header="NUmber" DisplayMemberBinding="{Binding UserNumber}"/>
+                    <GridViewColumn >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Image}" Width="32" Height="32"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  DisplayMemberBinding="{Binding UserName}"/>
+                    <GridViewColumn  DisplayMemberBinding="{Binding UserDesc}"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>
@@ -100,10 +105,11 @@
             </ListView.ItemContainerStyle>
         </ListView>
         <StackPanel Background="#0D0D0D" VerticalAlignment="Top" Margin="0,25,0,0" Height="106">
+
             <TextBox x:Name="TextBoxDescription" BorderThickness="0" VerticalContentAlignment="Center" FontSize="10pt"  Background="#0D0D0D" Foreground="Silver" Margin="106,10,10,8" Height="29" KeyDown="TextBoxDescription_KeyDown" PreviewMouseDown="TextBoxDescription_PreviewMouseDown" TextChanged="TextBoxDescription_TextChanged" MouseEnter="TextBoxDescription_MouseEnter" LostFocus="TextBoxDescription_LostFocus">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type TextBox}">
-                        
+
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -121,11 +127,11 @@
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="true">
                                             <Setter Property="BorderBrush" TargetName="border" Value="#151515"/>
-                                             
-                                            
+
+
                                         </Trigger>
                                         <Trigger Property="IsFocused" Value="true">
-                                            
+
                                             <Setter Property="BorderBrush" TargetName="border" Value="#151515"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
@@ -144,7 +150,7 @@
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="4"/>
                     </Style>
-                    
+
                 </Border.Resources>
                 <Grid>
 
@@ -154,11 +160,15 @@
                     <Image  Source="/Images/GrafikiMenu/settingsSilver.png" Stretch="None" HorizontalAlignment="Left"  Margin="165,0,0,0" ></Image>
                 </Grid>
             </Border>
-        </StackPanel >
-        <Button x:Name="MessageBoxButtons" Content="Button" HorizontalAlignment="Left" Margin="54.902,476,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="MessageBoxButtons_Click"/>
 
-        <DockPanel x:Name="bottomPanel"  Background="#0D0D0D" Width="313"  Height="20" VerticalAlignment="Bottom" >
+        </StackPanel >
+        <Button x:Name="MessageBoxButtons" HorizontalAlignment="Left" Margin="54.902,476,0,0" VerticalAlignment="Top" Height="30" Width="30" Grid.Column="1" Click="MessageBoxButtons_Click_1">
+            <Image Source="/Images/GrafikiMenu/avatar_placeholder.png"></Image>
+        </Button>
+
+        <DockPanel x:Name="bottomPanel"  Background="#0D0D0D" Width="340"  Height="20" VerticalAlignment="Bottom" >
         </DockPanel>
+        
 
     </Grid>
 </Window>
