@@ -6,8 +6,64 @@
         xmlns:local="clr-namespace:BzCOMWpf"
         mc:Ignorable="d"
         Title="AddressBookForm" Height="530"  Width="340" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
+    <Window.Resources>
+        <Style x:Key="ComboBox" TargetType="{x:Type ComboBox}">
+
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
+                                <ToggleButton.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="Border"  Grid.ColumnSpan="1" CornerRadius="3" Background="#0D0D0D " BorderBrush="#151515 " BorderThickness="1" Margin="10,0,4,0" />
+                                            <Border x:Name="Border2" Grid.Column="0" CornerRadius="3"   Background="#0D0D0D"  BorderBrush="#151515" BorderThickness="1" />
+                                            <Path x:Name="Arrow" Grid.Column="0"  Fill="Silver" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="147,9,4.5,9"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                                                <Setter TargetName="Border" Property="Background" Value="#151515" />
+                                                <Setter TargetName="Border" Property="Background" Value="#151515" />
+
+                                                <Setter TargetName="Border2" Property="Background" Value="#151515" />
+                                            </Trigger>
+                                            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                                                <Setter TargetName="Border" Property="Background" Value="#41AECF" />
+                                                <Setter TargetName="Border2" Property="Background" Value="#151515" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3"  />
+                            <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
+                                <Grid  Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="#151515 " />
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="gridGlowny" MouseDown="GridGlowny_MouseDown">
-        <DockPanel x:Name="menuPanel"  Background="#0D0D0D" Width="313" Height="25" VerticalAlignment="Top" >
+        
+        <DockPanel x:Name="menuPanel"  Background="#0D0D0D"  Height="25" VerticalAlignment="Top" >
 
             <Image Source="/Images/GrafikiPozostale/LogoReszta.png"  HorizontalAlignment="Left" Stretch="None" Width="17"  Margin="10,0,0,0">
 
@@ -104,9 +160,9 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <StackPanel Background="#0D0D0D" VerticalAlignment="Top" Margin="0,25,0,0" Height="106">
+        <Grid Background="#0D0D0D" VerticalAlignment="Top" Margin="0,25,0,0" Height="106">
 
-            <TextBox x:Name="TextBoxDescription" BorderThickness="0" VerticalContentAlignment="Center" FontSize="10pt"  Background="#0D0D0D" Foreground="Silver" Margin="106,10,10,8" Height="29" KeyDown="TextBoxDescription_KeyDown" PreviewMouseDown="TextBoxDescription_PreviewMouseDown" TextChanged="TextBoxDescription_TextChanged" MouseEnter="TextBoxDescription_MouseEnter" LostFocus="TextBoxDescription_LostFocus">
+            <TextBox x:Name="TextBoxDescription" MaxLength="27" BorderThickness="0" VerticalContentAlignment="Center" FontSize="10pt"  Background="#0D0D0D" Foreground="Silver" Margin="143,6,20,67" KeyDown="TextBoxDescription_KeyDown" PreviewMouseDown="TextBoxDescription_PreviewMouseDown" TextChanged="TextBoxDescription_TextChanged" MouseEnter="TextBoxDescription_MouseEnter" LostFocus="TextBoxDescription_LostFocus">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type TextBox}">
 
@@ -115,7 +171,7 @@
                                 <ControlTemplate TargetType="{x:Type TextBox}">
                                     <Border x:Name="border"
                                             CornerRadius="3"
-                                            BorderBrush="#0D0D0D"
+                                            BorderBrush="#151515"
                                             BorderThickness="1"
                                             Background="#0D0D0D"
 >
@@ -127,12 +183,14 @@
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="true">
                                             <Setter Property="BorderBrush" TargetName="border" Value="#151515"/>
+                                            <Setter Property="Background" TargetName="border" Value="#151515"/>
 
 
                                         </Trigger>
                                         <Trigger Property="IsFocused" Value="true">
 
                                             <Setter Property="BorderBrush" TargetName="border" Value="#151515"/>
+                                            <Setter Property="Background" TargetName="border" Value="#151515"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -144,8 +202,8 @@
                 </TextBox.Resources>
 
             </TextBox>
-            <ComboBox x:Name="ComboBoxStatus" Margin="180,0,8,0"  Width="87" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded" Height="22"  />
-            <Border  Margin="10,2,10,0" Height="28px" Background="#151515 ">
+            <ComboBox x:Name="ComboBoxStatus"  VerticalContentAlignment="Center" VerticalAlignment="Center"   Style="{StaticResource ComboBox}" Foreground="Silver"  Margin="143,44,20,40" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded" Height="22"   />
+            <Border  Margin="20,70,20,4" Height="28px" Background="#151515 ">
                 <Border.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="4"/>
@@ -154,14 +212,14 @@
                 </Border.Resources>
                 <Grid>
 
-                    <Image  Source="/Images/GrafikiMenu/settingsSilver.png" Stretch="None" HorizontalAlignment="Left"  Margin="15,0,0,0" Width="25"></Image>
-                    <Image  Source="/Images/GrafikiMenu/settingsSilver.png" Stretch="None" HorizontalAlignment="Left"  Margin="65,0,0,0" ></Image>
-                    <Image  Source="/Images/GrafikiMenu/settingsSilver.png" Stretch="None" HorizontalAlignment="Left"  Margin="115,0,0,0" ></Image>
-                    <Image  Source="/Images/GrafikiMenu/settingsSilver.png" Stretch="None" HorizontalAlignment="Left"  Margin="165,0,0,0" ></Image>
+                    <Image  Source="/Images/GrafikiMenu/settingsSilver.png" Stretch="None" HorizontalAlignment="Left"  Margin="35,0,0,0" Width="25"></Image>
+                    <Image  Source="/Images/GrafikiMenu/settingsSilver.png" Stretch="None" HorizontalAlignment="Left"  Margin="105,0,0,0" ></Image>
+                    <Image  Source="/Images/GrafikiMenu/settingsSilver.png" Stretch="None" HorizontalAlignment="Left"  Margin="175,0,0,0" ></Image>
+                    <Image  Source="/Images/GrafikiMenu/settingsSilver.png" Stretch="None" HorizontalAlignment="Left"  Margin="245,0,0,0" ></Image>
                 </Grid>
             </Border>
 
-        </StackPanel >
+        </Grid >
         <Button x:Name="MessageBoxButtons" HorizontalAlignment="Left" Margin="54.902,476,0,0" VerticalAlignment="Top" Height="30" Width="30" Grid.Column="1" Click="MessageBoxButtons_Click_1">
             <Image Source="/Images/GrafikiMenu/avatar_placeholder.png"></Image>
         </Button>
