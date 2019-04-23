@@ -15,6 +15,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.ComponentModel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.IO;
+using System.Web.Script.Serialization;
 
 namespace BzCOMWpf
 {
@@ -346,9 +348,18 @@ namespace BzCOMWpf
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            descrption = trafficController.GetDescriptionByNumber("102");
-            TextBoxDescription.Text = descrption;
-            TextBoxDescription.Text = "Wpisz opis i naciśnij enter";
+            var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string login;
+            string jsonRead;
+            if (File.Exists(path2 + "BzCOMfile.json"))
+            {
+                jsonRead = File.ReadAllText(path2 + "BzCOMfile.json");
+                dynamic resultRead = new JavaScriptSerializer().Deserialize<dynamic>(jsonRead);
+                login = resultRead["login"];
+                descrption = trafficController.GetDescriptionByNumber(login);
+                TextBoxDescription.Text = descrption;
+            }
+            else { return; }
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)

@@ -106,7 +106,7 @@ namespace BzCOMWpf
         /// <param name="rid"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public string Sync_REQ(string type, out string rid, string limit="10")
+        public string Sync_REQ(string type, out string rid, string limit="12")
         {
             XCTIP packet = new XCTIP();
             XCTIPSync xCTIPSync = new XCTIPSync();
