@@ -6,9 +6,75 @@
         xmlns:local="clr-namespace:BzCOMWpf"
         xmlns:wf1="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         mc:Ignorable="d"
-        Title="ChatMessage" Height="440" Width="600" Closing="Window_Closing">
-    <Border>
-        <DockPanel Background="#FF444444">
+        Title="ChatMessage" Height="440" Width="600" ResizeMode="NoResize"  WindowStyle="None" Closing="Window_Closing">
+    <Grid x:Name="gridChat">
+        <DockPanel x:Name="menuPanel"  Background="#0D0D0D"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
+
+            <Image Source="/Images/GrafikiPozostale/LogoReszta.png"  HorizontalAlignment="Left" Stretch="None" Width="17"  Margin="10,0,0,0">
+
+
+            </Image>
+            <Label HorizontalAlignment="Left" FontWeight="Bold"   Height="23" FontFamily="arial" Foreground="Silver" VerticalContentAlignment="Center" FontSize="8pt" Content="BzCOM" Width="58"  />
+
+            <Button x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#0D0D0D"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Red"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Image  Source="/Images/GrafikiPozostale/ExitReszta.png" Width="12" Height="12" RenderTransformOrigin="0.629,0.552"></Image>
+
+
+            </Button>
+            <Button x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
+
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#0D0D0D"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Orange"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Image  Source="/Images/GrafikiPozostale/MinimizeReszta.png" Width="12" Height="12"></Image>
+
+
+            </Button>
+
+        </DockPanel>
+
+
+        <Border>
+
+
+            <DockPanel Background="#FF444444" Height="415" VerticalAlignment="Bottom">
             <ListView x:Name="ConnectionsListView" Width="200" MouseDoubleClick="ConnectionsListView_MouseDoubleClick">
                 <ListView.View>
                     <GridView x:Name="GridViewPanel">
@@ -24,7 +90,8 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Frame x:Name="_mainFrame" Width="390"/>
+            <Frame x:Name="_mainFrame" Width="388" NavigationUIVisibility="Hidden"/>
          </DockPanel>
     </Border>
+    </Grid>
 </Window>
