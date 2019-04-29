@@ -465,6 +465,64 @@ namespace BzCOMWpf
                 
             }
         }
+
+        private void ButtonPicture_Click(object sender, RoutedEventArgs e)
+
+        {
+            
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".png";
+           // dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
+            Nullable<bool> result = dlg.ShowDialog();
+
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                imgPhoto.Source = new BitmapImage(new Uri(dlg.FileName));
+                // Open document 
+                
+                string filename = dlg.FileName;
+                ;
+                //MyImage = img;
+                
+            }
+        }
+        
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ButtonFav_Click(object sender, RoutedEventArgs e)
+        {
+            
+
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonTeam_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void ButtonArchive_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonSetting_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListViewAddressBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 
 

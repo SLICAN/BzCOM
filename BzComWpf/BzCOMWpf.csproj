@@ -180,5 +180,20 @@
   <ItemGroup>
     <Resource Include="Images\GrafikiMenu\avatar_placeholder.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\adduser.png" />
+    <Resource Include="Images\GrafikiMenu\folder.png" />
+    <Resource Include="Images\GrafikiMenu\settings.png" />
+    <Resource Include="Images\GrafikiMenu\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\team.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\avatar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
