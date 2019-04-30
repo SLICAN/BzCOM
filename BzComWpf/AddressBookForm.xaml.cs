@@ -312,13 +312,6 @@ namespace BzCOMWpf
 
 
 
-
-
-        private void CloseButton_Click_1(object sender, EventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
         /*  private void PopUpTimer_Tick(object sender, EventArgs e)
           {
               // Set the caption to the current time.  
@@ -370,7 +363,7 @@ namespace BzCOMWpf
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Environment.Exit(0);
         }
 
         private void ButtonMinimize_Click(object sender, RoutedEventArgs e)

@@ -137,7 +137,8 @@ namespace BzCOMWpf
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            //Close();
+            Environment.Exit(0);
         }
 
         private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
