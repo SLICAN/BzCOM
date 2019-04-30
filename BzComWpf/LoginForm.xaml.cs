@@ -70,7 +70,8 @@ namespace BzCOMWpf
             }
             else
             {
-                return;
+                //return;
+                TextBoxLogin.Text = "Login";
             }
         }
 
