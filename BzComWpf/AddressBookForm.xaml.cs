@@ -127,11 +127,12 @@ namespace BzCOMWpf
             var img = new BitmapImage(new Uri("/Images/GrafikiMenu/avatar_placeholder.png", UriKind.Relative));
              if (ListViewAddressBook.Dispatcher.Thread == Thread.CurrentThread)
             {
+                bookList = bookList.OrderBy(x => x.UserState).ToList();
                 foreach (var item in bookList)
                 {
                     ListViewAddressBook.Items.Add(new MyItem { UserState = item.UserState.ToString(), UserName = item.UserName, UserDesc = item.UserDesc,Image = img});
                     Utworz_pliki_json(item);
-                    //Wypelnij_pliki_json(item);
+                        //Wypelnij_pliki_json(item);
                 }           
             }
             else
@@ -149,7 +150,7 @@ namespace BzCOMWpf
             
             if (ListViewAddressBook.Dispatcher.Thread == Thread.CurrentThread)
             {
-                     foreach (var user_item in bookList)
+                foreach (var user_item in bookList)
                      {
                         foreach(MyItem item in ListViewAddressBook.Items)
                         {
@@ -168,7 +169,8 @@ namespace BzCOMWpf
                             }
                         }
                         }
-                    }                         
+                    }
+                ListViewAddressBook.Items.SortDescriptions.Add(new SortDescription("UserState", ListSortDirection.Ascending));
                 ListViewAddressBook.Items.Refresh();
             }
 
