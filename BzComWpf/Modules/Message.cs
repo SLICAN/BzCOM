@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace BzCOMWpf
 {
@@ -10,6 +10,8 @@ namespace BzCOMWpf
         public string Text { get; set; }
 
         public DateTime DateTime { get; set; }
+
+        public string userData { get; set; }
 
         public bool IsMine { get; set; } //Sprawdza czy wiadomość była wysłana przez uzytkownika
 
