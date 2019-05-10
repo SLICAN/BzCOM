@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +28,9 @@ namespace BzCOMWpf
         delegate void SetTextCallBack(string text);
         delegate void SetScrollCallBack();
         private bool messageSend = false;
-        
+
+        public DateTime messageSendTime; // Zmienna pod dokładny czas wysłania wiadomości.
+
         public ChatPage(int _nr)
         {
            
@@ -72,7 +74,7 @@ namespace BzCOMWpf
             {
                 if (!error)
                 {
-                    TypeText("ja", TextBoxMessage.Text, DateTime.Now);
+                    TypeText("ja", TextBoxMessage.Text, messageSendTime);
                     TextBoxMessage.Clear();
                     messageSend = false;
                 }
@@ -128,13 +130,22 @@ namespace BzCOMWpf
         }
 
 
+        // Ważna informacja względem możliwej chęci użycia userData:
+        // Parametr ten służy do przesyłania dodatkowych informacji takich jak "czy drugi użytkownik pisze w tej chwili 
+        // wiadomość". Obecnie ta zmienna jest wykorzystywana do przechowywania dokładnego czasu wysłania wiadomości
+        // dzięki czemu i u nadawcy jak i u odbiorcy czas dokładnie się zgadza.
+        // Jednakże, jeżeli ktoś będzie chciał chciał dodatkowo wykorzystać ten parametr, należy będzie
+        // stworzyć interpreter który oddzieli informacje o czasie, jakiejś dodatkowej rzeczy
+        // i ich nie pomyli. W przeciwnym wypadku będzie walić błędami.
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (trafficController.GetState() == State.OpenedGate && !TextBoxMessage.Text.Equals(""))
             {
+                messageSendTime = DateTime.Now;
+
                 /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
-                trafficController.SMSSend(nr.ToString(), null, TextBoxMessage.Text, "", null);
+                trafficController.SMSSend(nr.ToString(), null, TextBoxMessage.Text, "", "" + messageSendTime);
                 messageSend = true;
             }
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
