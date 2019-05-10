@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -263,7 +263,7 @@ namespace BzCOMWpf
                         continue;
                     }
 
-                    message.DateTime = Convert.ToDateTime(packet.SMSItems[0].Receive_EV[0].RecvTime);
+                    message.DateTime = Convert.ToDateTime(packet.SMSItems[0].Receive_EV[0].UserData);
                     message.Number = Convert.ToInt32(packet.SMSItems[0].Receive_EV[0].Number);
                     message.Text = packet.SMSItems[0].Receive_EV[0].Text;
                     packet.SMSItems[0].Receive_EV = null;
