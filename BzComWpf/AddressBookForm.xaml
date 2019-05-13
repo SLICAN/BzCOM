@@ -278,6 +278,7 @@
                 </Grid>
             </Border>
         </Grid>
+        <Button x:Name="Logout" Content="Log" HorizontalAlignment="Left" Margin="123,534,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Logout_Click"/>
     </Grid>
 </Window>
     

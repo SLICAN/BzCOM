@@ -95,7 +95,9 @@ namespace BzCOMWpf
         {
             //ConnectionItem selectedItem = (ConnectionItem)ConnectionsListView.SelectedItems[0];
             var selected = ConnectionsListView.SelectedIndex;
-            _mainFrame.Navigate(openedConnections[selected]);
+            if (ConnectionsListView.HasItems) { _mainFrame.Navigate(openedConnections[selected]); }
+            else { };
+
         }
 
         private void DeleteConnection(object sender, RoutedEventArgs e)
@@ -104,15 +106,19 @@ namespace BzCOMWpf
 
             Button b = sender as Button;
             ConnectionItem item = b.CommandParameter as ConnectionItem;
-            
+
             foreach (var chatPage in openedConnections)
             {
                 Console.WriteLine(chatPage.ToString());
                 Console.WriteLine(selected);
             }
-            ConnectionsListView.Items.Remove(item);        
-                  
-            
+            ConnectionsListView.Items.Remove(item);
+            if (ConnectionsListView.HasItems == false)
+            {
+                _mainFrame.Navigate("");
+            }
+
+
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
