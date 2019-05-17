@@ -195,5 +195,23 @@
   <ItemGroup>
     <Resource Include="Images\GrafikiMenu\avatar.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ChatPage\clipWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ChatPage\clipSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ChatPage\emotikonaSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ChatPage\wyslijAqua.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ChatPage\emotikonaWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ChatPage\WyslijAW.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -90,7 +90,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Frame x:Name="_mainFrame" Width="388" NavigationUIVisibility="Hidden"/>
+            <Frame x:Name="_mainFrame" Width="398" NavigationUIVisibility="Hidden"
+                  Background="#FF444444"
+                   />
          </DockPanel>
     </Border>
     </Grid>

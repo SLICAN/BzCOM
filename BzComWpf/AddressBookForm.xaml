@@ -139,7 +139,7 @@
 
            
 
-            <TextBox x:Name="TextBoxDescription" MaxLength="27" BorderThickness="0" VerticalContentAlignment="Center" FontSize="10pt"  Background="#0D0D0D" Foreground="Silver" Margin="30,17,149,81" KeyDown="TextBoxDescription_KeyDown" PreviewMouseDown="TextBoxDescription_PreviewMouseDown" TextChanged="TextBoxDescription_TextChanged" MouseEnter="TextBoxDescription_MouseEnter" LostFocus="TextBoxDescription_LostFocus">
+            <TextBox x:Name="TextBoxDescription" MaxLength="27" BorderThickness="0" VerticalContentAlignment="Center" FontSize="10pt"  Background="#0D0D0D" Foreground="Silver" Margin="132,10,47,88" KeyDown="TextBoxDescription_KeyDown" PreviewMouseDown="TextBoxDescription_PreviewMouseDown" TextChanged="TextBoxDescription_TextChanged" MouseEnter="TextBoxDescription_MouseEnter" LostFocus="TextBoxDescription_LostFocus">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type TextBox}">
 
@@ -179,11 +179,11 @@
                 </TextBox.Resources>
 
             </TextBox>
-            <Button x:Name="ButtonPicture" VerticalAlignment="Top" Background="#0D0D0D" Height="80" Width="91" Click="ButtonPicture_Click" HorizontalAlignment="Right">
+            <Button x:Name="ButtonPicture" VerticalAlignment="Top" Background="#0D0D0D" Height="80" Width="91" Click="ButtonPicture_Click" Margin="10,10,220,0">
                 <Image Source="/Images/GrafikiMenu/avatar.png" x:Name="imgPhoto" VerticalAlignment="Top" Height="80" Width="88" HorizontalAlignment="Center" Stretch="UniformToFill"/>
             </Button>
 
-            <ComboBox x:Name="ComboBoxStatus"   Foreground="Silver"  Margin="30,58,149,54" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded" Height="22">
+            <ComboBox x:Name="ComboBoxStatus"   Foreground="Silver"  Margin="132,58,47,54" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded" Height="22">
 
 
 

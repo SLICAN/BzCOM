@@ -31,6 +31,11 @@ namespace BzCOMWpf
 
         public DateTime messageSendTime; // Zmienna pod dokładny czas wysłania wiadomości.
 
+
+       
+
+
+
         public ChatPage(int _nr)
         {
            
@@ -151,6 +156,48 @@ namespace BzCOMWpf
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
         }
 
+        private void SendButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+           
+            send.Source = new BitmapImage(new Uri(@"/Images/ChatPage/WyslijAW.png", UriKind.Relative));
+            send.Stretch = Stretch.None;
+        }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            clip.Source = new BitmapImage(new Uri(@"/Images/ChatPage/clipWhite.png", UriKind.Relative));
+            clip.Stretch = Stretch.None;
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            clip.Source = new BitmapImage(new Uri(@"/Images/ChatPage/clipSilver.png", UriKind.Relative));
+            clip.Stretch = Stretch.None;
+        }
+
+        private void SendButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            send.Source = new BitmapImage(new Uri(@"/Images/ChatPage/wyslijAqua.png", UriKind.Relative));
+            send.Stretch = Stretch.None;
+        }
+
+        private void SendButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            send.Source = new BitmapImage(new Uri(@"/Images/ChatPage/wyslijAqua.png", UriKind.Relative));
+            send.Stretch = Stretch.None;
+        }
+
+        private void EmotikonaButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            emotikona.Source = new BitmapImage(new Uri(@"/Images/ChatPage/emotikonaWhite.png", UriKind.Relative));
+            emotikona.Stretch = Stretch.None;
+        }
+
+        private void EmotikonaButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            emotikona.Source = new BitmapImage(new Uri(@"/Images/ChatPage/emotikonaSilver.png", UriKind.Relative));
+            emotikona.Stretch = Stretch.None;
+        }
     }
 }
 
