@@ -13,7 +13,7 @@
 
     <Page.Resources>
         <Style TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#151515"/>
+            <Setter Property="Background" Value="#FF444444"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -25,7 +25,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#151515"/>
+                    <Setter Property="Background" Value="#FF444444"/>
 
                 </Trigger>
             </Style.Triggers>
@@ -34,21 +34,24 @@
 
 
     <Grid>
-        <TextBlock x:Name="Chat" FontFamily="Segoe UI Light" FontSize="14" >
+
+        <StackPanel x:Name="stackPanelBorder">
+           
+                <TextBlock x:Name="Chat" TextWrapping="Wrap" Foreground="Silver" FontFamily="Segoe UI Light" FontSize="14"  >
 
 
 
 
-        </TextBlock>
+            </TextBlock>
+    
+        </StackPanel>
+        <Border  Margin="0,364,1,1" Background="#FF444444" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
+
+            <DockPanel  Height="40" Background="#FF444444">
 
 
-        <Border  Margin="0,364,0,1" Background="#151515 " BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
-
-            <DockPanel  Height="40" Background="#151515">
-
-               
-                <TextBox x:Name="TextBoxMessage" Foreground="Silver" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#151515"  Margin="4,0,0,0" Width="283"/>
-                <Button x:Name="sendButton" Click="Button_Click" BorderThickness="0" Background="#151515" DockPanel.Dock="Right"  Width="40" MouseEnter="SendButton_MouseEnter" LostFocus="SendButton_LostFocus" MouseLeave="SendButton_MouseLeave">
+                <TextBox x:Name="TextBoxMessage" Foreground="Silver" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#FF444444"  Margin="4,0,0,0" Width="283"/>
+                <Button x:Name="sendButton" Click="Button_Click" BorderThickness="0" Background="#FF444444" DockPanel.Dock="Right"  Width="40" MouseEnter="SendButton_MouseEnter" LostFocus="SendButton_LostFocus" MouseLeave="SendButton_MouseLeave">
                     
 
 
@@ -57,13 +60,13 @@
                     </Image>
 
                 </Button>
-                <Button x:Name="clipButton"   BorderThickness="0" Background="#151515" DockPanel.Dock="Right" Width="35" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
+                <Button x:Name="clipButton"   BorderThickness="0" Background="#FF444444" DockPanel.Dock="Right" Width="35" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
                     <Image  x:Name="clip" Stretch="None" Source="/Images/ChatPage/clipSilver.png" Height="34"   >
 
                     </Image>
 
                 </Button>
-                <Button x:Name="emotikonaButton"  BorderThickness="0" Background="#151515" HorizontalAlignment="Right" Width="30" MouseEnter="EmotikonaButton_MouseEnter" MouseLeave="EmotikonaButton_MouseLeave" >
+                <Button x:Name="emotikonaButton"  BorderThickness="0" Background="#FF444444" HorizontalAlignment="Right" Width="30" MouseEnter="EmotikonaButton_MouseEnter" MouseLeave="EmotikonaButton_MouseLeave" >
                     <Image x:Name="emotikona" Stretch="None" Source="/Images/ChatPage/emotikonaSilver.png" Height="34"   >
 
                     </Image>

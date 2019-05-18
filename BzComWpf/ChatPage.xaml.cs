@@ -63,7 +63,10 @@ namespace BzCOMWpf
             {
                 if (message.IsMine)
                 {
+                  
+
                     TypeText("ja", message.Text, message.DateTime);
+                   
                 }
                 else
                 {
@@ -114,17 +117,50 @@ namespace BzCOMWpf
         public void TypeText(string who, string message, DateTime datatime)
         {
             //Chat.Text += who + " : " + message;
-            SetTextHTML(who + ": " + datatime + "\n");
-            SetTextHTML("" + message + "\n");
-            SetTextHTML("");
+           
+
+            SetTextHTML(who + ": " + datatime + "\n" + "" + message + "\n");
+          //  SetTextHTML("" + message + "\n");
+         //   SetTextHTML("");
+            /*
+            Border borderJa = new Border();
+            borderJa.Background = new SolidColorBrush(Color.FromRgb(65, 174, 207));
+            borderJa.CornerRadius = new CornerRadius(4);
+            borderJa.BorderThickness = new Thickness(1);      
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = Convert.ToString(who+": "+ datatime + "\n"+"" + message +"\n");
+            borderJa.Child = textBlock;
+            stackPanelBorder.Children.Add(borderJa);
+            */
             //SetScroll();
         }
         private void SetTextHTML(string text)
         {
             if (Chat.Dispatcher.Thread == Thread.CurrentThread)
             {
-
-                Chat.Text += text;
+            
+                //   Chat.Text += text;
+                // Chat.Text = Chat.Text + text;
+                Border borderOkienka = new Border();
+                if (text.Substring(0, 2) == "ja")
+                {
+                    borderOkienka.Background = new SolidColorBrush(Color.FromRgb(65, 174, 207));
+                    borderOkienka.HorizontalAlignment = HorizontalAlignment.Right;
+                }
+                else {
+                    borderOkienka.Background = new SolidColorBrush(Color.FromRgb(68,68,68));
+                    borderOkienka.HorizontalAlignment = HorizontalAlignment.Left;
+                }
+                
+                borderOkienka.CornerRadius = new CornerRadius(4);
+                borderOkienka.BorderThickness = new Thickness(1);
+                
+                //b.BorderThickness = new Thickness{Top=1, Bottom=0, Left=1, Right=1}; 
+                TextBlock textBlock = new TextBlock();
+                textBlock.TextWrapping = TextWrapping.Wrap;
+                textBlock.Text += text;
+                borderOkienka.Child = textBlock;
+                stackPanelBorder.Children.Add(borderOkienka);
             }
             else
             {
@@ -147,11 +183,17 @@ namespace BzCOMWpf
         {
             if (trafficController.GetState() == State.OpenedGate && !TextBoxMessage.Text.Equals(""))
             {
+               
+
                 messageSendTime = DateTime.Now;
 
                 /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
                 trafficController.SMSSend(nr.ToString(), null, TextBoxMessage.Text, "", "" + messageSendTime);
                 messageSend = true;
+
+                
+
+
             }
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
         }

@@ -275,12 +275,13 @@ namespace BzCOMWpf
                 {
                     
                     imagePassword.Source = new BitmapImage(new Uri(@"/Images/GrafikiPanel/lockAqua.png", UriKind.Relative));
-
+                   
                 }
                 else if (kolor == 0)
                 {
 
                     imagePassword.Source = new BitmapImage(new Uri(@"/Images/GrafikiPanel/lock.png", UriKind.Relative));
+                  
                 }
             }
 
@@ -294,6 +295,7 @@ namespace BzCOMWpf
                 TextBoxPort.Visibility = Visibility.Visible;
                 TextBoxIp.Visibility = Visibility.Visible;
                 przelacznik = 1;
+                imageSetting.Stretch = Stretch.None;
             }
             else if (przelacznik == 1)
             {
@@ -302,6 +304,7 @@ namespace BzCOMWpf
                 TextBoxPort.Visibility = Visibility.Hidden;
                 TextBoxIp.Visibility = Visibility.Hidden;
                 przelacznik = 0;
+                imageSetting.Stretch = Stretch.None;
             }
         }
 
