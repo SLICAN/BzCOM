@@ -34,17 +34,21 @@
 
 
     <Grid>
+       
+        <ScrollViewer VerticalAlignment="Top" Height="364"  >
+                <StackPanel VerticalAlignment="Top"  x:Name="stackPanelBorder"    >
 
-        <StackPanel x:Name="stackPanelBorder">
-           
                 <TextBlock x:Name="Chat" TextWrapping="Wrap" Foreground="Silver" FontFamily="Segoe UI Light" FontSize="14"  >
 
 
 
 
-            </TextBlock>
-    
-        </StackPanel>
+                </TextBlock>
+
+            </StackPanel>
+        </ScrollViewer>
+       
+
         <Border  Margin="0,364,1,1" Background="#FF444444" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
 
             <DockPanel  Height="40" Background="#FF444444">
@@ -76,6 +80,5 @@
             </DockPanel>
         </Border>
     </Grid>
-
 </Page>
 

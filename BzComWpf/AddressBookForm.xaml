@@ -8,6 +8,7 @@
         Title="AddressBookForm" Height="570" Background="#0D0D0D"  Width="340" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
 
 
+
     <Grid x:Name="gridGlowny" MouseDown="GridGlowny_MouseDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="117*"/>
@@ -137,7 +138,7 @@
         </ListView>
         <Grid Background="#0D0D0D" VerticalAlignment="Top" Margin="0,25,0,0" Height="134" Grid.ColumnSpan="2">
 
-           
+
 
             <TextBox x:Name="TextBoxDescription" MaxLength="27" BorderThickness="0" VerticalContentAlignment="Center" FontSize="10pt"  Background="#0D0D0D" Foreground="Silver" Margin="132,10,47,88" KeyDown="TextBoxDescription_KeyDown" PreviewMouseDown="TextBoxDescription_PreviewMouseDown" TextChanged="TextBoxDescription_TextChanged" MouseEnter="TextBoxDescription_MouseEnter" LostFocus="TextBoxDescription_LostFocus">
                 <TextBox.Resources>
@@ -150,7 +151,7 @@
                                             CornerRadius="3"
                                             BorderBrush="#151515"
                                             BorderThickness="1"
-                                            Background="#0D0D0D"
+                                            Background="#202020"
 >
                                         <ScrollViewer x:Name="PART_ContentHost"
                                          Focusable="false"
@@ -160,14 +161,14 @@
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="true">
                                             <Setter Property="BorderBrush" TargetName="border" Value="#151515"/>
-                                            <Setter Property="Background" TargetName="border" Value="#151515"/>
+                                            <Setter Property="Background" TargetName="border" Value="#333237"/>
 
 
                                         </Trigger>
                                         <Trigger Property="IsFocused" Value="true">
 
                                             <Setter Property="BorderBrush" TargetName="border" Value="#151515"/>
-                                            <Setter Property="Background" TargetName="border" Value="#151515"/>
+                                            <Setter Property="Background" TargetName="border" Value="#333237"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -179,11 +180,50 @@
                 </TextBox.Resources>
 
             </TextBox>
-            <Button x:Name="ButtonPicture" VerticalAlignment="Top" Background="#0D0D0D" Height="80" Width="91" Click="ButtonPicture_Click" Margin="10,10,220,0">
-                <Image Source="/Images/GrafikiMenu/avatar.png" x:Name="imgPhoto" VerticalAlignment="Top" Height="80" Width="88" HorizontalAlignment="Center" Stretch="UniformToFill"/>
+
+            <Button x:Name="ButtonPicture" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" VerticalAlignment="Top"   Click="ButtonPicture_Click" Margin="10,5,239,0" Height="90">
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#202020"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#333237"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="50"/>
+                        
+                    </Style>
+                </Button.Resources>
+
+                <Ellipse Width="88" Height="80">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Images/GrafikiMenu/avatar.png"  x:Name="imgPhoto"  Stretch="Fill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+
+
+             
+
+
+
             </Button>
 
-            <ComboBox x:Name="ComboBoxStatus"   Foreground="Silver"  Margin="132,58,47,54" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded" Height="22">
+            <ComboBox x:Name="ComboBoxStatus"    Foreground="Silver"  Margin="132,58,47,54" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded" Height="22">
 
 
 
@@ -200,6 +240,7 @@
                             <Setter.Value>
 
                                 <ControlTemplate TargetType="ComboBox">
+
                                     <Grid>
                                         <ToggleButton Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
                                             <ToggleButton.Template>
@@ -209,15 +250,15 @@
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Border x:Name="Border"  Grid.ColumnSpan="1" CornerRadius="4" Background="#0D0D0D " BorderBrush="#151515 " BorderThickness="1" Margin="10,0,0,0" />
-                                                        <Border x:Name="Border2" Grid.Column="0" CornerRadius="4"   Background="#0D0D0D"  BorderBrush="#151515" BorderThickness="1" Margin="0" />
+                                                        <Border x:Name="Border2" Grid.Column="0" CornerRadius="4"   Background="#202020"  BorderBrush="#151515" BorderThickness="1" Margin="0" />
                                                         <Path x:Name="Arrow" Grid.Column="0"  Fill="Silver" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="147,9,4.5,9"/>
                                                     </Grid>
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                                                            <Setter TargetName="Border" Property="Background" Value="#151515" />
-                                                            <Setter TargetName="Border" Property="Background" Value="#151515" />
+                                                            <Setter TargetName="Border" Property="Background" Value="#333237" />
+                                                            <Setter TargetName="Border" Property="Background" Value="#333237" />
 
-                                                            <Setter TargetName="Border2" Property="Background" Value="#151515" />
+                                                            <Setter TargetName="Border2" Property="Background" Value="#333237" />
                                                         </Trigger>
                                                         <Trigger Property="ToggleButton.IsChecked" Value="true">
                                                             <Setter TargetName="Border" Property="Background" Value="#151515" />
@@ -260,7 +301,7 @@
             </ComboBox>
 
 
-            <Border  Margin="0,100,0,0" Background="#151515 ">
+            <Border  Margin="0,100,0,0" Background="#202020 ">
                 <Border.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="4"/>
