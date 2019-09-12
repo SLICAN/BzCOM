@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="ChatMessage" Height="440" Width="600" ResizeMode="NoResize"  WindowStyle="None" Closing="Window_Closing">
     <Grid x:Name="gridChat">
-        <DockPanel x:Name="menuPanel"  Background="#151515"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
+        <DockPanel x:Name="menuPanel"  Background="#FF444444"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
 
             <Image Source="/Images/GrafikiPozostale/LogoReszta.png"  HorizontalAlignment="Left" Stretch="None" Width="17"  Margin="10,0,0,0">
 
@@ -19,7 +19,7 @@
             <Button x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#151515"/>
+                        <Setter Property="Background" Value="#FF444444"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -46,7 +46,7 @@
 
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#151515"/>
+                        <Setter Property="Background" Value="#FF444444"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">

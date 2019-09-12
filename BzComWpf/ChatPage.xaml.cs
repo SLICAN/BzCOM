@@ -65,7 +65,7 @@ namespace BzCOMWpf
                 {
                   
 
-                    TypeText("ja", message.Text, message.DateTime);
+                    TypeText("Ja", message.Text, message.DateTime);
                    
                 }
                 else
@@ -82,7 +82,7 @@ namespace BzCOMWpf
             {
                 if (!error)
                 {
-                    TypeText("ja", TextBoxMessage.Text, messageSendTime);
+                    TypeText("Ja", TextBoxMessage.Text, messageSendTime);
                     TextBoxMessage.Clear();
                     messageSend = false;
                 }
@@ -142,7 +142,7 @@ namespace BzCOMWpf
                 //   Chat.Text += text;
                 // Chat.Text = Chat.Text + text;
                 Border borderOkienka = new Border();
-                if (text.Substring(0, 2) == "ja")
+                if (text.Substring(0, 2) == "Ja")
                 {
                     borderOkienka.Background = new SolidColorBrush(Color.FromRgb(65, 174, 207));
                     borderOkienka.HorizontalAlignment = HorizontalAlignment.Right;
@@ -150,6 +150,7 @@ namespace BzCOMWpf
                 else {
                     borderOkienka.Background = new SolidColorBrush(Color.FromRgb(68,68,68));
                     borderOkienka.HorizontalAlignment = HorizontalAlignment.Left;
+                   
                 }
                 
                 borderOkienka.CornerRadius = new CornerRadius(4);
@@ -159,6 +160,7 @@ namespace BzCOMWpf
                 TextBlock textBlock = new TextBlock();
                 textBlock.TextWrapping = TextWrapping.Wrap;
                 textBlock.Text += text;
+                textBlock.Foreground = new SolidColorBrush(Colors.White);
                 borderOkienka.Child = textBlock;
                 stackPanelBorder.Children.Add(borderOkienka);
             }

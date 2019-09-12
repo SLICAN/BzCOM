@@ -213,5 +213,8 @@
   <ItemGroup>
     <Resource Include="Images\ChatPage\WyslijAW.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\chat.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
