@@ -18,6 +18,7 @@ using System.Runtime.InteropServices;
 using System.Web.Script.Serialization;
 using System.Reflection;
 
+
 namespace BzCOMWpf
 {
     /// <summary>
@@ -25,6 +26,7 @@ namespace BzCOMWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+       
         int przelacznik = 0;
         int padlock = 0;
         int kolor = 0;
@@ -351,8 +353,10 @@ namespace BzCOMWpf
         {
             passwordBox.GetType().GetMethod("Select", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(passwordBox, new object[] { start, length });
         }
+
+       
     }
-    }
+}
 
     
 

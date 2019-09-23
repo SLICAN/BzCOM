@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Web.Script.Serialization;
 
+
 namespace BzCOMWpf
 {
     /// <summary>
@@ -24,6 +25,8 @@ namespace BzCOMWpf
     /// </summary>
     public partial class AddressBookForm : Window
     {
+
+        private int myNumber;
         private string currentNumber;
         private string descrption;
         //private ListViewItem item;
@@ -42,21 +45,21 @@ namespace BzCOMWpf
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-        
+
 
         public AddressBookForm()
         {
             InitializeComponent();
-      
+
             trafficController.OnUpdateStatus += TrafficController_OnUpdateStatus;
             trafficController.OnAddressBookGet += TrafficController_OnAddressBookGet;
             trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
             messageForm = new ChatMessage();
-       
+
             messageForm.Hide();
             openedConnections = new List<ChatPage>();
-              
+
         }
 
         #region TrafficController
@@ -67,7 +70,7 @@ namespace BzCOMWpf
                 if (msgNow.Number == messageForm.nr)
                     isConnectionOpened = true;
 
-            
+
             if (!isConnectionOpened)
             {
 
@@ -106,8 +109,8 @@ namespace BzCOMWpf
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="users"></param>
-       private void TrafficController_OnUpdateStatus(TrafficController sender, List<User> users)
-        {          
+        private void TrafficController_OnUpdateStatus(TrafficController sender, List<User> users)
+        {
             EditBook(users);
         }
 
@@ -125,15 +128,15 @@ namespace BzCOMWpf
 
             var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var img = new BitmapImage(new Uri("/Images/GrafikiMenu/avatar_placeholder.png", UriKind.Relative));
-             if (ListViewAddressBook.Dispatcher.Thread == Thread.CurrentThread)
+            if (ListViewAddressBook.Dispatcher.Thread == Thread.CurrentThread)
             {
                 bookList = bookList.OrderBy(x => x.UserState).ToList();
                 foreach (var item in bookList)
                 {
-                    ListViewAddressBook.Items.Add(new MyItem { UserState = item.UserState.ToString(), UserName = item.UserName, UserDesc = item.UserDesc,Image = img});
+                    ListViewAddressBook.Items.Add(new MyItem { UserState = item.UserState.ToString(), UserName = item.UserName, UserDesc = item.UserDesc, Image = img });
                     Utworz_pliki_json(item);
-                        //Wypelnij_pliki_json(item);
-                }           
+                    //Wypelnij_pliki_json(item);
+                }
             }
             else
             {
@@ -147,13 +150,13 @@ namespace BzCOMWpf
         /// <param name="bookList"></param>
         private void EditBook(List<User> bookList)
         {
-            
+
             if (ListViewAddressBook.Dispatcher.Thread == Thread.CurrentThread)
             {
                 foreach (var user_item in bookList)
-                     {
-                        foreach(MyItem item in ListViewAddressBook.Items)
-                        {
+                {
+                    foreach (MyItem item in ListViewAddressBook.Items)
+                    {
                         if (item.UserName == user_item.UserName)
                         {
                             if (user_item.UserState != Status.UNKNOWN)
@@ -168,8 +171,8 @@ namespace BzCOMWpf
                                 Console.Write(item.UserDesc);
                             }
                         }
-                        }
                     }
+                }
                 ListViewAddressBook.Items.SortDescriptions.Add(new SortDescription("UserState", ListSortDirection.Ascending));
                 ListViewAddressBook.Items.Refresh();
             }
@@ -221,20 +224,20 @@ namespace BzCOMWpf
                         else
                         {
                             messageForm.ConnectionsListView.Items.Add(connectionItem);
-                            messageForm.Initialize(openedConnections, Int32.Parse(currentNumber));
+                            messageForm.Initialize(openedConnections, Int32.Parse(currentNumber),myNumber);
                         }
                     }
                     else
                     {
                         messageForm.ConnectionsListView.Items.Add(connectionItem);
-                        messageForm.Initialize(openedConnections,Int32.Parse(currentNumber));
-                    }
+                        messageForm.Initialize(openedConnections, Int32.Parse(currentNumber),myNumber);
                     }
                 }
-                else
-                    MessageBox.Show("Najpierw musisz ustanowić połączenie!", "Warning");
-
             }
+            else
+                MessageBox.Show("Najpierw musisz ustanowić połączenie!", "Warning");
+
+        }
         #endregion
 
         #region ComboBoxStatus
@@ -242,7 +245,7 @@ namespace BzCOMWpf
         {
             foreach (var item in Enum.GetValues(typeof(Status)))
             {
-               if (item.ToString() != Status.UNKNOWN.ToString())
+                if (item.ToString() != Status.UNKNOWN.ToString())
 
                     ComboBoxStatus.Items.Add(item);
             }
@@ -331,6 +334,9 @@ namespace BzCOMWpf
         //    }
         //}
 
+
+
+
         private void buttonExitMain_Click(object sender, EventArgs e)
         {
             Application.Current.Shutdown();
@@ -344,7 +350,7 @@ namespace BzCOMWpf
 
         private void MessageBoxButtons_Click(object sender, RoutedEventArgs e)
         {
-           
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -352,6 +358,9 @@ namespace BzCOMWpf
             var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string login;
             string jsonRead;
+
+
+
             if (File.Exists(path2 + "BzCOMfile.json"))
             {
                 jsonRead = File.ReadAllText(path2 + "BzCOMfile.json");
@@ -359,9 +368,15 @@ namespace BzCOMWpf
                 login = resultRead["login"];
                 descrption = trafficController.GetDescriptionByNumber(login);
                 TextBoxDescription.Text = descrption;
+                myNumber = Int32.Parse(login);
             }
             else { return; }
+
+
         }
+
+
+
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
@@ -389,14 +404,14 @@ namespace BzCOMWpf
             {
 
                 TextBoxDescription.Text = "";
-               
+
 
             }
         }
 
         private void TextBoxDescription_TextChanged(object sender, TextChangedEventArgs e)
         {
-           // TextBoxDescription.Foreground = Brushes.Aqua;
+            // TextBoxDescription.Foreground = Brushes.Aqua;
         }
 
         private void TextBoxDescription_MouseEnter(object sender, MouseEventArgs e)
@@ -417,13 +432,13 @@ namespace BzCOMWpf
 
         public void Utworz_pliki_json(User user)
         {
-            var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            if (File.Exists(path2 + user.UserName + ".json")){ return; }
+            /*var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            if (File.Exists(path2 + user.UserName + ".json")) { return; }
             else
             {
                 File.Create(path2 + user.UserName + ".json");
-                
-            }
+
+            }*/
         }
         //public void Wypelnij_pliki_json(User user)
         //{
@@ -437,7 +452,7 @@ namespace BzCOMWpf
         //    string jsonWrite = serializer.Serialize(awatar);
         //    //File.WriteAllText(@".\file.json", jsonWrite);
 
-      
+
         //    File.WriteAllText(path2 + user.UserName + ".json", jsonWrite);
         //}
 
@@ -453,21 +468,21 @@ namespace BzCOMWpf
             if (result == true)
             {
                 // Open document 
-                
+
                 string filename = dlg.FileName;
                 var img = new BitmapImage(new Uri(filename, UriKind.Relative));
                 //MyImage = img;
-                
+
             }
         }
 
         private void ButtonPicture_Click(object sender, RoutedEventArgs e)
 
         {
-            
+
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.DefaultExt = ".png";
-           // dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
+            // dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
             Nullable<bool> result = dlg.ShowDialog();
 
 
@@ -476,21 +491,21 @@ namespace BzCOMWpf
             {
                 imgPhoto.ImageSource = new BitmapImage(new Uri(dlg.FileName));
                 // Open document 
-                
+
                 string filename = dlg.FileName;
-                ;
-                //MyImage = img;
                 
+                //MyImage = img;
+
             }
         }
-        
+
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
         }
 
         private void ButtonFav_Click(object sender, RoutedEventArgs e)
         {
-            
+
 
         }
 
@@ -501,7 +516,7 @@ namespace BzCOMWpf
 
         private void ButtonTeam_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void ButtonArchive_Click(object sender, RoutedEventArgs e)
@@ -523,20 +538,15 @@ namespace BzCOMWpf
         {
             if (trafficController.GetState() == State.LoggedIn)
             {
-                
+
                 trafficController.LogOut();
                 System.Windows.Forms.Application.Restart();
                 System.Windows.Application.Current.Shutdown();
 
             }
-            
 
-           
-            
-        
         }
     }
-
 
 
     public class MyItem

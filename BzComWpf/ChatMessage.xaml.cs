@@ -26,7 +26,7 @@ namespace BzCOMWpf
        
         public int nr_z_sel_item;
         private bool messageSend = false;
-
+        private int myNumber;
         private List<ChatPage> openedConnections;
         public int idx;
         private bool istnieje;
@@ -51,10 +51,11 @@ namespace BzCOMWpf
         }
 
 
-        public void Initialize(List<ChatPage> _openedConnection,int nr)
+        public void Initialize(List<ChatPage> _openedConnection,int nr,int _mynumber)
         {
             istnieje = false;
             idx = 0;
+            myNumber = _mynumber;
             //nr_z_sel_item = Int32.Parse(selected);
             openedConnections = _openedConnection;
             //openedConnections.Add(new ChatPage(idx, nr));
@@ -73,7 +74,7 @@ namespace BzCOMWpf
                 }
                 _mainFrame.Navigate(openedConnections[idx]); }
             else {
-                ChatPage strona = new ChatPage(nr);
+                ChatPage strona = new ChatPage(nr,myNumber);
                 openedConnections.Add(strona);
                 idx = openedConnections.IndexOf(strona);
                 Console.WriteLine("Index w elsie"+ idx);

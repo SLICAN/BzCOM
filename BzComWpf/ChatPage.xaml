@@ -122,7 +122,7 @@
                 <StackPanel VerticalAlignment="Top"  x:Name="stackPanelBorder"    >
 
                 <TextBlock x:Name="Chat" TextWrapping="Wrap" Foreground="Silver" FontFamily="Segoe UI Light" FontSize="14"  >
-
+                   
 
 
 
@@ -147,7 +147,7 @@
                     </Image>
 
                 </Button>
-                <Button x:Name="clipButton"   BorderThickness="0" Background="#FF444444" DockPanel.Dock="Right" Width="35" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
+                <Button x:Name="clipButton"   BorderThickness="0" Background="#FF444444" DockPanel.Dock="Right" Width="35" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="ClipButton_Click" >
                     <Image  x:Name="clip" Stretch="None" Source="/Images/ChatPage/clipSilver.png" Height="34"   >
 
                     </Image>
