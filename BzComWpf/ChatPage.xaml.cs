@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Google.Apis.Auth.OAuth2;
+using Google.Apis.Download;
 using Google.Apis.Drive.v3;
 using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
@@ -61,117 +62,6 @@ namespace BzCOMWpf
                 
             LoadMessages(trafficController.GetMessagesByNumber(nr));
          
-        }
-
-        private void UploadToDrive(DriveService service, string file_to_upload,string path,string type,string folder)
-        {
-            
-
-            var fileMetadata = new Google.Apis.Drive.v3.Data.File()
-            {
-                Name = file_to_upload,
-                Parents = new List<string> { folder}
-            };
-            FilesResource.CreateMediaUpload request;
-            using (var stream = new System.IO.FileStream(path, System.IO.FileMode.Open))
-            {
-                if (type == ".jpg"){
-                    request = service.Files.Create(fileMetadata, stream, "image/jpeg");
-                }
-                else if (type == ".png")
-                {
-                    request = service.Files.Create(fileMetadata, stream, "image/png");
-                }
-                else if (type == ".svg")
-                {
-                    request = service.Files.Create(fileMetadata, stream, "image/svg+xml");
-                }
-                else if (type == ".pdf")
-                {
-                    request = service.Files.Create(fileMetadata, stream, "application/pdf");
-                }
-                else if (type == ".txt")
-                {
-                    request = service.Files.Create(fileMetadata, stream, "text/plain");
-                }
-                else if (type == ".doc")
-                {
-                    request = service.Files.Create(fileMetadata, stream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document ");
-                }
-                else if (type == ".odt")
-                {
-                    request = service.Files.Create(fileMetadata, stream, "application/vnd.oasis.opendocument.text");
-                }
-                else if (type == ".rtf")
-                {
-                    request = service.Files.Create(fileMetadata, stream, "application/rtf");
-                }
-                else if (type == ".csv")
-                {
-                    request = service.Files.Create(fileMetadata, stream, "text/csv");
-                }
-                else if (type == ".json")
-                {
-                    request = service.Files.Create(fileMetadata, stream, "application/vnd.google-apps.script+json");
-                }
-                else
-                {
-                    request = service.Files.Create(fileMetadata, stream, "text/plain");
-                }
-
-                request.Fields = "id";
-                request.Upload();
-            }
-
-            var file = request.ResponseBody;
-            Console.WriteLine("File ID:" + file.Id);
-        }
-
-        private static string CreateFolderDrive(DriveService service, string folderName)
-        {
-            var file = new Google.Apis.Drive.v3.Data.File();
-            file.Name = folderName;
-            file.MimeType = "application/vnd.google-apps.folder";
-            var request = service.Files.Create(file);
-           
-            request.Fields = "id";
-            var result = request.Execute();
-            return result.Id;
-        }
-
-        private string CheckFolderDriveExist(DriveService service , string folderName)
-        {
-            string folderid = "";
-            FilesResource.ListRequest listRequest = service.Files.List();
-            listRequest.PageSize = 600;
-            listRequest.Fields = "nextPageToken, files(id, name)";
-            bool exist = false;
-            // List files.
-            IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
-                .Files;
-            Console.WriteLine("Files:");
-            if(files.Count == 0)
-            {
-                folderid = CreateFolderDrive(service, folderName);
-                Console.WriteLine("Hallloo " + folderid);
-                return folderid;
-            }
-            if (files != null && files.Count > 0)
-            {
-                foreach (var file in files)
-                {
-                    if (folderName == file.Name) { exist = true; folderid = file.Id; return folderid; }                                   
-                    Console.WriteLine("{0} ({1}) {2}", file.Name, file.Id, exist);
-                    
-                }
-                if (exist == false) { folderid = CreateFolderDrive(service, folderName); return folderid; }
-            }
-            else
-            {
-                Console.WriteLine("No files found.");
-            }
-            return folderid;
-
         }
 
         private void LoadMessages(List<Message> messages)
@@ -238,6 +128,10 @@ namespace BzCOMWpf
             else {
                 SetTextHTML(who + ": " + datatime + "\n" + "" + message + "\n");
             }
+
+
+
+
           //  SetTextHTML("" + message + "\n");
          //   SetTextHTML("");
             /*
@@ -319,10 +213,10 @@ namespace BzCOMWpf
                 //Console.WriteLine(index);
                 //string text1 = text.Substring(0, index);
                 //string hiperlink = text.Substring(index + 1, lastindex);
-
+                string folderName=mynumber.ToString()+"_"+nr.ToString();
                 var h = new Hyperlink();
                 h.Inlines.Add(lines[1]);
-                h.Click += (s, a) => { download(); };
+                h.Click += (s, a) => { download(lines[1],folderName); };
                 TextBlock textBlock = new TextBlock();
                 textBlock.TextWrapping = TextWrapping.Wrap;
                 textBlock.Inlines.Add(lines[0]);
@@ -338,6 +232,7 @@ namespace BzCOMWpf
                 Dispatcher.Invoke(f, new object[] { text });
             }
         }
+
         // Ważna informacja względem możliwej chęci użycia userData:
         // Parametr ten służy do przesyłania dodatkowych informacji takich jak "czy drugi użytkownik pisze w tej chwili 
         // wiadomość". Obecnie ta zmienna jest wykorzystywana do przechowywania dokładnego czasu wysłania wiadomości
@@ -455,14 +350,364 @@ namespace BzCOMWpf
             
 
         }
-        public void download()
+
+
+        //GOOGLE DRIVE
+
+        private void UploadToDrive(DriveService service, string file_to_upload, string path, string type, string folder)
         {
-            MessageBox.Show("Pobrano");
+            var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+            {
+                Name = file_to_upload,
+                Parents = new List<string> { folder }
+            };
+            FilesResource.CreateMediaUpload request;
+            using (var stream = new System.IO.FileStream(path, System.IO.FileMode.Open))
+            {
+                if (type == ".jpg")
+                {
+                    request = service.Files.Create(fileMetadata, stream, "image/jpeg");
+                }
+                else if (type == ".png")
+                {
+                    request = service.Files.Create(fileMetadata, stream, "image/png");
+                }
+                else if (type == ".svg")
+                {
+                    request = service.Files.Create(fileMetadata, stream, "image/svg+xml");
+                }
+                else if (type == ".pdf")
+                {
+                    request = service.Files.Create(fileMetadata, stream, "application/pdf");
+                }
+                else if (type == ".txt")
+                {
+                    request = service.Files.Create(fileMetadata, stream, "text/plain");
+                }
+                else if (type == ".doc")
+                {
+                    request = service.Files.Create(fileMetadata, stream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document ");
+                }
+                else if (type == ".odt")
+                {
+                    request = service.Files.Create(fileMetadata, stream, "application/vnd.oasis.opendocument.text");
+                }
+                else if (type == ".rtf")
+                {
+                    request = service.Files.Create(fileMetadata, stream, "application/rtf");
+                }
+                else if (type == ".csv")
+                {
+                    request = service.Files.Create(fileMetadata, stream, "text/csv");
+                }
+                else if (type == ".json")
+                {
+                    request = service.Files.Create(fileMetadata, stream, "application/vnd.google-apps.script+json");
+                }
+                else
+                {
+                    request = service.Files.Create(fileMetadata, stream, "text/plain");
+                }
+
+                request.Fields = "id";
+                request.Upload();
+            }
+
+            var file = request.ResponseBody;
+            Console.WriteLine("File ID:" + file.Id);
+        }
+
+        private static string CreateFolderDrive(DriveService service, string folderName)
+        {
+            var file = new Google.Apis.Drive.v3.Data.File();
+            file.Name = folderName;
+            file.MimeType = "application/vnd.google-apps.folder";
+            var request = service.Files.Create(file);
+
+            request.Fields = "id";
+            var result = request.Execute();
+            return result.Id;
+        }
+
+        private string CheckFolderDriveExist(DriveService service, string folderName)
+        {
+            string folderid = "";
+            FilesResource.ListRequest listRequest = service.Files.List();
+  
+            listRequest.PageSize = 600;
+            listRequest.Fields = "nextPageToken, files(id, name)";
+            
+            bool exist = false;
+            // List files.
+            IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
+                .Files;
+            Console.WriteLine("Files:");
+            if (files.Count == 0)
+            {
+                folderid = CreateFolderDrive(service, folderName);
+                Console.WriteLine("Hallloo " + folderid);
+                return folderid;
+            }
+            if (files != null && files.Count > 0)
+            {
+                foreach (var file in files)
+                {
+                    if (folderName == file.Name) { exist = true; folderid = file.Id; return folderid; }
+                    Console.WriteLine("{0} ({1}) {2}", file.Name, file.Id, exist);
+
+                }
+                if (exist == false) { folderid = CreateFolderDrive(service, folderName); return folderid; }
+            }
+            else
+            {
+                Console.WriteLine("No files found.");
+            }
+            return folderid;
+
+        }
+
+        private string GetIDFolder(DriveService service , string foldername)
+        {
+            string folderid = "";
+            FilesResource.ListRequest listRequest = service.Files.List();
+
+            listRequest.Q = "mimeType='application/vnd.google-apps.folder'";
+            listRequest.PageSize = 600;
+            listRequest.Fields = "nextPageToken, files(id, name)";
+            
+
+            bool exist = false;
+            // List files.
+            IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
+                .Files;
+          
+            if (files != null && files.Count > 0)
+            {
+                foreach (var file in files)
+                {                  
+                       if (foldername == file.Name) {
+                        exist = true; folderid = file.Id; return folderid; }
+                     
+                }
+                if (exist == false) { }
+            }
+            else
+            {
+                Console.WriteLine("No files found.");
+            }
+            return folderid;
+        }
+
+        public void download(string file,string folderName_)
+        {
+            UserCredential credential;
+            using (var stream = new FileStream("credential.json", FileMode.Open, FileAccess.Read))
+            {
+                string credPath = "token.json";
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None,
+                    new FileDataStore(credPath, true)).Result;
+                Console.WriteLine("Credential file saved to: " + credPath);
+
+            }
+            var service = new DriveService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+            string FileId;
+            FileId = GetIDFile(service, file,folderName_);          
+           // MessageBox.Show(FileId);
+
+            string spath = "";
+            file = file.Remove(file.Length - 1, 1);
+            string typ_ = "";
+            typ_ = System.IO.Path.GetExtension(file);
+            //typ_ = typ_.Remove(0, 1);
+            Console.WriteLine(typ_);
+            SaveFileDialog fileDialog = new SaveFileDialog();
+
+            fileDialog.Filter = CheckExtensionForSaveDialog(typ_);
+            fileDialog.FileName = file;
+            fileDialog.AddExtension = true;
+
+            Nullable<bool> dialogOK = fileDialog.ShowDialog();
+
+            if (dialogOK == true)
+            {
+                spath = fileDialog.FileName;
+
+            }
+
+            GetFileFromDrive(service, FileId,spath);
+            string folderNameID = GetIDFolder(service, mynumber.ToString());
+            Console.WriteLine("ID after download"+ folderName_);
+            string done = move(service, FileId, folderNameID,folderName_);
+            Console.WriteLine(done);
+        }
+
+
+        public string move(DriveService service, string fileid , string folderid, string folderToDelete)
+        {
+
+            var request = service.Files.Get(fileid);
+            request.Fields = "parents";
+            var file = request.Execute();
+            string previousParents = String.Join(",", file.Parents);
+
+            var updateRequest = service.Files.Update(new Google.Apis.Drive.v3.Data.File(), fileid);
+            updateRequest.Fields = "id,parents";
+            updateRequest.AddParents = folderid;
+            updateRequest.RemoveParents = previousParents;
+            file = updateRequest.Execute();
+            folderToDelete = GetIDFolder(service,folderToDelete);
+            if (file != null)
+            {
+                service.Files.Delete((folderToDelete)).Execute();
+              
+                return "Success";
+                
+            }
+            else
+            {
+                return "Fail";
+            }
+
+        }
+
+
+        public string CheckExtensionForSaveDialog(string extesion)
+        {
+            if(extesion == ".jpg" || extesion == ".bmp" || extesion ==".png")
+            {
+                return extesion = "jpg Image|*.jpg|Bitmap Image|*.bmp|Png Image|*.png";
+            }
+            if(extesion == ".png")
+            {
+                return extesion = "PDF File|*.pdf";
+            }
+            if (extesion == ".doc")
+            {
+                return extesion = "Doc File|*.doc";
+            }
+            if (extesion == ".odt")
+            {
+                return extesion = "Odt File|*.odt";
+            }
+            if (extesion == ".txt")
+            {
+                return extesion = "Text File|*.txt";
+            }
+            else
+            {
+                return extesion = "Nieznany typ|*.exe";
+            }
+        }
+
+
+        public void GetFileFromDrive(DriveService service , string FileId, string where)
+        {
+            var request = service.Files.Get(FileId);
+            var stream = new System.IO.MemoryStream();
+            request.MediaDownloader.ProgressChanged +=
+                (IDownloadProgress progress) =>
+                {
+                    switch (progress.Status)
+                    {
+                        case DownloadStatus.Downloading:
+                            {
+                                Console.WriteLine(progress.BytesDownloaded);
+                                break;
+                            }
+                        case DownloadStatus.Completed:
+                            {
+                                Console.WriteLine("Download complete.");
+                                SaveStream(stream, where);
+                                break;
+                            }
+                        case DownloadStatus.Failed:
+                            {
+                                Console.WriteLine("Download failed.");
+                                break;
+                            }
+                    }
+                };
+            request.Download(stream);
+        }
+
+        private static void SaveStream(System.IO.MemoryStream stream, string saveTo)
+        {
+            using (System.IO.FileStream file = new System.IO.FileStream(saveTo, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+            {
+                stream.WriteTo(file);
+            }
+        }
+
+
+        public string GetIDFile(DriveService service, string filename,string folderName)
+        {
+            Console.WriteLine("TEKST " + filename);
+            filename = filename.Remove(filename.Length - 1, 1);
+            string fileid = "";
+            FilesResource.ListRequest listRequest = service.Files.List();
+            //listRequest.Q = "mimeType = 'application/vnd.google-apps.folder' and name = " + "'" + folderName +"'";
+            Console.WriteLine("Folder:" + folderName);
+            listRequest.PageSize = 600;
+            listRequest.Fields = "nextPageToken, files(id, name,parents)";
+            bool exist = false;
+            // List files.
+            IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
+                .Files;
+            Console.WriteLine("Files:");
+            if (files.Count == 0)
+            {
+                Console.WriteLine("Nie istenieje żaden plik");
+            }
+            if (files != null && files.Count > 0)
+            {
+                string folderNameID = GetIDFolder(service, folderName);
+
+                foreach (var file in files)
+                {
+                    //Console.WriteLine("Filename:" + filename + "File.Name" + file.Name);
+                    //Console.WriteLine(filename.Equals(file.Name));
+                    Console.WriteLine("FOLDER ID" + folderNameID);
+                    Console.WriteLine("FILE PARENTS" + file.Parents[0]);
+                    Console.WriteLine("EQUALS" + folderNameID.Equals(file.Parents[0]));
+                    if (folderNameID.Equals(file.Parents[0]))
+                    {
+                        if (filename.Equals(file.Name))
+                        {
+                            fileid = file.Id;
+
+
+                            //Console.WriteLine("FolderNameID " + folderNameID);
+                            //Console.WriteLine("Znalezione " + fileid);
+                            
+                            return fileid;
+                        }
+                        Console.WriteLine("{0} ({1}) {2}", file.Name, file.Id, exist);
+                    }
+                    
+                }
+            }
+            else
+            {
+                Console.WriteLine("No files found.");
+            }
+            return fileid;
         }
 
         
         /// Tworzy folder uzytkownik_adresat wysyła tam plik , podczas downloadu wysyła do folderu uzytkownika i usuwa folder uzytkownik_adresat #BEDZIEKOZAK
-       
+        
+        //Stworzenie folderu uzytkownika
+        //Sprawdzanie konkretnego folderu
+        
+        ///Sprawdzenie czy istenieje folder uzytkownik_adresat jezeli nie istnieje , sprawdz czy plik istnieje w twoim folderze
     }
 }
 
