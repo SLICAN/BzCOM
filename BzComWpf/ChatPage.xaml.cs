@@ -25,7 +25,7 @@ using Microsoft.Win32;
 
 namespace BzCOMWpf
 {
-   
+
     /// <summary>
     /// Logika interakcji dla klasy Chat.xaml
     /// </summary>
@@ -37,31 +37,32 @@ namespace BzCOMWpf
         delegate void SetTextCallBack(string text);
         delegate void SetScrollCallBack();
         private bool messageSend = false;
-        private bool upload = false;
+        //private bool upload;
         static string token = "AIzaSyDiVSBxUhhiAJopIvM3oEQ1PuYwyOje4EQ";
+        string szyfr = "3t6w9z$C&E)H@McQ";
         public DateTime messageSendTime; // Zmienna pod dokładny czas wysłania wiadomości.
         static string[] Scopes = { DriveService.Scope.Drive };
         static string ApplicationName = "BzCom";
 
-        
 
-        public ChatPage(int _nr,int _myNumber)
+
+        public ChatPage(int _nr, int _myNumber)
         {
-           
+
             nr = _nr;
             mynumber = _myNumber;
             InitializeComponent();
             Title = nr.ToString();
             trafficController.OnSuccessMessageSend += TrafficController_OnSuccessMessageSend;
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
-           /* Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
-            {
-                var navWindow = Window.GetWindow(this) as NavigationWindow;
-                if (navWindow != null) navWindow.ShowsNavigationUI = false;
-            }));*/
-                
+            /* Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
+             {
+                 var navWindow = Window.GetWindow(this) as NavigationWindow;
+                 if (navWindow != null) navWindow.ShowsNavigationUI = false;
+             }));*/
+
             LoadMessages(trafficController.GetMessagesByNumber(nr));
-         
+
         }
 
         private void LoadMessages(List<Message> messages)
@@ -69,27 +70,26 @@ namespace BzCOMWpf
             foreach (Message message in messages)
             {
                 if (message.IsMine)
-                {                
-                    TypeText("Ja", message.Text, message.DateTime);                  
+                {
+                    TypeText("Ja", message.Text, message.DateTime);
                 }
                 else
                 {
                     TypeText(trafficController.FindName(message.Number.ToString()), message.Text, message.DateTime);
+
                 }
             }
         }
         private void TrafficController_OnSuccessMessageSend(TrafficController sender, bool error)
-        {           
+        {
             if (messageSend)
             {
                 if (!error)
                 {
-                    Console.WriteLine("SEND: " + upload.ToString());
-                    //if (upload == true) { TypeText("Ja", TextBoxMessage.Text, messageSendTime,upload=true); }
-                    TypeText("Ja", TextBoxMessage.Text, messageSendTime);                 
+                    TypeText("Ja", TextBoxMessage.Text, messageSendTime);
                     TextBoxMessage.Clear();
                     messageSend = false;
-                    
+
                 }
                 else
                     MessageBox.Show("Nie udało się wysłać wiadomości", "Error");
@@ -104,10 +104,22 @@ namespace BzCOMWpf
         {
             if (nr == msgNow.Number)
             {
-                Console.WriteLine("RECIEVE: " + upload.ToString());
-                if (upload == true) { TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime, true); }
-                else { TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime); }
-                upload = false;
+
+
+                bool zawiera = false;
+                if (msgNow.Text.Contains(szyfr)) { zawiera = true; }
+                Console.WriteLine(zawiera);
+                if (zawiera == true) {
+                    msgNow.Text = msgNow.Text.Replace(szyfr, "");
+                    TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime, true);
+                }
+                if (zawiera == false) { TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime); }
+
+                //msgNow.Text.Remove(0, 5);
+
+
+
+
             }
             else
             {
@@ -121,19 +133,15 @@ namespace BzCOMWpf
         /// <param name="who"></param>
         /// <param name="message"></param>
         /// <param name="datatime"></param>
-        public void TypeText(string who, string message, DateTime datatime,bool hyper=false)
+        public void TypeText(string who, string message, DateTime datatime, bool hyper = false)
         {
             //Chat.Text += who + " : " + message;        
             if (hyper == true) { SetHyperlink((who + ": " + datatime + "\n" + "?" + message + "\n")); }
             else {
                 SetTextHTML(who + ": " + datatime + "\n" + "" + message + "\n");
             }
-
-
-
-
-          //  SetTextHTML("" + message + "\n");
-         //   SetTextHTML("");
+            //  SetTextHTML("" + message + "\n");
+            //   SetTextHTML("");
             /*
             Border borderJa = new Border();
             borderJa.Background = new SolidColorBrush(Color.FromRgb(65, 174, 207));
@@ -150,7 +158,7 @@ namespace BzCOMWpf
         {
             if (Chat.Dispatcher.Thread == Thread.CurrentThread)
             {
-            
+
                 //   Chat.Text += text;
                 // Chat.Text = Chat.Text + text;
                 Border borderOkienka = new Border();
@@ -160,16 +168,16 @@ namespace BzCOMWpf
                     borderOkienka.HorizontalAlignment = HorizontalAlignment.Right;
                 }
                 else {
-                    borderOkienka.Background = new SolidColorBrush(Color.FromRgb(68,68,68));
+                    borderOkienka.Background = new SolidColorBrush(Color.FromRgb(68, 68, 68));
                     borderOkienka.HorizontalAlignment = HorizontalAlignment.Left;
-                   
+
                 }
-                
+
                 borderOkienka.CornerRadius = new CornerRadius(4);
                 borderOkienka.BorderThickness = new Thickness(1);
 
                 //b.BorderThickness = new Thickness{Top=1, Bottom=0, Left=1, Right=1}; 
-               
+
                 TextBlock textBlock = new TextBlock();
                 textBlock.TextWrapping = TextWrapping.Wrap;
                 textBlock.Text += text;
@@ -190,7 +198,7 @@ namespace BzCOMWpf
         {
             if (Chat.Dispatcher.Thread == Thread.CurrentThread)
             {
-  
+
                 Border borderOkienka = new Border();
                 if (text.Substring(0, 2) == "Ja")
                 {
@@ -207,16 +215,16 @@ namespace BzCOMWpf
                 borderOkienka.CornerRadius = new CornerRadius(4);
                 borderOkienka.BorderThickness = new Thickness(1);
 
-                string[] lines = text.Split(new Char[] { '?','!' });
+                string[] lines = text.Split(new Char[] { '?', '!' });
                 //int index = text.IndexOf("?");
                 //int lastindex = text.- 1;
                 //Console.WriteLine(index);
                 //string text1 = text.Substring(0, index);
                 //string hiperlink = text.Substring(index + 1, lastindex);
-                string folderName=mynumber.ToString()+"_"+nr.ToString();
+                string folderName = nr.ToString() + "_" + mynumber.ToString();
                 var h = new Hyperlink();
                 h.Inlines.Add(lines[1]);
-                h.Click += (s, a) => { download(lines[1],folderName); };
+                h.Click += (s, a) => { download(lines[1], folderName); };
                 TextBlock textBlock = new TextBlock();
                 textBlock.TextWrapping = TextWrapping.Wrap;
                 textBlock.Inlines.Add(lines[0]);
@@ -243,18 +251,19 @@ namespace BzCOMWpf
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (trafficController.GetState() == State.OpenedGate && !TextBoxMessage.Text.Equals(""))
-            {           
+            {
                 messageSendTime = DateTime.Now;
+
                 /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
                 trafficController.SMSSend(nr.ToString(), null, TextBoxMessage.Text, "", "" + messageSendTime);
-                messageSend = true;           
+                messageSend = true;
             }
             else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
         }
 
         private void SendButton_MouseEnter(object sender, MouseEventArgs e)
         {
-           
+
             send.Source = new BitmapImage(new Uri(@"/Images/ChatPage/WyslijAW.png", UriKind.Relative));
             send.Stretch = Stretch.None;
         }
@@ -263,14 +272,14 @@ namespace BzCOMWpf
         {
             clip.Source = new BitmapImage(new Uri(@"/Images/ChatPage/clipWhite.png", UriKind.Relative));
             clip.Stretch = Stretch.None;
-           
+
         }
 
         private void Button_MouseLeave(object sender, MouseEventArgs e)
         {
             clip.Source = new BitmapImage(new Uri(@"/Images/ChatPage/clipSilver.png", UriKind.Relative));
             clip.Stretch = Stretch.None;
- 
+
         }
 
         private void SendButton_LostFocus(object sender, RoutedEventArgs e)
@@ -317,9 +326,9 @@ namespace BzCOMWpf
                 HttpClientInitializer = credential,
                 ApplicationName = ApplicationName,
             });
-
-            string spath="";
-            string typ="";
+            CheckFolderDriveExist(service, mynumber.ToString());
+            string spath = "";
+            string typ = "";
             string filename = "";
             string folder_id = "";
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -332,27 +341,76 @@ namespace BzCOMWpf
 
             }
             folder_id = CheckFolderDriveExist(service, mynumber.ToString() + "_" + nr.ToString());
-            UploadToDrive(service, filename, spath, typ,folder_id);
-            Console.WriteLine("Nazwa "+ folder_id);
-            Console.WriteLine("Typ "+ typ);
-            
+            UploadToDrive(service, filename, spath, typ, folder_id);
+            Console.WriteLine("Nazwa " + folder_id);
+            Console.WriteLine("Typ " + typ);
+
 
             if (trafficController.GetState() == State.OpenedGate)
             {
                 messageSendTime = DateTime.Now;
                 /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
+
                 TextBoxMessage.Text = "Plik wysłany";
-                upload = true;
-                trafficController.SMSSend(nr.ToString(), null, filename,"" , "" + messageSendTime);
+                trafficController.SMSSend(nr.ToString(), null, szyfr + filename, "", "" + messageSendTime);
                 messageSend = true;
-                
+
             }
-            
+
 
         }
 
 
+
         //GOOGLE DRIVE
+
+        public string ExtenionsForMimeType(string type)
+        {
+            if (type == ".jpg")
+            {
+                return "image/jpeg";
+            }
+            else if (type == ".png")
+            {
+                return "image/png";
+            }
+            else if (type == ".svg")
+            {
+                return "image/svg+xml";
+            }
+            else if (type == ".pdf")
+            {
+                return "application/pdf";
+            }
+            else if (type == ".txt")
+            {
+                return "text/plain";
+            }
+            else if (type == ".doc")
+            {
+                return "application/vnd.openxmlformats-officedocument.wordprocessingml.document ";
+            }
+            else if (type == ".odt")
+            {
+                return "application/vnd.oasis.opendocument.text";
+            }
+            else if (type == ".rtf")
+            {
+                return "application/rtf";
+            }
+            else if (type == ".csv")
+            {
+                return "text/csv";
+            }
+            else if (type == ".json")
+            {
+                return "application/vnd.google-apps.script+json";
+            }
+            else
+            {
+                return "text/plain";
+            }
+        }
 
         private void UploadToDrive(DriveService service, string file_to_upload, string path, string type, string folder)
         {
@@ -414,7 +472,7 @@ namespace BzCOMWpf
             }
 
             var file = request.ResponseBody;
-            Console.WriteLine("File ID:" + file.Id);
+
         }
 
         private static string CreateFolderDrive(DriveService service, string folderName)
@@ -431,21 +489,21 @@ namespace BzCOMWpf
 
         private string CheckFolderDriveExist(DriveService service, string folderName)
         {
+
             string folderid = "";
             FilesResource.ListRequest listRequest = service.Files.List();
-  
+
             listRequest.PageSize = 600;
             listRequest.Fields = "nextPageToken, files(id, name)";
-            
+
             bool exist = false;
             // List files.
             IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
                 .Files;
-            Console.WriteLine("Files:");
+
             if (files.Count == 0)
             {
                 folderid = CreateFolderDrive(service, folderName);
-                Console.WriteLine("Hallloo " + folderid);
                 return folderid;
             }
             if (files != null && files.Count > 0)
@@ -453,7 +511,7 @@ namespace BzCOMWpf
                 foreach (var file in files)
                 {
                     if (folderName == file.Name) { exist = true; folderid = file.Id; return folderid; }
-                    Console.WriteLine("{0} ({1}) {2}", file.Name, file.Id, exist);
+
 
                 }
                 if (exist == false) { folderid = CreateFolderDrive(service, folderName); return folderid; }
@@ -466,7 +524,7 @@ namespace BzCOMWpf
 
         }
 
-        private string GetIDFolder(DriveService service , string foldername)
+        private string GetIDFolder(DriveService service, string foldername)
         {
             string folderid = "";
             FilesResource.ListRequest listRequest = service.Files.List();
@@ -474,20 +532,20 @@ namespace BzCOMWpf
             listRequest.Q = "mimeType='application/vnd.google-apps.folder'";
             listRequest.PageSize = 600;
             listRequest.Fields = "nextPageToken, files(id, name)";
-            
+
 
             bool exist = false;
             // List files.
             IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
                 .Files;
-          
+
             if (files != null && files.Count > 0)
             {
                 foreach (var file in files)
-                {                  
-                       if (foldername == file.Name) {
+                {
+                    if (foldername == file.Name) {
                         exist = true; folderid = file.Id; return folderid; }
-                     
+
                 }
                 if (exist == false) { }
             }
@@ -498,8 +556,9 @@ namespace BzCOMWpf
             return folderid;
         }
 
-        public void download(string file,string folderName_)
+        public void download(string file, string folderName_)
         {
+
             UserCredential credential;
             using (var stream = new FileStream("credential.json", FileMode.Open, FileAccess.Read))
             {
@@ -510,8 +569,6 @@ namespace BzCOMWpf
                     "user",
                     CancellationToken.None,
                     new FileDataStore(credPath, true)).Result;
-                Console.WriteLine("Credential file saved to: " + credPath);
-
             }
             var service = new DriveService(new BaseClientService.Initializer()
             {
@@ -519,15 +576,23 @@ namespace BzCOMWpf
                 ApplicationName = ApplicationName,
             });
             string FileId;
-            FileId = GetIDFile(service, file,folderName_);          
-           // MessageBox.Show(FileId);
+            string folderNameID = GetIDFolder(service, mynumber.ToString());
+            //MOZE TUTAJ FOLDER PODMIENIC
+            CheckFolderDriveExist(service, mynumber.ToString());
+            bool movebool = true;
+            /* if (CheckFileinFolderExist(service, file, folderNameID) == true)
+             {
+                 FileId = GetIDFile(service, file, mynumber.ToString());
+                 movebool = false;
+             }
+             else { FileId = GetIDFile(service, file, folderName_); }*/
+            FileId = GetIDFile(service, file, folderName_);
+            Console.WriteLine("MOVE BOOL " + movebool);
 
             string spath = "";
             file = file.Remove(file.Length - 1, 1);
             string typ_ = "";
             typ_ = System.IO.Path.GetExtension(file);
-            //typ_ = typ_.Remove(0, 1);
-            Console.WriteLine(typ_);
             SaveFileDialog fileDialog = new SaveFileDialog();
 
             fileDialog.Filter = CheckExtensionForSaveDialog(typ_);
@@ -542,50 +607,52 @@ namespace BzCOMWpf
 
             }
 
-            GetFileFromDrive(service, FileId,spath);
-            string folderNameID = GetIDFolder(service, mynumber.ToString());
-            Console.WriteLine("ID after download"+ folderName_);
-            string done = move(service, FileId, folderNameID,folderName_);
+
+            GetFileFromDrive(service, FileId, spath);
+
+            Console.WriteLine("ID after download " + folderName_);
+            string done = move(service, FileId, folderNameID, folderName_, movebool);
             Console.WriteLine(done);
         }
 
 
-        public string move(DriveService service, string fileid , string folderid, string folderToDelete)
+        public string move(DriveService service, string fileid, string folderid, string folderToDelete, bool move = true)
         {
-
-            var request = service.Files.Get(fileid);
-            request.Fields = "parents";
-            var file = request.Execute();
-            string previousParents = String.Join(",", file.Parents);
-
-            var updateRequest = service.Files.Update(new Google.Apis.Drive.v3.Data.File(), fileid);
-            updateRequest.Fields = "id,parents";
-            updateRequest.AddParents = folderid;
-            updateRequest.RemoveParents = previousParents;
-            file = updateRequest.Execute();
-            folderToDelete = GetIDFolder(service,folderToDelete);
-            if (file != null)
+            if (move == true)
             {
-                service.Files.Delete((folderToDelete)).Execute();
-              
-                return "Success";
-                
-            }
-            else
-            {
-                return "Fail";
-            }
+                var request = service.Files.Get(fileid);
+                request.Fields = "parents";
+                var file = request.Execute();
+                string previousParents = String.Join(",", file.Parents);
 
+                var updateRequest = service.Files.Update(new Google.Apis.Drive.v3.Data.File(), fileid);
+                updateRequest.Fields = "id,parents";
+                updateRequest.AddParents = folderid;
+                updateRequest.RemoveParents = previousParents;
+                file = updateRequest.Execute();
+                folderToDelete = GetIDFolder(service, folderToDelete);
+                if (file != null)
+                {
+                    service.Files.Delete((folderToDelete)).Execute();
+
+                    return "Success";
+                }
+                else
+                {
+                    return "Fail";
+                }
+            }
+            else { return "Nie wymagało przesunięcia"; }
         }
 
 
         public string CheckExtensionForSaveDialog(string extesion)
         {
-            if(extesion == ".jpg" || extesion == ".bmp" || extesion ==".png")
+            if (extesion == ".jpg" || extesion == ".bmp" || extesion == ".png")
             {
                 return extesion = "jpg Image|*.jpg|Bitmap Image|*.bmp|Png Image|*.png";
             }
-            if(extesion == ".png")
+            if (extesion == ".png")
             {
                 return extesion = "PDF File|*.pdf";
             }
@@ -605,6 +672,74 @@ namespace BzCOMWpf
             {
                 return extesion = "Nieznany typ|*.exe";
             }
+        }
+
+
+        public bool CheckFileinFolderExist(DriveService service, string filename, string FolderID)
+        {
+
+            // Sprawdzam czy plik istenieje w danym folderze
+            // Pobieram nazwe pliku i idFolderu
+            // Przeszukuje wszystkie foldery
+
+
+
+            filename = filename.Remove(filename.Length - 1, 1);
+            //string[] lines = filename.Split(new Char[] { '.', '!' });
+            //Console.WriteLine("LINIA " + lines[0] + " LINIA 1" + lines[1]);
+           // string extension = ExtenionsForMimeType("." + lines[1]);
+           // Console.WriteLine(extension);
+            FilesResource.ListRequest listRequest = service.Files.List();
+            listRequest.PageSize = 600;
+            listRequest.Fields = "nextPageToken, files(id, name,parents)";
+            //listRequest.Q = "mimeType='" + extension + "'";
+            IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
+               .Files;
+
+
+            FilesResource.ListRequest folderRequest = service.Files.List();
+
+            folderRequest.Q = "mimeType='application/vnd.google-apps.folder'";
+            folderRequest.PageSize = 600;
+            folderRequest.Fields = "nextPageToken, files(id, name)";
+            IList<Google.Apis.Drive.v3.Data.File> folders = folderRequest.Execute()
+              .Files;
+
+            string idznalezionegofolder = "";
+            if (files.Count == 0)
+            {
+                Console.WriteLine("Nie istenieje żaden plik");
+            }
+
+            if (folders != null && folders.Count > 0) {
+                foreach (var folder in folders)
+                {
+                    if (files != null && files.Count > 0)
+                    {
+                        foreach (var file in files)
+                        {
+                            if (file.Parents != null)
+                            {
+                                Console.WriteLine("Folder ID" + FolderID);
+                                Console.WriteLine("Parents" + file.Parents[0]);
+                                if ((FolderID.Equals(file.Parents[0]))){
+                                    return true;
+                                }                                
+                            }
+                            else
+                            {
+                                Console.WriteLine("Byl null");
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("No files found.");
+                return false;
+            }
+            return false;
         }
 
 
@@ -649,49 +784,54 @@ namespace BzCOMWpf
 
         public string GetIDFile(DriveService service, string filename,string folderName)
         {
-            Console.WriteLine("TEKST " + filename);
             filename = filename.Remove(filename.Length - 1, 1);
             string fileid = "";
             FilesResource.ListRequest listRequest = service.Files.List();
-            //listRequest.Q = "mimeType = 'application/vnd.google-apps.folder' and name = " + "'" + folderName +"'";
-            Console.WriteLine("Folder:" + folderName);
+
             listRequest.PageSize = 600;
             listRequest.Fields = "nextPageToken, files(id, name,parents)";
             bool exist = false;
             // List files.
             IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
                 .Files;
+
+
+            FilesResource.ListRequest folderRequest = service.Files.List();
+
+            folderRequest.Q = "mimeType='application/vnd.google-apps.folder'";
+            folderRequest.PageSize = 600;
+            folderRequest.Fields = "nextPageToken, files(id, name)";
+            IList<Google.Apis.Drive.v3.Data.File> folders = folderRequest.Execute()
+              .Files;
+
             Console.WriteLine("Files:");
             if (files.Count == 0)
             {
                 Console.WriteLine("Nie istenieje żaden plik");
             }
-            if (files != null && files.Count > 0)
+
+            if (folders != null && folders.Count > 0)
             {
-                string folderNameID = GetIDFolder(service, folderName);
-
-                foreach (var file in files)
+                string FolderID = GetIDFolder(service, folderName);
+                Console.WriteLine("Folder ID in fileID " + FolderID);
+                foreach (var folder in folders)
                 {
-                    //Console.WriteLine("Filename:" + filename + "File.Name" + file.Name);
-                    //Console.WriteLine(filename.Equals(file.Name));
-                    Console.WriteLine("FOLDER ID" + folderNameID);
-                    Console.WriteLine("FILE PARENTS" + file.Parents[0]);
-                    Console.WriteLine("EQUALS" + folderNameID.Equals(file.Parents[0]));
-                    if (folderNameID.Equals(file.Parents[0]))
+                    Console.WriteLine("foler.id" + folder.Id);
+                    if (FolderID.Equals(folder.Id))
                     {
-                        if (filename.Equals(file.Name))
+                        if (files != null && files.Count > 0)
                         {
-                            fileid = file.Id;
-
-
-                            //Console.WriteLine("FolderNameID " + folderNameID);
-                            //Console.WriteLine("Znalezione " + fileid);
-                            
-                            return fileid;
+                            foreach (var file in files)
+                            {
+                                if (filename.Equals(file.Name))
+                                {
+                                    fileid = file.Id;
+                                    return fileid;
+                                }
+                               
+                            }
                         }
-                        Console.WriteLine("{0} ({1}) {2}", file.Name, file.Id, exist);
                     }
-                    
                 }
             }
             else
