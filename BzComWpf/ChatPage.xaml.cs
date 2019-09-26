@@ -580,13 +580,13 @@ namespace BzCOMWpf
             //MOZE TUTAJ FOLDER PODMIENIC
             CheckFolderDriveExist(service, mynumber.ToString());
             bool movebool = true;
-            /* if (CheckFileinFolderExist(service, file, folderNameID) == true)
+            if (CheckFileinFolderExist(service, file, folderNameID) == true)
              {
                  FileId = GetIDFile(service, file, mynumber.ToString());
                  movebool = false;
              }
-             else { FileId = GetIDFile(service, file, folderName_); }*/
-            FileId = GetIDFile(service, file, folderName_);
+            else { FileId = GetIDFile(service, file, folderName_); }
+            //FileId = GetIDFile(service, file, folderName_);
             Console.WriteLine("MOVE BOOL " + movebool);
 
             string spath = "";
@@ -678,21 +678,12 @@ namespace BzCOMWpf
         public bool CheckFileinFolderExist(DriveService service, string filename, string FolderID)
         {
 
-            // Sprawdzam czy plik istenieje w danym folderze
-            // Pobieram nazwe pliku i idFolderu
-            // Przeszukuje wszystkie foldery
-
-
-
             filename = filename.Remove(filename.Length - 1, 1);
-            //string[] lines = filename.Split(new Char[] { '.', '!' });
-            //Console.WriteLine("LINIA " + lines[0] + " LINIA 1" + lines[1]);
-           // string extension = ExtenionsForMimeType("." + lines[1]);
-           // Console.WriteLine(extension);
+
             FilesResource.ListRequest listRequest = service.Files.List();
             listRequest.PageSize = 600;
             listRequest.Fields = "nextPageToken, files(id, name,parents)";
-            //listRequest.Q = "mimeType='" + extension + "'";
+
             IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
                .Files;
 
@@ -705,39 +696,68 @@ namespace BzCOMWpf
             IList<Google.Apis.Drive.v3.Data.File> folders = folderRequest.Execute()
               .Files;
 
-            string idznalezionegofolder = "";
+
+            List<String> FoldersExist = new List<string>();
+            List<String[]> FilesExist = new List<string[]>();
+
+            bool idznalezionegofolder = false; 
             if (files.Count == 0)
             {
                 Console.WriteLine("Nie istenieje żaden plik");
             }
 
-            if (folders != null && folders.Count > 0) {
-                foreach (var folder in folders)
+            if(files != null && files.Count > 0)
+            {
+                foreach(var file in files)
                 {
-                    if (files != null && files.Count > 0)
+                    string[] s = { file.Name, file.Id, file.Parents[0] };
+                    FilesExist.Add(s);
+                }
+            }
+
+            if(folders != null && folders.Count > 0)
+            {
+                foreach ( var folder in folders)
+                {
+                    FoldersExist.Add(folder.Id);
+                }
+            }
+
+             for (int i = 0; i < FilesExist.Count; i++)
+                {
+                    foreach (var folder in FoldersExist)
                     {
-                        foreach (var file in files)
+                        if (FilesExist[i][1].Equals(folder))
                         {
-                            if (file.Parents != null)
-                            {
-                                Console.WriteLine("Folder ID" + FolderID);
-                                Console.WriteLine("Parents" + file.Parents[0]);
-                                if ((FolderID.Equals(file.Parents[0]))){
-                                    return true;
-                                }                                
-                            }
-                            else
-                            {
-                                Console.WriteLine("Byl null");
-                            }
+                            FilesExist.Remove(FilesExist[i]);
                         }
                     }
                 }
-            }
-            else
+
+            for (int i = 0; i < FoldersExist.Count;)
             {
-                Console.WriteLine("No files found.");
-                return false;
+                if (FoldersExist[i].Equals(FolderID))
+                {
+                    i++;
+                }
+                else
+                {
+                    
+                    FoldersExist.Remove(FoldersExist[i]);
+                    i = 0;
+
+                }
+            }
+            for (int i = 0; i < FoldersExist.Count; i++)
+            {
+                for (int j = 0; j < FilesExist.Count; j++)
+                {
+                    if(FilesExist[j][0].Equals(filename) && FilesExist[j][2].Equals(FoldersExist[i]))
+                    {
+                        return true;
+                    }
+                       
+                }
             }
             return false;
         }
@@ -841,13 +861,6 @@ namespace BzCOMWpf
             return fileid;
         }
 
-        
-        /// Tworzy folder uzytkownik_adresat wysyła tam plik , podczas downloadu wysyła do folderu uzytkownika i usuwa folder uzytkownik_adresat #BEDZIEKOZAK
-        
-        //Stworzenie folderu uzytkownika
-        //Sprawdzanie konkretnego folderu
-        
-        ///Sprawdzenie czy istenieje folder uzytkownik_adresat jezeli nie istnieje , sprawdz czy plik istnieje w twoim folderze
     }
 }
 
