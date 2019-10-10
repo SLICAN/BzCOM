@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Navigation;
+using System.Collections;
 
 namespace BzCOMWpf
 {
@@ -25,9 +26,11 @@ namespace BzCOMWpf
     {
        
         public int nr_z_sel_item;
+        public int[] nr_conv;
         private bool messageSend = false;
         private int myNumber;
         private List<ChatPage> openedConnections;
+        private List<ConversationPage> conversationConnections;
         public int idx;
         private bool istnieje;
         delegate void SetTextCallBack(string text);
@@ -83,6 +86,42 @@ namespace BzCOMWpf
             
             
         }
+        public void Initialize(List<ConversationPage> _openedConnection, int[] nr, int _mynumber)
+        {
+            istnieje = false;
+            idx = 0;
+            myNumber = _mynumber;
+            //nr_z_sel_item = Int32.Parse(selected);
+            conversationConnections = _openedConnection;
+            //openedConnections.Add(new ChatPage(idx, nr));
+            
+            foreach (ConversationPage chatPage in conversationConnections)
+            {
+                IStructuralEquatable se1 = chatPage.conversation_numbers;
+                if (se1.Equals(nr,StructuralComparisons.StructuralEqualityComparer)) { istnieje = true; } // tu jest blad pewnie cos takiego jak converstation_numbers jst 
+            }
+            if (istnieje == true)
+            {
+                foreach (ConversationPage convPage in conversationConnections)
+                {
+                    IStructuralEquatable se1 = convPage.conversation_numbers;
+                    if (se1.Equals(nr, StructuralComparisons.StructuralEqualityComparer))
+                    {
+                        idx = conversationConnections.IndexOf(convPage);
+                    }
+                }
+                _mainFrame.Navigate(conversationConnections[idx]);
+            }
+            else
+            {
+              ConversationPage strona = new ConversationPage(nr, myNumber);
+              conversationConnections.Add(strona);
+              idx = conversationConnections.IndexOf(strona);
+              _mainFrame.Navigate(conversationConnections[idx]); //Bug wyswietlil idx 1
+            }
+
+
+        }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -94,26 +133,83 @@ namespace BzCOMWpf
 
         private void ConnectionsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //ConnectionItem selectedItem = (ConnectionItem)ConnectionsListView.SelectedItems[0];
+            int idxconv;
+            int idxchat;
+            int breakid;
+
+            idxchat = 0;
+            idxconv = 0;
+            breakid = 0;
+            ConnectionItem selectedType = (ConnectionItem)ConnectionsListView.SelectedItems[0];
             var selected = ConnectionsListView.SelectedIndex;
-            if (ConnectionsListView.HasItems) { _mainFrame.Navigate(openedConnections[selected]); }
+
+            foreach (ConnectionItem item in ConnectionsListView.Items)
+            {
+                if (breakid <= selected)
+                {
+                    if (item.IsConv == true) { idxconv++; breakid++; }
+                    else { idxchat++; breakid++; }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (ConnectionsListView.HasItems)
+            {
+                if (selectedType.IsConv == true) { _mainFrame.Navigate(conversationConnections[selected - idxchat]); }
+                else { _mainFrame.Navigate(openedConnections[selected - idxconv]); }
+
+            }
             else { };
+            // if (selectedType.IsConv == true) { _mainFrame.Navigate }
+            // if (ConnectionsListView.HasItems) { _mainFrame.Navigate(conversationConnections[selected]); }
+
+
+            // selected = ConnectionsListView.SelectedIndex;     
+            //if (ConnectionsListView.HasItems) {
+
+            //     _mainFrame.Navigate(openedConnections[selected]); }
+            // else { };
 
         }
 
         private void DeleteConnection(object sender, RoutedEventArgs e)
         {
-            var selected = ConnectionsListView.SelectedIndex;
+            //var selected = ConnectionsListView.SelectedIndex;
 
             Button b = sender as Button;
             ConnectionItem item = b.CommandParameter as ConnectionItem;
+            int idxconv;
+            int idxchat;
+            int breakid;
 
-            foreach (var chatPage in openedConnections)
+            idxchat = 0;
+            idxconv = 0;
+            breakid = 0;
+
+            var selected = ConnectionsListView.SelectedIndex;
+
+            foreach (ConnectionItem con in ConnectionsListView.Items)
+            {
+                if (breakid <= selected)
+                {
+                    if (con.IsConv == true) { idxconv++; breakid++; }
+                    else { idxchat++; breakid++; }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            /*foreach (var chatPage in openedConnections)
             {
                 Console.WriteLine(chatPage.ToString());
                 Console.WriteLine(selected);
-            }
+            }*/
             ConnectionsListView.Items.Remove(item);
+
             if (ConnectionsListView.HasItems == false)
             {
                 _mainFrame.Navigate("");
@@ -142,7 +238,7 @@ namespace BzCOMWpf
     {
         public string UserName { get; set; }
         public string UserNumber { get; set; }
-        
+        public bool IsConv { get; set; }
     }
 
 

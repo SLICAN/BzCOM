@@ -43,7 +43,7 @@ namespace BzCOMWpf
         public DateTime messageSendTime; // Zmienna pod dokładny czas wysłania wiadomości.
         static string[] Scopes = { DriveService.Scope.Drive };
         static string ApplicationName = "BzCom";
-
+        string confSzyfr = "xxx";
 
 
         public ChatPage(int _nr, int _myNumber)
@@ -64,6 +64,7 @@ namespace BzCOMWpf
             LoadMessages(trafficController.GetMessagesByNumber(nr));
 
         }
+
 
         private void LoadMessages(List<Message> messages)
         {
@@ -104,21 +105,22 @@ namespace BzCOMWpf
         {
             if (nr == msgNow.Number)
             {
-
-
                 bool zawiera = false;
-                if (msgNow.Text.Contains(szyfr)) { zawiera = true; }
-                Console.WriteLine(zawiera);
-                if (zawiera == true) {
-                    msgNow.Text = msgNow.Text.Replace(szyfr, "");
-                    TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime, true);
+                if (msgNow.Text.Contains(confSzyfr))
+                {
+
                 }
-                if (zawiera == false) { TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime); }
-
-                //msgNow.Text.Remove(0, 5);
-
-
-
+                else
+                {
+                    if (msgNow.Text.Contains(szyfr)) { zawiera = true; }
+                    Console.WriteLine(zawiera);
+                    if (zawiera == true)
+                    {
+                        msgNow.Text = msgNow.Text.Replace(szyfr, "");
+                        TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime, true);
+                    }
+                    if (zawiera == false) { TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime); }
+                }
 
             }
             else
@@ -861,6 +863,10 @@ namespace BzCOMWpf
             return fileid;
         }
 
+        private void Konwersacja_Button(object sender, RoutedEventArgs e)
+        {
+           
+        }
     }
 }
 

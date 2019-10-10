@@ -262,6 +262,7 @@ namespace BzCOMWpf
             message.Number = Int32.Parse(number);
             message.DateTime = DateTime.Now;
             message.IsMine = true;
+            message.Buffer = dontBuffer;
             allMessages.Add(message); //Zapisywanie wysłanej wiadomosci
             //}
         }

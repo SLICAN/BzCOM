@@ -13,7 +13,9 @@ namespace BzCOMWpf
 
         public string userData { get; set; }
 
-        public bool IsMine { get; set; } //Sprawdza czy wiadomość była wysłana przez uzytkownika
+        public bool IsMine { get; set; }//Sprawdza czy wiadomość była wysłana przez uzytkownika
+
+        public string Buffer { get; set; }
 
         public override string ToString()
         {

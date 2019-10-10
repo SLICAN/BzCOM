@@ -81,10 +81,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActiveUsersxaml.xaml.cs">
+      <DependentUpon>ActiveUsersxaml.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddressBookForm.xaml.cs">
       <DependentUpon>AddressBookForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ListConversation.xaml.cs">
+      <DependentUpon>ListConversation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdressBookPage.xaml.cs">
+      <DependentUpon>AdressBookPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Awatar.cs" />
+    <Compile Include="ConversationPage.xaml.cs">
+      <DependentUpon>ConversationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ChatPage.xaml.cs">
       <DependentUpon>ChatPage.xaml</DependentUpon>
     </Compile>
@@ -104,9 +116,25 @@
     <Compile Include="SaveToJSON.cs" />
     <Compile Include="TrafficController.cs" />
     <Compile Include="User.cs" />
+    <Page Include="ActiveUsersxaml.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddressBookForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListConversation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AdressBookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConversationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ChatPage.xaml">
       <SubType>Designer</SubType>

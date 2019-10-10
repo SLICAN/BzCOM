@@ -29,18 +29,23 @@ namespace BzCOMWpf
         private int myNumber;
         private string currentNumber;
         private string descrption;
+        int[] numbers;
         //private ListViewItem item;
         //ImageSource MyImage= new BitmapImage(new Uri("", UriKind.Relative));
         string url1 = "/Images/GrafikiMenu/avatar_placeholder.png";
-        private List<ChatPage> openedConnections;
-        public ChatMessage messageForm;
+        //private List<ChatPage> openedConnections;
+        //private List<ConversationPage> conversationConnections;
+        //public ChatMessage messageForm;
         delegate void SetUsersCallBack(List<User> users);
-
+        private List<Page> pages = new List<Page>();
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
-
+        private List<ChatPage> openedConnections;
+        private List<ConversationPage> conversationConnections;
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
         public bool znaleziony;
+        public ChatMessage messageForm;
+        ListConversation conversationList;
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
@@ -50,195 +55,24 @@ namespace BzCOMWpf
         public AddressBookForm()
         {
             InitializeComponent();
-
-            trafficController.OnUpdateStatus += TrafficController_OnUpdateStatus;
-            trafficController.OnAddressBookGet += TrafficController_OnAddressBookGet;
-            trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
-            trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
             messageForm = new ChatMessage();
 
-            messageForm.Hide();
             openedConnections = new List<ChatPage>();
+            conversationConnections = new List<ConversationPage>();
+            AdressBookPage adressBookPage = new AdressBookPage(messageForm, openedConnections, conversationConnections);
+            conversationList = new ListConversation(messageForm, openedConnections, conversationConnections, adressBookPage.ListViewAddressBook);
+            pages.Add(adressBookPage);
+            pages.Add(conversationList);
+            _mainFrame.Navigate(pages[0]);
+            Console.WriteLine(pages.Count);
+
+
+
+            Console.WriteLine(messageForm.Title);
+            messageForm.Hide();
 
         }
 
-        #region TrafficController
-        private void TrafficController_OnMessageReceived(TrafficController sender, Message msgNow)
-        {
-            bool isConnectionOpened = false;
-            foreach (ChatPage messageForm in openedConnections)
-                if (msgNow.Number == messageForm.nr)
-                    isConnectionOpened = true;
-
-
-            if (!isConnectionOpened)
-            {
-
-                //PopUpTimer.Enabled = true;
-                //popUpForm.labelWho.Text = trafficController.FindName(msgNow.Number.ToString());
-                //popUpForm.labelWhat.Text = msgNow.Text;
-                //popUpForm.ShowDialog();
-            }
-        }
-
-
-        private void TrafficController_OnAddressBookGet(TrafficController sender, List<User> users)
-        {
-
-            SetBook(users);
-            /// Manages the initial import of statuses and description
-            //SetColor(trafficController.SetColor(users));
-            /// Register sms module
-            trafficController.RegisterToModules();
-            if (trafficController.GetState() == State.LoggedIn)
-            {
-                ChangeComboBox(Status.AVAILABLE.ToString());
-            }
-            this.Show();
-        }
-
-        private void TrafficController_OnDeadConnection(TrafficController sender)
-        {
-            MessageBox.Show("Brak odpowiedzi z serwera.\nSprawdź czy masz połączenie z Internetem lub zgłoś awarię do administratora.\nAplikacja zostanie zamknięta.", "Error", MessageBoxButton.OK);
-            Application.Current.Shutdown();
-        }
-
-
-        /// <summary>
-        /// Edytuj książkę i ustaw odpowiedni kolor - otrzymano zmianę statusu
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="users"></param>
-        private void TrafficController_OnUpdateStatus(TrafficController sender, List<User> users)
-        {
-            EditBook(users);
-        }
-
-        #endregion
-
-        #region Ksiazka
-        /// <summary>
-        /// Ustaw książkę, ukryj pierszą kolumnę 
-        /// (będzie ona służyła tylko do rozpoznawania statusów w kodzie, 
-        /// w interfejsie status będzie rozróżniany poprzez kolory)
-        /// </summary>
-        /// <param name="bookList"></param>
-        public void SetBook(List<User> bookList)
-        {
-
-            var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var img = new BitmapImage(new Uri("/Images/GrafikiMenu/avatar_placeholder.png", UriKind.Relative));
-            if (ListViewAddressBook.Dispatcher.Thread == Thread.CurrentThread)
-            {
-                bookList = bookList.OrderBy(x => x.UserState).ToList();
-                foreach (var item in bookList)
-                {
-                    ListViewAddressBook.Items.Add(new MyItem { UserState = item.UserState.ToString(), UserName = item.UserName, UserDesc = item.UserDesc, Image = img });
-                    Utworz_pliki_json(item);
-                    //Wypelnij_pliki_json(item);
-                }
-            }
-            else
-            {
-                SetUsersCallBack f = new SetUsersCallBack(SetBook);
-                Dispatcher.Invoke(f, new object[] { bookList });
-            }
-        }
-        /// <summary>
-        /// Edytuj książkę po otrzymaniu zmian, sortuj kontakty od dostępnego
-        /// </summary>
-        /// <param name="bookList"></param>
-        private void EditBook(List<User> bookList)
-        {
-
-            if (ListViewAddressBook.Dispatcher.Thread == Thread.CurrentThread)
-            {
-                foreach (var user_item in bookList)
-                {
-                    foreach (MyItem item in ListViewAddressBook.Items)
-                    {
-                        if (item.UserName == user_item.UserName)
-                        {
-                            if (user_item.UserState != Status.UNKNOWN)
-                            {
-                                item.UserState = user_item.UserState.ToString();
-                                Console.WriteLine(item.UserState);
-                                //view.SortDescriptions.Add(new SortDescription("UserState", ListSortDirection.Ascending));
-                            }
-                            if (user_item.UserDesc != null && user_item.UserDesc != "")
-                            {
-                                item.UserDesc = user_item.UserDesc;
-                                Console.Write(item.UserDesc);
-                            }
-                        }
-                    }
-                }
-                ListViewAddressBook.Items.SortDescriptions.Add(new SortDescription("UserState", ListSortDirection.Ascending));
-                ListViewAddressBook.Items.Refresh();
-            }
-
-            else
-            {
-                SetUsersCallBack f = new SetUsersCallBack(EditBook);
-                Dispatcher.Invoke(f, new object[] { bookList });
-            }
-        }
-
-        /// <summary>
-        /// Podwójne kliknięcie na danym kontakcie otwiera z nim rozmowę, numer telefonu zostaje zapisany jako bieżący
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ListViewAddressBook_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            znaleziony = false;
-            //messageForm.ConnectionsListView.Items.Add(new ConnectionItem { UserName = "test", UserNumber = "test" });
-            if (trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate)
-            {
-                MyItem selectedItem = (MyItem)ListViewAddressBook.SelectedItems[0];
-                currentNumber = trafficController.FindNumber(selectedItem.UserName);
-                trafficController.SetState(State.OpenedGate);
-
-
-                if (!trafficController.protection_unavailable(selectedItem.UserName))
-                {
-
-                    trafficController.SetState(State.OpenedGate);
-                    messageForm.Show();
-
-                    ConnectionItem connectionItem = new ConnectionItem { UserName = selectedItem.UserName, UserNumber = currentNumber };
-
-                    if (messageForm.ConnectionsListView.HasItems == true) //Sprawdz czy lista posiada itemy jesli nie to dodaj
-                    {
-                        foreach (ConnectionItem item in messageForm.ConnectionsListView.Items)
-                        {
-                            if (item.UserName == selectedItem.UserName)
-                            {
-                                znaleziony = true;
-                            }
-                        }
-                        if (znaleziony == true)                          //Jesli lista posiada juz ten item 
-                        {
-                            Console.WriteLine("Połączenie juz istnieje");
-                        }
-                        else
-                        {
-                            messageForm.ConnectionsListView.Items.Add(connectionItem);
-                            messageForm.Initialize(openedConnections, Int32.Parse(currentNumber),myNumber);
-                        }
-                    }
-                    else
-                    {
-                        messageForm.ConnectionsListView.Items.Add(connectionItem);
-                        messageForm.Initialize(openedConnections, Int32.Parse(currentNumber),myNumber);
-                    }
-                }
-            }
-            else
-                MessageBox.Show("Najpierw musisz ustanowić połączenie!", "Warning");
-
-        }
-        #endregion
 
         #region ComboBoxStatus
         private void ComboBoxStatus_Loaded(object sender, RoutedEventArgs e)
@@ -261,7 +95,7 @@ namespace BzCOMWpf
         {
             if (trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate)
                 trafficController.SetStatus((Status)Enum.Parse(typeof(Status), ComboBoxStatus.SelectedItem.ToString()));
-            Console.WriteLine(ComboBoxStatus.Text);
+            //Console.WriteLine(ComboBoxStatus.Text);
         }
 
         /// <summary>
@@ -373,189 +207,163 @@ namespace BzCOMWpf
             else { return; }
 
 
+
         }
 
 
 
+            private void ButtonExit_Click(object sender, RoutedEventArgs e)
+            {
+                Environment.Exit(0);
+            }
 
-        private void ButtonExit_Click(object sender, RoutedEventArgs e)
-        {
-            Environment.Exit(0);
-        }
+            private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
+            {
+                this.WindowState = WindowState.Minimized;
+            }
 
-        private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
+            private void GridGlowny_MouseDown(object sender, MouseButtonEventArgs e)
+            {
+                DragMove();
+            }
 
-        private void GridGlowny_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
+            private void TextBoxDescription_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+            {
+                //TextBoxDescription.Background = Brushes.Aqua;
+                //    TextBoxDescription.Background = new SolidColorBrush(Color.FromRgb(21, 21, 21));
+                // TextBoxDescription.BorderBrush = Brushes.Red;
+                TextBoxDescription.Foreground = Brushes.White;
 
-        private void TextBoxDescription_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //TextBoxDescription.Background = Brushes.Aqua;
-            //    TextBoxDescription.Background = new SolidColorBrush(Color.FromRgb(21, 21, 21));
-            // TextBoxDescription.BorderBrush = Brushes.Red;
-            TextBoxDescription.Foreground = Brushes.White;
+                if (TextBoxDescription.Text == "Wpisz opis i naciśnij enter")
+                {
 
-            if (TextBoxDescription.Text == "Wpisz opis i naciśnij enter")
+                    TextBoxDescription.Text = "";
+
+
+                }
+            }
+
+            private void TextBoxDescription_TextChanged(object sender, TextChangedEventArgs e)
+            {
+                // TextBoxDescription.Foreground = Brushes.Aqua;
+            }
+
+            private void TextBoxDescription_MouseEnter(object sender, MouseEventArgs e)
             {
 
-                TextBoxDescription.Text = "";
+            }
 
+            private void TextBoxDescription_LostFocus(object sender, RoutedEventArgs e)
+            {
+                TextBoxDescription.Foreground = Brushes.Silver;
+                if (TextBoxDescription.Text == "")
+                {
+                    TextBoxDescription.Text = "Wpisz opis i naciśnij enter";
+                    TextBoxDescription.Background = new SolidColorBrush(Color.FromRgb(13, 13, 13));
+                    // TextBoxDescription.ForeColor = Color.Silver;
+                }
+            }
+
+            public void Utworz_pliki_json(User user)
+            {
+            }
+
+
+            private void MessageBoxButtons_Click_1(object sender, RoutedEventArgs e)
+            {
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.DefaultExt = ".png";
+                //dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
+                Nullable<bool> result = dlg.ShowDialog();
+
+
+                // Get the selected file name and display in a TextBox 
+                if (result == true)
+                {
+                    // Open document 
+
+                    string filename = dlg.FileName;
+                    var img = new BitmapImage(new Uri(filename, UriKind.Relative));
+                    //MyImage = img;
+
+                }
+            }
+
+            private void ButtonPicture_Click(object sender, RoutedEventArgs e)
+
+            {
+
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.DefaultExt = ".png";
+                // dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
+                Nullable<bool> result = dlg.ShowDialog();
+
+
+                // Get the selected file name and display in a TextBox 
+                if (result == true)
+                {
+                    imgPhoto.ImageSource = new BitmapImage(new Uri(dlg.FileName));
+                    // Open document 
+
+                    string filename = dlg.FileName;
+
+                    //MyImage = img;
+
+                }
+            }
+
+            private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+            {
+                _mainFrame.Navigate(pages[0]);
+            }
+
+            private void ButtonFav_Click(object sender, RoutedEventArgs e)
+            {
+            }
+
+            private void UserControl_Loaded(object sender, RoutedEventArgs e)
+            {
+            }
+
+            private void ButtonTeam_Click(object sender, RoutedEventArgs e)
+            {
+                _mainFrame.Navigate(pages[1]);
+            }
+
+            private void ButtonArchive_Click(object sender, RoutedEventArgs e)
+            {
+            }
+
+            private void ButtonSetting_Click(object sender, RoutedEventArgs e)
+            {
+            }
+
+            private void ListViewAddressBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
+            {
+            }
+
+            private void Logout_Click(object sender, RoutedEventArgs e)
+            {
+                if (trafficController.GetState() == State.LoggedIn)
+                {
+                    trafficController.LogOut();
+                    System.Windows.Forms.Application.Restart();
+                    System.Windows.Application.Current.Shutdown();
+
+                }
 
             }
         }
 
-        private void TextBoxDescription_TextChanged(object sender, TextChangedEventArgs e)
+
+        public class MyItem
         {
-            // TextBoxDescription.Foreground = Brushes.Aqua;
-        }
-
-        private void TextBoxDescription_MouseEnter(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void TextBoxDescription_LostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBoxDescription.Foreground = Brushes.Silver;
-            if (TextBoxDescription.Text == "")
-            {
-                TextBoxDescription.Text = "Wpisz opis i naciśnij enter";
-                TextBoxDescription.Background = new SolidColorBrush(Color.FromRgb(13, 13, 13));
-                // TextBoxDescription.ForeColor = Color.Silver;
-            }
-        }
-
-        public void Utworz_pliki_json(User user)
-        {
-            /*var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            if (File.Exists(path2 + user.UserName + ".json")) { return; }
-            else
-            {
-                File.Create(path2 + user.UserName + ".json");
-
-            }*/
-        }
-        //public void Wypelnij_pliki_json(User user)
-        //{
-        //    var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //    Awatar awatar = new Awatar()
-        //    {
-        //        UserName = user.UserName,
-        //        Url = user.UserNumber,
-        //    };
-        //    string jsonWrite = serializer.Serialize(awatar);
-        //    //File.WriteAllText(@".\file.json", jsonWrite);
-
-
-        //    File.WriteAllText(path2 + user.UserName + ".json", jsonWrite);
-        //}
-
-        private void MessageBoxButtons_Click_1(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".png";
-            //dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
-            Nullable<bool> result = dlg.ShowDialog();
-
-
-            // Get the selected file name and display in a TextBox 
-            if (result == true)
-            {
-                // Open document 
-
-                string filename = dlg.FileName;
-                var img = new BitmapImage(new Uri(filename, UriKind.Relative));
-                //MyImage = img;
-
-            }
-        }
-
-        private void ButtonPicture_Click(object sender, RoutedEventArgs e)
-
-        {
-
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".png";
-            // dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
-            Nullable<bool> result = dlg.ShowDialog();
-
-
-            // Get the selected file name and display in a TextBox 
-            if (result == true)
-            {
-                imgPhoto.ImageSource = new BitmapImage(new Uri(dlg.FileName));
-                // Open document 
-
-                string filename = dlg.FileName;
-                
-                //MyImage = img;
-
-            }
-        }
-
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void ButtonFav_Click(object sender, RoutedEventArgs e)
-        {
-
-
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonTeam_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonArchive_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonSetting_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ListViewAddressBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Logout_Click(object sender, RoutedEventArgs e)
-        {
-            if (trafficController.GetState() == State.LoggedIn)
-            {
-
-                trafficController.LogOut();
-                System.Windows.Forms.Application.Restart();
-                System.Windows.Application.Current.Shutdown();
-
-            }
+            public string UserState { get; set; }
+            public string UserName { get; set; }
+            public string UserDesc { get; set; }
+            public ImageSource Image { get; set; }
 
         }
     }
 
-
-    public class MyItem
-    {
-        public string UserState { get; set; }
-        public string UserName { get; set; }
-        public string UserDesc { get; set; }
-        public ImageSource Image { get; set; }
-           
-    }
-}
 

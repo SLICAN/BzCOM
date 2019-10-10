@@ -183,45 +183,8 @@
             </Button>
 
         </DockPanel>
-        <ListView   x:Name="ListViewAddressBook" HorizontalAlignment="Left" Height="360" Margin="0,159,0,0" VerticalAlignment="Top" Width="340" MouseDoubleClick="ListViewAddressBook_DoubleClick" SelectionChanged="ListViewAddressBook_SelectionChanged" Grid.ColumnSpan="2">
+        <Frame x:Name="_mainFrame" Height="360" Margin="0,164,0,46" Width="340" NavigationUIVisibility="Hidden" Background="AliceBlue" Grid.ColumnSpan="2"/>
 
-           
-            
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding Image}" Width="32" Height="32"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn  DisplayMemberBinding="{Binding UserName}"/>
-                    <GridViewColumn  DisplayMemberBinding="{Binding UserDesc}"/>
-                </GridView>
-            </ListView.View>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem }">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding UserState}" Value="BRB">
-                            <Setter Property="Background" Value="Yellow"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}" Value="UNAVAILABLE">
-                            <Setter Property="Background" Value="Red"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}"  Value="AVAILABLE">
-                            <Setter Property="Background" Value="Green"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}" Value="BUSY">
-                            <Setter Property="Background" Value="Blue"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}" Value="UNKNOWN">
-                            <Setter Property="Background" Value="Black"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
         <Grid Background="#0D0D0D" VerticalAlignment="Top" Margin="0,25,0,0" Height="134" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="251*"/>
