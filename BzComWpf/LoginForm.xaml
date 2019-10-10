@@ -1,0 +1,148 @@
+﻿<Window x:Class="BzCOMWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BzCOMWpf"
+        mc:Ignorable="d"
+        
+        Title="BzCOM" Height="457" Width="417" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
+    <Grid x:Name="Glowny" Background="#0D0D0D" MouseDown="Glowny_MouseDown">
+
+        <TextBox x:Name="TextBoxIp"   VerticalContentAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="22" Margin="17,101,0,0" TextWrapping="Wrap" Text="221.122.223.102" VerticalAlignment="Top" Width="100" TextChanged="TextBoxIp_TextChanged" PreviewMouseDown="TextBoxIp_PreviewMouseDown" LostFocus="TextBoxIp_LostFocus" >
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </TextBox.Resources>
+           
+
+        </TextBox>
+        <Button x:Name="ButtonLogin"  FontSize="11pt" BorderThickness="0" Content="Login" HorizontalAlignment="Left" Margin="107,282,0,0" VerticalAlignment="Top" Width="203" Click="ButtonLogin_Click" Height="31" Background="#41AECF"/>
+        <TextBox x:Name="TextBoxPort" VerticalContentAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="22" Margin="17,128,0,0" TextWrapping="Wrap" Text="5529" VerticalAlignment="Top" Width="100" TextChanged="TextBoxPort_TextChanged" LostFocus="TextBoxPort_LostFocus" PreviewMouseDown="TextBoxPort_PreviewMouseDown">
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox x:Name="TextBoxLogin" MaxLength="14" FontFamily="arial" BorderThickness="0"  FontSize="11pt" Foreground="White" Background="#0D0D0D" HorizontalAlignment="Left" Height="19" Margin="128,192,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" PreviewMouseDown="TextBoxLogin_PreviewMouseDown" LostFocus="TextBoxLogin_LostFocus" TextChanged="TextBoxLogin_TextChanged" Loaded="TextBoxLogin_Loaded">
+
+
+        </TextBox>
+
+
+        <TextBox x:Name="TextBoxPassword" MaxLength="14"  FontFamily="arial" BorderThickness="0" FontSize="11pt" Background="#0D0D0D" Foreground="White" HorizontalAlignment="Left" Height="19" Margin="128,232,0,0"  VerticalAlignment="Top" Width="182" LostFocus="TextBoxPassword_LostFocus" PreviewMouseDown="TextBoxPassword_PreviewMouseDown" TextChanged="TextBoxPassword_TextChanged"/>
+
+        <PasswordBox x:Name="PasswordBoxPassword" MaxLength="14"  FontFamily="arial" BorderThickness="0" FontSize="11pt" Background="#0D0D0D" Foreground="White" HorizontalAlignment="Left" Height="19" Margin="128,232,0,0"  VerticalAlignment="Top" Width="182" LostFocus="TextBoxPassword_LostFocus" PreviewMouseDown="TextBoxPassword_PreviewMouseDown" PasswordChanged="PasswordBoxPassword_PasswordChanged"/>
+       
+        <CheckBox x:Name="SaveToFileCheckBox" Foreground="Silver" Content="Remember me" HorizontalAlignment="Left" Margin="159,343,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <Label x:Name="labelLoginInfo" FontSize="11pt"  HorizontalAlignment="Left" Margin="143,389,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.912,1.61" Foreground="Silver" />
+        <Image Source= "/Images/GrafikiPanel/person.png" x:Name="imageLogin"  HorizontalAlignment="Left" Height="17" Margin="109,193,0,0" VerticalAlignment="Top" Width="16" >
+
+
+        </Image>
+        <Separator x:Name="separatorLogin" HorizontalAlignment="Left" Background="White" Height="1" Margin="107,216,0,0" VerticalAlignment="Top" Width="203"/>
+        <Separator x:Name="separatorPassword"  HorizontalAlignment="Left" Background="White" Height="1" Margin="107,255,0,0" VerticalAlignment="Top" Width="203"/>
+
+
+        <DockPanel x:Name="menuPanel"  Width="417" Height="32" VerticalAlignment="Top" >
+
+            <Image  HorizontalAlignment="Left" Stretch="None" Width="28"  Margin="10,4,0,5">
+                <Image.Source>
+                    <BitmapImage UriSource="/Images/GrafikiPanel/LogoPanel.png"/>
+                </Image.Source>
+
+            </Image>
+            <Label HorizontalAlignment="Left" FontWeight="Bold"   Height="32" FontFamily="arial" Foreground="Silver" VerticalContentAlignment="Center" FontSize="10pt" Content="BzCOM" Width="58"  />
+
+            <Button x:Name="buttonExit"  BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#0D0D0D"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Red"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Image Stretch="None" Source="/Images/GrafikiPanel/ExitPanel.png" Width="35" Height="29" RenderTransformOrigin="0.629,0.552"></Image>
+
+
+            </Button>
+            <Button x:Name="buttonMinimize" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
+
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#0D0D0D"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Orange"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Image Stretch="None" Source="/Images/GrafikiPanel/MinimizePanel.png" Width="35" Height="29"></Image>
+
+
+            </Button>
+
+        </DockPanel>
+        <Image HorizontalAlignment="Left"   Margin="143,59,0,0" VerticalAlignment="Top" Width="128">
+            <Image.Source>
+                <BitmapImage UriSource="/Images/GrafikiPanel/LogoBig.png" />
+            </Image.Source>
+        </Image>
+        <Image Source="/Images/GrafikiPanel/lock.png" x:Name="imagePassword"   HorizontalAlignment="Left" Height="18" Margin="107,232,0,0" VerticalAlignment="Top" Width="20" PreviewMouseDown="ImagePassword_PreviewMouseDown" >
+
+
+        </Image>
+        <Button x:Name="buttonSetting" Background="#0D0D0D" HorizontalAlignment="Left" Height="44" Margin="17,52,0,0" VerticalAlignment="Top" Width="45" Click="ButtonSetting_Click" LostFocus="ButtonSetting_LostFocus">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#212121"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#212121"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Image  x:Name="imageSetting" Stretch="None" Source="/Images/GrafikiPanel/settingsWhite.png" Width="35" Height="34"></Image>
+
+        </Button>
+
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,22 @@
+﻿<Page x:Class="BzCOMWpf.ListConversation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BzCOMWpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="360" d:DesignWidth="340"
+      Title="ListConversation">
+
+    <Grid>
+        <Button x:Name="Button_Create" Background="Purple" Content="Stwórz konwersacje" Click="Button_Create_Click"></Button>
+        <ListView x:Name="ListViewConversations" Height="320" Margin="0,0,0,0" VerticalAlignment="Top" Width="340" Background="PeachPuff" MouseDoubleClick="ListViewAddressBook_DoubleClick" Grid.ColumnSpan="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  DisplayMemberBinding="{Binding UsersNames}"/>
+                    <GridViewColumn  DisplayMemberBinding="{Binding UsersNumbers}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>

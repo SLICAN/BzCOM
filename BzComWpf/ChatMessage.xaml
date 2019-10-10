@@ -1,0 +1,99 @@
+﻿<Window x:Class="BzCOMWpf.ChatMessage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BzCOMWpf"
+        xmlns:wf1="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        mc:Ignorable="d"
+        Title="ChatMessage" Height="440" Width="600" ResizeMode="NoResize"  WindowStyle="None" Closing="Window_Closing">
+    <Grid x:Name="gridChat">
+        <DockPanel x:Name="menuPanel"  Background="#FF444444"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
+
+            <Image Source="/Images/GrafikiPozostale/LogoReszta.png"  HorizontalAlignment="Left" Stretch="None" Width="17"  Margin="10,0,0,0">
+
+
+            </Image>
+            <Label HorizontalAlignment="Left" FontWeight="Bold"   Height="23" FontFamily="arial" Foreground="Silver" VerticalContentAlignment="Center" FontSize="8pt" Content="BzCOM" Width="58"  />
+
+            <Button x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#FF444444"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Red"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Image  Source="/Images/GrafikiPozostale/ExitReszta.png" Width="12" Height="12" RenderTransformOrigin="0.629,0.552"></Image>
+
+
+            </Button>
+            <Button x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
+
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#FF444444"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Orange"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Image  Source="/Images/GrafikiPozostale/MinimizeReszta.png" Width="12" Height="12"></Image>
+
+
+            </Button>
+
+        </DockPanel>
+
+
+        <Border>
+
+
+            <DockPanel Background="#FF444444" Height="415" VerticalAlignment="Bottom">
+            <ListView x:Name="ConnectionsListView" Width="200" MouseDoubleClick="ConnectionsListView_MouseDoubleClick" HorizontalAlignment="Left">
+                <ListView.View>
+                    <GridView x:Name="GridViewPanel">
+                        <GridViewColumn Header="Nazwa" Width="80" DisplayMemberBinding="{Binding UserName}"/>
+                        <GridViewColumn Header="Numer" Width="50" DisplayMemberBinding="{Binding UserNumber}"/>
+                        <GridViewColumn Header="Delete">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Click="DeleteConnection" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                </ListView> 
+                <Frame x:Name="_mainFrame" Width="398" NavigationUIVisibility="Hidden"
+                  Background="#151515" HorizontalAlignment="Right"
+                   />
+         </DockPanel>
+    </Border>
+    </Grid>
+</Window>
