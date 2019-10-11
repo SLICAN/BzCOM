@@ -147,5 +147,10 @@ namespace BzCOMWpf
             }
             return packets;
         }
+
+        // Testowy komentarz do sprawdzenia czy zostanie zakończona sukcesem operacja wypchnięcia
+        // kodu do repozytorium Github.
+
+        // - Jak to jest być skrybą? Dobrze?
     }
 }
