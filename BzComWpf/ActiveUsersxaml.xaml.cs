@@ -21,14 +21,11 @@ namespace BzCOMWpf
     /// </summary>
     public partial class ActiveUsersxaml : Window
     {
-        private int myNumber;
-        private string currentNumber;
         public DateTime messageSendTime; 
         delegate void SetUsersCallBack(List<User> users);
         private List<MyItem> myItems = new List<MyItem>();
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
         public ChatMessage messageForm;
-        private List<ChatPage> openedConnections;
         List<string> numbers = new List<string>();
         private int[] number;
         public ActiveUsersxaml(ListView listView)

@@ -27,7 +27,7 @@ namespace BzCOMWpf
        
         public int nr_z_sel_item;
         public int[] nr_conv;
-        private bool messageSend = false;
+       
         private int myNumber;
         private List<ChatPage> openedConnections;
         private List<ConversationPage> conversationConnections;

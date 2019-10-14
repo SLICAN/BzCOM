@@ -24,7 +24,7 @@ namespace BzCOMWpf
     {
         private int myNumber;
         private string currentNumber;
-        private string descrption;
+
         int[] numbers;
         //private ListViewItem item;
         //ImageSource MyImage= new BitmapImage(new Uri("", UriKind.Relative));
@@ -44,7 +44,7 @@ namespace BzCOMWpf
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        public AdressBookPage(ChatMessage _messageForm ,List<ChatPage> _openedConnections, List<ConversationPage> _conversationConnections)
+        public AdressBookPage(ChatMessage _messageForm ,List<ChatPage> _openedConnections, List<ConversationPage> _conversationConnections,int _mynumber)
         {
             InitializeComponent();
             trafficController.OnUpdateStatus += TrafficController_OnUpdateStatus;
@@ -53,7 +53,7 @@ namespace BzCOMWpf
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
             messageForm = _messageForm;
 
-           
+            myNumber = _mynumber;
             openedConnections = _openedConnections;
             conversationConnections = _conversationConnections;
         }

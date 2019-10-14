@@ -33,22 +33,21 @@ namespace BzCOMWpf
         private List<ConversationPage> conversationConnections;
         ListView lista;
         bool checkUpdate = false;
-        int[] numers = { 111, 112 };
+        int[] numers;
 
-        public ListConversation(ChatMessage _messageForm, List<ChatPage> _openedConnections, List<ConversationPage> _conversationConnections, ListView listView)
+        public ListConversation(ChatMessage _messageForm, List<ChatPage> _openedConnections, List<ConversationPage> _conversationConnections, ListView listView,int my_number)
         {
             InitializeComponent();
+            myNumber = my_number;
             messageForm = _messageForm;
             openedConnections = _openedConnections;
             conversationConnections = _conversationConnections;
             lista = listView;
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(30);
+            timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
-
-            //SetIntervalTimer(CheckUpdate(checkUpdate), 10000);
         }
 
         public void SetConversationBook(List<ConversationPage> conversations)
@@ -65,7 +64,7 @@ namespace BzCOMWpf
                             {
 
                             }
-                            else {  }
+                            else { ListViewConversations.Items.Add(new ConversationsItem { idConversation = i, UsersNames = "Konwersacja", UsersNumbers = item.Mynumber }); }
                         }                
                     }
                     else { ListViewConversations.Items.Add(new ConversationsItem { idConversation = i, UsersNames = "Konwersacja", UsersNumbers = item.Mynumber }); }              
@@ -83,7 +82,7 @@ namespace BzCOMWpf
         {
            if(checkUpdate == true)
             {           
-                stworz_konw(numers, 111);
+                stworz_konw(numers, myNumber);
                 return false;
                
             }
@@ -100,9 +99,10 @@ namespace BzCOMWpf
             {
                 connection_numbers[i] = Int32.Parse(lines[i + 1]);
             }
- 
+            
             if (lines[0].Equals("CONVERSATION"))
             {
+                numers = connection_numbers;
                 checkUpdate = true;
 
             }
@@ -128,13 +128,13 @@ namespace BzCOMWpf
             var Active = new ActiveUsersxaml(lista);
             Active.ShowDialog();
 
-            numbers = Active.NumeryPolaczen;
+            /*numbers = Active.NumeryPolaczen;
 
             for (int i = 0; i < numbers.Length; i++)
             {
                 Console.WriteLine("Numer uzytkownika " + numbers[i]);
             }
-
+            myNumber = my;
             znaleziony = false;
             if (trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate)
             {
@@ -182,7 +182,7 @@ namespace BzCOMWpf
                 }
             }
             else
-                MessageBox.Show("Najpierw musisz ustanowić połączenie!", "Warning");
+                MessageBox.Show("Najpierw musisz ustanowić połączenie!", "Warning");*/
 
         }
 
@@ -229,14 +229,14 @@ namespace BzCOMWpf
                             {
                                
                                 messageForm.ConnectionsListView.Items.Add(connectionItem);
-                                messageForm.Initialize(conversationConnections, _number, my_number);
+                                messageForm.Initialize(conversationConnections, _number, myNumber);
 
                             }
                         }
                         else
                         {
                             messageForm.ConnectionsListView.Items.Add(connectionItem);
-                            messageForm.Initialize(conversationConnections, _number, my_number);   
+                            messageForm.Initialize(conversationConnections, _number, myNumber);   
                             SetConversationBook(conversationConnections);
                         }
                     }
@@ -249,7 +249,7 @@ namespace BzCOMWpf
         {
             var selected = lista.SelectedItem;
          
-            stworz_konw(numers,111);
+            stworz_konw(numers,myNumber);
         }
     }
 }

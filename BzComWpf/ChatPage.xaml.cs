@@ -38,12 +38,12 @@ namespace BzCOMWpf
         delegate void SetScrollCallBack();
         private bool messageSend = false;
         //private bool upload;
-        static string token = "AIzaSyDiVSBxUhhiAJopIvM3oEQ1PuYwyOje4EQ";
+
         string szyfr = "3t6w9z$C&E)H@McQ";
         public DateTime messageSendTime; // Zmienna pod dokładny czas wysłania wiadomości.
         static string[] Scopes = { DriveService.Scope.Drive };
         static string ApplicationName = "BzCom";
-        string confSzyfr = "xxx";
+        string confSzyfr = "xxxcoco";
 
 
         public ChatPage(int _nr, int _myNumber)
@@ -70,14 +70,18 @@ namespace BzCOMWpf
         {
             foreach (Message message in messages)
             {
-                if (message.IsMine)
-                {
-                    TypeText("Ja", message.Text, message.DateTime);
-                }
+                if (message.Text.Contains(confSzyfr) || message.Text.Contains("CONVERSATION?")) { }
                 else
                 {
-                    TypeText(trafficController.FindName(message.Number.ToString()), message.Text, message.DateTime);
+                    if (message.IsMine)
+                    {
+                        TypeText("Ja", message.Text, message.DateTime);
+                    }
+                    else
+                    {
+                        TypeText(trafficController.FindName(message.Number.ToString()), message.Text, message.DateTime);
 
+                    }
                 }
             }
         }
@@ -108,11 +112,11 @@ namespace BzCOMWpf
                 bool zawiera = false;
                 if (msgNow.Text.Contains(confSzyfr))
                 {
-
+                    
                 }
                 else
                 {
-                    if (msgNow.Text.Contains(szyfr)) { zawiera = true; }
+                    if (msgNow.Text.Contains(szyfr) || msgNow.Text.Contains("CONVERSATION?")) { zawiera = true; }
                     Console.WriteLine(zawiera);
                     if (zawiera == true)
                     {
@@ -702,7 +706,7 @@ namespace BzCOMWpf
             List<String> FoldersExist = new List<string>();
             List<String[]> FilesExist = new List<string[]>();
 
-            bool idznalezionegofolder = false; 
+      
             if (files.Count == 0)
             {
                 Console.WriteLine("Nie istenieje żaden plik");
@@ -812,7 +816,7 @@ namespace BzCOMWpf
 
             listRequest.PageSize = 600;
             listRequest.Fields = "nextPageToken, files(id, name,parents)";
-            bool exist = false;
+     
             // List files.
             IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
                 .Files;

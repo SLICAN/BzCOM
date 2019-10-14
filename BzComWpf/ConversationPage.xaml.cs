@@ -40,7 +40,7 @@ namespace BzCOMWpf
         delegate void SetScrollCallBack();
         private bool messageSend = false;
         //private bool upload;
-        string szyfr = "3t6w9z$C&E)H@McQ";
+        string szyfr = "xxxcoco";
         public DateTime messageSendTime; // Zmienna pod dokładny czas wysłania wiadomości.
         static string[] Scopes = { DriveService.Scope.Drive };
         static string ApplicationName = "BzCom";
@@ -103,17 +103,17 @@ namespace BzCOMWpf
         /// <param name="msgNow"></param>
         private void TrafficController_OnMessageReceived(TrafficController sender, Message msgNow)
         {
-            if (nr == msgNow.Number)
+            if (msgNow.Number != mynumber)
             {
-                if (msgNow.Text.Contains("xxx"))
+                if (msgNow.Text.Contains(szyfr))
                 {
                     bool zawiera = false;
                     if (msgNow.Text.Contains(szyfr)) { zawiera = true; }
                     Console.WriteLine(zawiera);
                     if (zawiera == true)
                     {
-                        msgNow.Text = msgNow.Text.Replace(szyfr, "");
-                        TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime, true);
+                        //msgNow.Text = msgNow.Text.Replace(szyfr, "");
+                        TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text.Replace(szyfr,""), msgNow.DateTime, false);
                     }
                     if (zawiera == false) { TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime); }
                 }
@@ -251,6 +251,7 @@ namespace BzCOMWpf
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+            conversation_numbers = conversation_numbers.Where(val => val != mynumber).ToArray();
         
             for (int i = 0; i < conversation_numbers.Length; i++)
             {

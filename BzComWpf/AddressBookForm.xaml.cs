@@ -27,12 +27,10 @@ namespace BzCOMWpf
     {
 
         private int myNumber;
-        private string currentNumber;
+
         private string descrption;
-        int[] numbers;
         //private ListViewItem item;
         //ImageSource MyImage= new BitmapImage(new Uri("", UriKind.Relative));
-        string url1 = "/Images/GrafikiMenu/avatar_placeholder.png";
         //private List<ChatPage> openedConnections;
         //private List<ConversationPage> conversationConnections;
         //public ChatMessage messageForm;
@@ -56,19 +54,16 @@ namespace BzCOMWpf
         {
             InitializeComponent();
             messageForm = new ChatMessage();
+            LoadLogin();
 
             openedConnections = new List<ChatPage>();
             conversationConnections = new List<ConversationPage>();
-            AdressBookPage adressBookPage = new AdressBookPage(messageForm, openedConnections, conversationConnections);
-            conversationList = new ListConversation(messageForm, openedConnections, conversationConnections, adressBookPage.ListViewAddressBook);
+            AdressBookPage adressBookPage = new AdressBookPage(messageForm, openedConnections, conversationConnections,myNumber);
+            conversationList = new ListConversation(messageForm, openedConnections, conversationConnections, adressBookPage.ListViewAddressBook,myNumber);
             pages.Add(adressBookPage);
             pages.Add(conversationList);
             _mainFrame.Navigate(pages[0]);
-            Console.WriteLine(pages.Count);
 
-
-
-            Console.WriteLine(messageForm.Title);
             messageForm.Hide();
 
         }
@@ -187,7 +182,7 @@ namespace BzCOMWpf
 
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        public void LoadLogin()
         {
             var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string login;
@@ -205,6 +200,11 @@ namespace BzCOMWpf
                 myNumber = Int32.Parse(login);
             }
             else { return; }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+          
 
 
 
