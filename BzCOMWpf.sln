@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BzCOMWpf", "BzCOMWpf\BzCOMWpf.csproj", "{CAE50580-F84F-4A63-B273-585BA76FFBAC}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "BzCOMSetup\Setup\Setup.vdproj", "{58FF6031-FF0D-4391-A62C-E97CD6073667}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "BzCOMSetup\Setup\Setup.vdproj", "{4207FB5D-0CAE-4489-B631-2B2FC9BA39C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{CAE50580-F84F-4A63-B273-585BA76FFBAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAE50580-F84F-4A63-B273-585BA76FFBAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAE50580-F84F-4A63-B273-585BA76FFBAC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58FF6031-FF0D-4391-A62C-E97CD6073667}.Debug|Any CPU.ActiveCfg = Debug
-		{58FF6031-FF0D-4391-A62C-E97CD6073667}.Release|Any CPU.ActiveCfg = Release
+		{4207FB5D-0CAE-4489-B631-2B2FC9BA39C7}.Debug|Any CPU.ActiveCfg = Debug
+		{4207FB5D-0CAE-4489-B631-2B2FC9BA39C7}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
