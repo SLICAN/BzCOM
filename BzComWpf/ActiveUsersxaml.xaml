@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:BzCOMWpf"
         mc:Ignorable="d"
         Title="ActiveUsersxaml" Height="303.895" Width="443.506">
-    <Grid>
-        <ListView x:Name="ActiveUsers" HorizontalAlignment="Left" Margin="0,0,0,9" Width="340" Grid.ColumnSpan="2" ItemsSource="{Binding}"
+    <Grid Background="#0D0D0D">
+        <ListView x:Name="ActiveUsers" Background="#151515" HorizontalAlignment="Left" Margin="0,0,0,0" Width="340" BorderThickness="0" ItemsSource="{Binding}"
               IsSynchronizedWithCurrentItem="True" SelectionChanged="ActiveUsers_SelectionChanged">
             <ListView.View>
                 <GridView>
@@ -45,7 +45,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <Button x:Name="emotikonaButton" Content="+"  BorderThickness="0" Background="#FF444444" HorizontalAlignment="Right" Width="30" Click="EmotikonaButton_Click" >
+        <Button x:Name="emotikonaButton" Content="Dodaj osobę"  BorderThickness="0" Background="#41AECF" HorizontalAlignment="Right" Click="EmotikonaButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Margin="0,120,0,120" Width="90" >
         </Button>
     </Grid>
 </Window>

@@ -86,7 +86,7 @@
 
 
 
-                                <Button Content="Delete" Click="DeleteConnection" CommandParameter="{Binding}"/>
+                                <Button Content="Usuń" Click="DeleteConnection" CommandParameter="{Binding}" HorizontalAlignment="Right"/>
                             </WrapPanel>
 
                         </DataTemplate>
