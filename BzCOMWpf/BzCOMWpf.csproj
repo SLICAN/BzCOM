@@ -268,5 +268,8 @@
   <ItemGroup>
     <Resource Include="Images\GrafikiMenu\chat.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\logout.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
