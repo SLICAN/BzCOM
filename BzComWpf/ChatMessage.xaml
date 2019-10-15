@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="ChatMessage" Height="440" Width="600" ResizeMode="NoResize"  WindowStyle="None" Closing="Window_Closing">
     <Grid x:Name="gridChat">
-        <DockPanel x:Name="menuPanel"  Background="#FF444444"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
+        <DockPanel x:Name="menuPanel"  Background="#202020"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
 
             <Image Source="/Images/GrafikiPozostale/LogoReszta.png"  HorizontalAlignment="Left" Stretch="None" Width="17"  Margin="10,0,0,0">
 
@@ -19,7 +19,7 @@
             <Button x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#FF444444"/>
+                        <Setter Property="Background" Value="#202020"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -46,7 +46,7 @@
 
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#FF444444"/>
+                        <Setter Property="Background" Value="#202020"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -75,20 +75,22 @@
 
 
             <DockPanel Background="#FF444444" Height="415" VerticalAlignment="Bottom">
-            <ListView x:Name="ConnectionsListView" Width="200" MouseDoubleClick="ConnectionsListView_MouseDoubleClick" HorizontalAlignment="Left">
-                <ListView.View>
-                    <GridView x:Name="GridViewPanel">
-                        <GridViewColumn Header="Nazwa" Width="80" DisplayMemberBinding="{Binding UserName}"/>
-                        <GridViewColumn Header="Numer" Width="50" DisplayMemberBinding="{Binding UserNumber}"/>
-                        <GridViewColumn Header="Delete">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
+                <ListView BorderThickness="0" Background="#202020" x:Name="ConnectionsListView" Width="200" MouseDoubleClick="ConnectionsListView_MouseDoubleClick" HorizontalAlignment="Left">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+
+                                <TextBlock Text="{Binding UserName}"  Foreground="White" />
+                                <TextBlock Text="{Binding UserNumber}"  Foreground="Silver" />
+
+
+
+
                                 <Button Content="Delete" Click="DeleteConnection" CommandParameter="{Binding}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
+                            </WrapPanel>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView> 
                 <Frame x:Name="_mainFrame" Width="398" NavigationUIVisibility="Hidden"
                   Background="#151515" HorizontalAlignment="Right"
