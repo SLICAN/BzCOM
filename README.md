@@ -23,8 +23,8 @@ BzCOM jest biznesowym komunikatorem internetowym stworzonym na potrzeby zaliczen
 ## Pobierz
 Aplikacja jest darmowa. Wystarczy skorzystać z poniższego linku, pobrać instalator, zainstalować aplikację i ją uruchomić.  
   
-  Aktualna wersja programu: 1.6.4  
-  [Link do pobrania instalatora aplikacji.](https://drive.google.com/file/d/1nKiTl5SbPkTx2iSMPxNDUpVA5hJ-hEJP/view?usp=sharing)
+  Aktualna wersja programu: 1.7.5  
+  [Link do pobrania instalatora aplikacji.](https://drive.google.com/file/d/1Ty-KjV1VCvXIL8nqydHVdcrwbgFjNgEk)
 
 ## Autorzy
 **Pierwsza grupa programistyczna (Rok akademicki 2018/2019)**  
