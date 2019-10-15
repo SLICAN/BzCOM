@@ -16,7 +16,7 @@
         "Entry"
         {
         "MsmKey" = "8:_1243B80F6F68E32199E388B3776BE6E6"
-        "OwnerKey" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
+        "OwnerKey" = "8:_901784A6434940268B589F6876840497"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -28,7 +28,7 @@
         "Entry"
         {
         "MsmKey" = "8:_144A7722233D7668816B8A7867FA6AE8"
-        "OwnerKey" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
+        "OwnerKey" = "8:_901784A6434940268B589F6876840497"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -52,7 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_47999DBC18B10C46CFFA8575E335AD3C"
-        "OwnerKey" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
+        "OwnerKey" = "8:_901784A6434940268B589F6876840497"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -70,7 +70,7 @@
         "Entry"
         {
         "MsmKey" = "8:_481D4690C8D241E7E09D96323E384CAB"
-        "OwnerKey" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
+        "OwnerKey" = "8:_901784A6434940268B589F6876840497"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -88,7 +88,7 @@
         "Entry"
         {
         "MsmKey" = "8:_7B4DABDB764FE0CEAC213392450C335C"
-        "OwnerKey" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
+        "OwnerKey" = "8:_901784A6434940268B589F6876840497"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -117,8 +117,14 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_901784A6434940268B589F6876840497"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A1493CDCA0D2488382421F5DDEA3D63B"
-        "OwnerKey" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
+        "OwnerKey" = "8:_901784A6434940268B589F6876840497"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,7 +136,7 @@
         "Entry"
         {
         "MsmKey" = "8:_AF0E1AF4AD5269E1445699CFC98AD558"
-        "OwnerKey" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
+        "OwnerKey" = "8:_901784A6434940268B589F6876840497"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -154,19 +160,19 @@
         "Entry"
         {
         "MsmKey" = "8:_BD51D86A2EF7CBB0867523515CF2C475"
-        "OwnerKey" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
-        "OwnerKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_901784A6434940268B589F6876840497"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1243B80F6F68E32199E388B3776BE6E6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_901784A6434940268B589F6876840497"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -217,12 +223,6 @@
         "OwnerKey" = "8:_144A7722233D7668816B8A7867FA6AE8"
         "MsmSig" = "8:_UNDEFINED"
         }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
     }
     "Configurations"
     {
@@ -241,6 +241,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -257,6 +265,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -770,7 +786,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
+            "Target" = "8:"
             "Folder" = "8:_1DBDC403AE9B4D19BC53D6A71E175DDD"
             "WorkingFolder" = "8:_D71263A40A7D4F098EEB2355F54648F4"
             "Icon" = "8:_5709CD9B9C9D4F02A761058E14C94C9F"
@@ -1175,7 +1191,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D212CB2D4ABA4EB3BD7AD1E56EFCF4A4"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_901784A6434940268B589F6876840497"
             {
             "SourcePath" = "8:..\\..\\BzCOMWpf\\obj\\Debug\\BzCOMWpf.exe"
             "TargetName" = "8:"
