@@ -137,7 +137,7 @@
             <DockPanel  Height="40" Background="#FF444444">
 
 
-                <TextBox x:Name="TextBoxMessage" Foreground="GhostWhite" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="Bisque"  Margin="4,0,0,0" Width="283"/>
+                <TextBox x:Name="TextBoxMessage" Foreground="#41AECF" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#151515"  Margin="4,0,0,0" Width="283"/>
                 <Button x:Name="sendButton" Click="Button_Click" BorderThickness="0" Background="#FF444444" DockPanel.Dock="Right"  Width="40" MouseEnter="SendButton_MouseEnter" LostFocus="SendButton_LostFocus" MouseLeave="SendButton_MouseLeave">
                     
 
