@@ -81,7 +81,7 @@
                             <WrapPanel>
 
                                 <TextBlock Text="{Binding UserName}"  Foreground="White" />
-                                <TextBlock Text="{Binding UserNumber}"  Foreground="Silver" />
+                                
 
 
 

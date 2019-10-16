@@ -70,7 +70,7 @@ namespace BzCOMWpf
         {
             foreach (Message message in messages)
             {
-                if (message.Text.Contains(confSzyfr) || message.Text.Contains("CONVERSATIONid:")) { }
+                if (message.Text.Contains(confSzyfr) || message.Text.Contains("CONVERSATION")) { }
                 else
                 {
                     if (message.IsMine)
@@ -116,7 +116,7 @@ namespace BzCOMWpf
                 }
                 else
                 {
-                    if (msgNow.Text.Contains(szyfr) || msgNow.Text.Contains("CONVERSATIONid:")) { zawiera = true; }
+                    if (msgNow.Text.Contains(szyfr) || msgNow.Text.Contains("CONVERSATION")) { zawiera = true; }
                     Console.WriteLine(zawiera);
                     if (zawiera == true)
                     {

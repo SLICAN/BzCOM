@@ -27,7 +27,7 @@ namespace BzCOMWpf
     {
 
         private int myNumber;
-
+        private string login;
         private string descrption;
         //private ListViewItem item;
         //ImageSource MyImage= new BitmapImage(new Uri("", UriKind.Relative));
@@ -55,7 +55,7 @@ namespace BzCOMWpf
             InitializeComponent();
             messageForm = new ChatMessage();
             LoadLogin();
-
+          
             openedConnections = new List<ChatPage>();
             conversationConnections = new List<ConversationPage>();
             AdressBookPage adressBookPage = new AdressBookPage(messageForm, openedConnections, conversationConnections,myNumber);
@@ -65,7 +65,7 @@ namespace BzCOMWpf
             _mainFrame.Navigate(pages[0]);
 
             messageForm.Hide();
-
+        
         }
 
 
@@ -185,29 +185,27 @@ namespace BzCOMWpf
         public void LoadLogin()
         {
             var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string login;
+          
             string jsonRead;
 
 
-
+           
             if (File.Exists(path2 + "BzCOMfile.json"))
             {
                 jsonRead = File.ReadAllText(path2 + "BzCOMfile.json");
                 dynamic resultRead = new JavaScriptSerializer().Deserialize<dynamic>(jsonRead);
                 login = resultRead["login"];
-                descrption = trafficController.GetDescriptionByNumber(login);
-                TextBoxDescription.Text = descrption;
+                
                 myNumber = Int32.Parse(login);
             }
             else { return; }
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-          
-
-
-
+            descrption = trafficController.GetDescriptionByNumber(login);
+            TextBoxDescription.Text = descrption;
         }
 
 

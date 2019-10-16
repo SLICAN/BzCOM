@@ -106,7 +106,7 @@ namespace BzCOMWpf
             for (int i = 0; i < number.Length; i++)
             {
                 messageSendTime = DateTime.Now;
-                trafficController.SMSSend(number[i].ToString(), null, "CONVERSATIONid:"+id+"?"+numeryaktywne, "1",""+messageSendTime);
+                trafficController.SMSSend(number[i].ToString(), null, "CONVERSATION"+numeryaktywne, "1",""+messageSendTime);
             }
             this.Close();
         }
