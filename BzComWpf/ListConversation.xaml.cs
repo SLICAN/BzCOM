@@ -50,8 +50,15 @@ namespace BzCOMWpf
             timer.Start();
         }
 
-        public void SetConversationBook(List<ConversationPage> conversations)
+        public void SetConversationBook(List<ConversationPage> conversations,int[] numbersConv)
         {
+            string osobyWKonwersacj = "";
+            numbersConv = numbersConv.Where(val => val != myNumber).ToArray();
+            for (int i = 0; i < numbersConv.Length; i++)
+            {
+                osobyWKonwersacj += numbersConv[i].ToString() + " ";
+            }
+           
             if (ListViewConversations.Dispatcher.Thread == Thread.CurrentThread)
             {
                 foreach (var item in conversations)
@@ -64,10 +71,10 @@ namespace BzCOMWpf
                             {
 
                             }
-                            else { ListViewConversations.Items.Add(new ConversationsItem { idConversation = i, UsersNames = "Konwersacja", UsersNumbers = item.Mynumber }); }
+                            else { ListViewConversations.Items.Add(new ConversationsItem { idConversation = i, UsersNames = "Konwersacja z " + osobyWKonwersacj, UsersNumbers = item.Mynumber }); }
                         }                
                     }
-                    else { ListViewConversations.Items.Add(new ConversationsItem { idConversation = i, UsersNames = "Konwersacja", UsersNumbers = item.Mynumber }); }              
+                    else { ListViewConversations.Items.Add(new ConversationsItem { idConversation = i, UsersNames = "Konwersacja z " + osobyWKonwersacj, UsersNumbers = item.Mynumber }); }              
                 }
             }
 
@@ -125,7 +132,7 @@ namespace BzCOMWpf
 
             private void Button_Create_Click(object sender, RoutedEventArgs e) {
 
-            var Active = new ActiveUsersxaml(lista);
+            var Active = new ActiveUsersxaml(lista,myNumber);
             Active.ShowDialog();
 
             /*numbers = Active.NumeryPolaczen;
@@ -210,13 +217,13 @@ namespace BzCOMWpf
                             users += _number[i].ToString();
                         }
 
-                        ConnectionItem connectionItem = new ConnectionItem { UserName = "Konwersacja", UserNumber = users, IsConv = true };
+                        ConnectionItem connectionItem = new ConnectionItem { UserName = "Konwersacja z " + users, UserNumber = users, IsConv = true };
 
                         if (messageForm.ConnectionsListView.HasItems == true) //Sprawdz czy lista posiada itemy jesli nie to dodaj
                         {
                             foreach (ConnectionItem item in messageForm.ConnectionsListView.Items)
                             {
-                                if (item.UserName.Equals("Konwersacja"))
+                                if (item.UserName.Contains("Konwersacja"))
                                 {
                                     znaleziony = true;
                                 }
@@ -237,7 +244,7 @@ namespace BzCOMWpf
                         {
                             messageForm.ConnectionsListView.Items.Add(connectionItem);
                             messageForm.Initialize(conversationConnections, _number, myNumber);   
-                            SetConversationBook(conversationConnections);
+                            SetConversationBook(conversationConnections,_number);
                         }
                     }
                 }
