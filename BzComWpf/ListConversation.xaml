@@ -9,8 +9,8 @@
       Title="ListConversation">
 
     <Grid>
-        <Button x:Name="Button_Create" Background="Purple" Content="Stwórz konwersacje" Click="Button_Create_Click"></Button>
-        <ListView x:Name="ListViewConversations" Height="320" Margin="0,0,0,0" VerticalAlignment="Top" Width="340" Background="PeachPuff" MouseDoubleClick="ListViewAddressBook_DoubleClick" Grid.ColumnSpan="2">
+        <Button x:Name="Button_Create" Background="#41AECF" Content="Stwórz konwersację" Foreground="Black" Click="Button_Create_Click" Margin="70,320,70,0" FontFamily="Tahoma" FontSize="18"/>
+        <ListView x:Name="ListViewConversations" Height="320" Margin="0,0,0,0" VerticalAlignment="Top" Width="340" Background="#151515" BorderThickness="0" MouseDoubleClick="ListViewAddressBook_DoubleClick" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn  DisplayMemberBinding="{Binding UsersNames}"/>

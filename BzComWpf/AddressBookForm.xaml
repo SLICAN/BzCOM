@@ -104,17 +104,17 @@
             </StackPanel>
         </Button>
         <Button x:Name="ButtonFav" Background="#0D0D0D" Click="ButtonFav_Click" Margin="100,0,0,1" Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" >
-            <Image Source="Images/GrafikiMenu/user.png" x:Name="UserFav" Width="30" Height="30" Stretch="None"/>
+            <Image Source="Images/GrafikiMenu/adduser.png" x:Name="UserFav" Width="30" Height="30" Stretch="None"/>
         </Button>
-        <Button x:Name="ButtonAdd" Background="#0D0D0D" Click="ButtonAdd_Click" Margin="200,0,0,0" Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" >
+        <Button x:Name="ButtonAdd" Background="#0D0D0D" Click="ButtonAdd_Click" Margin="150,0,0,0" Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" >
 
-            <Image Source="Images/GrafikiMenu/adduser.png" Stretch="None" x:Name="UserAdd" Width="30" Height="30"></Image>
+            <Image Source="Images/GrafikiMenu/peopleList.png" Stretch="None" x:Name="UserAdd" Width="30" Height="30"></Image>
         </Button>
 
-        <Button x:Name="ButtonSetting" Background="#0D0D0D" Click="ButtonSetting_Click"  Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" Margin="66,0,0,1" Grid.Column="1">
+        <Button x:Name="Logout" Background="#0D0D0D" Click="Logout_Click"  Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" Margin="66,0,0,1" Grid.Column="1">
 
             <StackPanel Orientation="Horizontal">
-                <Image Source="Images/GrafikiMenu/settings.png" x:Name="Setting" Height="25"  Width="25" Stretch="None" />
+                <Image Source="Images/GrafikiMenu/logout.png" x:Name="Setting" Height="25"  Width="25" Stretch="None" />
             </StackPanel>
         </Button>
         <Button x:Name="ButtonArchive" Background="#0D0D0D" Click="ButtonArchive_Click"  Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" Margin="5,0,0,1">
@@ -192,7 +192,7 @@
             </Button>
 
         </DockPanel>
-        <Frame x:Name="_mainFrame" Height="360" Margin="0,164,0,46" Width="340" NavigationUIVisibility="Hidden" Background="AliceBlue" Grid.ColumnSpan="2"/>
+        <Frame x:Name="_mainFrame" Height="360" Margin="0,164,0,46" Width="340" NavigationUIVisibility="Hidden" Background="#0D0D0D" Grid.ColumnSpan="2"/>
 
         <Grid Background="#151515" VerticalAlignment="Top" Margin="0,25,0,0" Height="134" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -365,7 +365,6 @@
 
             
         </Grid>
-        <Button x:Name="Logout" Content="Log" HorizontalAlignment="Left" Margin="123,534,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Logout_Click"/>
     </Grid>
 </Window>
     
