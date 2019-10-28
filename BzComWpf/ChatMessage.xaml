@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="ChatMessage" Height="440" Width="600" ResizeMode="NoResize"  WindowStyle="None" Closing="Window_Closing">
     <Grid x:Name="gridChat">
-        <DockPanel x:Name="menuPanel"  Background="#202020"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
+        <DockPanel x:Name="menuPanel"  Background="#282828"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
 
             <Image Source="/Images/GrafikiPozostale/LogoReszta.png"  HorizontalAlignment="Left" Stretch="None" Width="17"  Margin="10,0,0,0">
 
@@ -19,7 +19,7 @@
             <Button x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#202020"/>
+                        <Setter Property="Background" Value="#282828"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -46,7 +46,7 @@
 
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#202020"/>
+                        <Setter Property="Background" Value="#282828"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -75,18 +75,22 @@
 
 
             <DockPanel Background="#FF444444" Height="415" VerticalAlignment="Bottom">
-                <ListView BorderThickness="0" Background="#202020" x:Name="ConnectionsListView" Width="200" MouseDoubleClick="ConnectionsListView_MouseDoubleClick" HorizontalAlignment="Left">
+                <ListView BorderThickness="0" Background="#282828" x:Name="ConnectionsListView" Width="200" MouseDoubleClick="ConnectionsListView_MouseDoubleClick" HorizontalAlignment="Left">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel>
 
-                                <TextBlock Text="{Binding UserName}"  Foreground="White" />
-                                
+                                <TextBlock Text="{Binding UserName}" Margin="3,0,0,0" Foreground="White" />
 
 
 
 
-                                <Button Content="Usuń" Click="DeleteConnection" CommandParameter="{Binding}" HorizontalAlignment="Right"/>
+
+                                <Button  Click="DeleteConnection" BorderThickness="0" Background="#282828" Margin="5,0,0,1" CommandParameter="{Binding}" HorizontalAlignment="Right">
+                                    <Image Stretch="None" Source="/Images/ChatMessage/exit2.png"  >
+
+                                    </Image>
+                                </Button>
                             </WrapPanel>
 
                         </DataTemplate>
