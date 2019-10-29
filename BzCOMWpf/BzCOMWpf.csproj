@@ -233,7 +233,7 @@
     <Resource Include="Images\GrafikiMenu\avatar_placeholder.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\groupSilver.png" />
+    <Resource Include="Images\GrafikiMenu\group.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\GrafikiMenu\adduser.png" />
@@ -273,28 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\GrafikiMenu\peopleList.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\foldermenuSilver.png" />
-    <Resource Include="Images\GrafikiMenu\infoSilver.png" />
-    <Resource Include="Images\GrafikiMenu\informationSilver.png" />
-    <Resource Include="Images\GrafikiMenu\listing-optionSilver.png" />
-    <Resource Include="Images\GrafikiMenu\logoutSilver.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\logoutOrange.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\infoWhite.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\listing-optionWhite.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\foldermenuWhite.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\groupWhite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
