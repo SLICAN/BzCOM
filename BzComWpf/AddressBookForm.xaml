@@ -9,6 +9,26 @@
 
     <Window.Resources>
 
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF444444"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF444444"/>
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        
         <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -347,26 +367,26 @@
         </Grid>
 
         <DockPanel VerticalAlignment="Bottom"  Background="#151515" Height="40" Grid.ColumnSpan="2" >
-            <Button x:Name="ButtonArchive"  Background="#151515" BorderThickness="0"  Click="ButtonArchive_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="5,0,4,5">
-                <Image Source="Images/GrafikiMenu/foldermenu.png"  x:Name="Archive"  Stretch="None" />
+            <Button x:Name="ButtonArchive"  Background="#151515" BorderThickness="0"  Click="ButtonArchive_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="8,0,15,5" MouseEnter="ButtonArchive_MouseEnter" MouseLeave="ButtonArchive_MouseLeave">
+                <Image Source="Images/GrafikiMenu/foldermenuSilver.png"  x:Name="Archive"  Stretch="None" />
             </Button>
 
-            <Button x:Name="ButtonTeam" Background="#151515" BorderThickness="0"  Click="ButtonTeam_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,4,5">
-                <Image Source="Images/GrafikiMenu/team.png" x:Name="Team"  Stretch="None" />
+            <Button x:Name="ButtonTeam" Background="#151515" BorderThickness="0"  Click="ButtonTeam_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonTeam_MouseEnter" MouseLeave="ButtonTeam_MouseLeave">
+                <Image Source="Images/GrafikiMenu/groupSilver.png" x:Name="Team"  Stretch="None" />
             </Button>
 
-            <Button x:Name="ButtonFav" Background="#151515" BorderThickness="0"  Click="ButtonFav_Click" Margin="0,0,4,5" Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" >
-                <Image Source="Images/GrafikiMenu/info.png" x:Name="UserFav"  Stretch="None"/>
+            <Button x:Name="ButtonFav" Background="#151515" BorderThickness="0"  Click="ButtonFav_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonFav_MouseEnter" MouseLeave="ButtonFav_MouseLeave" >
+                <Image Source="Images/GrafikiMenu/infoSilver.png" x:Name="UserInfo"  Stretch="None"/>
             </Button>
 
-            <Button x:Name="ButtonAdd" Background="#151515"  BorderThickness="0"  Click="ButtonAdd_Click" Margin="0,0,4,5" Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" >
-                <Image Source="Images/GrafikiMenu/listing-option.png" Stretch="None" x:Name="UserAdd" ></Image>
+            <Button x:Name="ButtonAdd" Background="#151515"  BorderThickness="0"  Click="ButtonAdd_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonAdd_MouseEnter" MouseLeave="ButtonAdd_MouseLeave" >
+                <Image Source="Images/GrafikiMenu/listing-optionSilver.png" Stretch="None" x:Name="UserList" ></Image>
             </Button>
 
-            <Button x:Name="Logout" Background="#151515" BorderThickness="0"  Click="Logout_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="113,0,0,5"  Grid.Column="1">
+            <Button x:Name="Logout" Background="#151515" BorderThickness="0"  Click="Logout_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="65,0,0,5"  Grid.Column="1" MouseEnter="Logout_MouseEnter" MouseLeave="Logout_MouseLeave">
 
 
-                <Image Source="Images/GrafikiMenu/logout3.png" x:Name="Setting"  Stretch="None" />
+                <Image Source="Images/GrafikiMenu/logoutSilver.png" x:Name="logout"  Stretch="None" />
 
             </Button>
 

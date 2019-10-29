@@ -233,13 +233,16 @@
     <Resource Include="Images\GrafikiMenu\avatar_placeholder.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\group.png" />
+    <Resource Include="Images\GrafikiMenu\groupSilver.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\GrafikiMenu\adduser.png" />
     <Resource Include="Images\GrafikiMenu\folder.png" />
     <Resource Include="Images\GrafikiMenu\settings.png" />
     <Resource Include="Images\GrafikiMenu\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\team.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\GrafikiMenu\avatar.png" />
@@ -272,28 +275,26 @@
     <Resource Include="Images\GrafikiMenu\peopleList.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\listing-option.png" />
+    <Resource Include="Images\GrafikiMenu\foldermenuSilver.png" />
+    <Resource Include="Images\GrafikiMenu\infoSilver.png" />
+    <Resource Include="Images\GrafikiMenu\informationSilver.png" />
+    <Resource Include="Images\GrafikiMenu\listing-optionSilver.png" />
+    <Resource Include="Images\GrafikiMenu\logoutSilver.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\logout2.png" />
+    <Resource Include="Images\GrafikiMenu\logoutOrange.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\logout3.png" />
+    <Resource Include="Images\GrafikiMenu\infoWhite.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\team.png" />
+    <Resource Include="Images\GrafikiMenu\listing-optionWhite.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\info.png" />
+    <Resource Include="Images\GrafikiMenu\foldermenuWhite.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\foldermenu.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ChatMessage\exit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ChatMessage\exit2.png" />
+    <Resource Include="Images\GrafikiMenu\groupWhite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

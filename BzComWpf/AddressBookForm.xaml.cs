@@ -351,10 +351,72 @@ namespace BzCOMWpf
                 }
 
             }
+
+        private void Logout_MouseEnter(object sender, MouseEventArgs e)
+        {
+            logout.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/logoutOrange.png", UriKind.Relative));
+            logout.Stretch = Stretch.None;
         }
 
+        private void Logout_MouseLeave(object sender, MouseEventArgs e)
+        {
+            logout.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/logoutSilver.png", UriKind.Relative));
+            logout.Stretch = Stretch.None;
+        }
 
-        public class MyItem
+        private void ButtonAdd_MouseEnter(object sender, MouseEventArgs e)
+        {
+            UserList.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/listing-optionWhite.png", UriKind.Relative));
+            UserList.Stretch = Stretch.None;
+        }
+
+        private void ButtonAdd_MouseLeave(object sender, MouseEventArgs e)
+        {
+            UserList.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/listing-optionSilver.png", UriKind.Relative));
+            UserList.Stretch = Stretch.None;
+        }
+
+        private void ButtonArchive_MouseEnter(object sender, MouseEventArgs e)
+        {
+         
+                 Archive.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/foldermenuWhite.png", UriKind.Relative));
+            Archive.Stretch = Stretch.None;
+        }
+
+        private void ButtonArchive_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Archive.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/foldermenuSilver.png", UriKind.Relative));
+            Archive.Stretch = Stretch.None;
+        }
+
+        private void ButtonTeam_MouseEnter(object sender, MouseEventArgs e)
+        {
+           
+                  Team.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/groupWhite.png", UriKind.Relative));
+            Team.Stretch = Stretch.None;
+        }
+
+        private void ButtonTeam_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Team.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/groupSilver.png", UriKind.Relative));
+            Team.Stretch = Stretch.None;
+        }
+
+        private void ButtonFav_MouseEnter(object sender, MouseEventArgs e)
+        {
+            UserInfo.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/infoWhite.png", UriKind.Relative));
+            UserInfo.Stretch = Stretch.None;
+        }
+
+        private void ButtonFav_MouseLeave(object sender, MouseEventArgs e)
+        {
+            UserInfo.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/infoSilver.png", UriKind.Relative));
+            UserInfo.Stretch = Stretch.None;
+        }
+    }
+
+
+    public class MyItem
         {
             public string UserState { get; set; }
             public string UserName { get; set; }
