@@ -233,6 +233,9 @@
     <Resource Include="Images\GrafikiMenu\avatar_placeholder.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\group.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\GrafikiMenu\adduser.png" />
     <Resource Include="Images\GrafikiMenu\folder.png" />
     <Resource Include="Images\GrafikiMenu\settings.png" />
