@@ -113,7 +113,15 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
-                        <Image Source="{Binding Image}" Width="32" Height="32"/>
+                        
+
+
+                        <Image Source="{Binding Image}" Width="32" Height="32">
+                        
+                        
+                        
+                        </Image>
+
                         <TextBlock Text=" " FontSize="16px"  FontWeight="Normal" Foreground="Silver" />
                         <TextBlock Text="{Binding UserName}"  FontWeight="Normal" FontSize="17px"  Foreground="White" >
 
@@ -135,27 +143,52 @@
 
                 </DataTemplate>
             </ListView.ItemTemplate>
+        
             <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem }">
+
+           
+                        <Style TargetType="{x:Type ListViewItem }">
+                  
+
+
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding UserState}" Value="BRB">
-                            <Setter Property="Background" Value="Yellow"/>
+
+                      
+
+                        <DataTrigger  Binding="{Binding UserState}" Value="BRB">
+                          
+                            <Setter Property="Background"  Value="Yellow" >
+                           
+ </Setter>
+                            
                         </DataTrigger>
+                     
+               
                         <DataTrigger Binding="{Binding UserState}" Value="UNAVAILABLE">
                             <Setter Property="Background" Value="#282828"/>
+                            
                         </DataTrigger>
                         <DataTrigger Binding="{Binding UserState}"  Value="AVAILABLE">
                             <Setter Property="Background" Value="Green"/>
+                          
                         </DataTrigger>
                         <DataTrigger Binding="{Binding UserState}" Value="BUSY">
                             <Setter Property="Background" Value="Blue"/>
+                            
                         </DataTrigger>
                         <DataTrigger Binding="{Binding UserState}" Value="UNKNOWN">
                             <Setter Property="Background" Value="Black"/>
+                          
                         </DataTrigger>
                     </Style.Triggers>
+
+
+                       
                 </Style>
+                   
+
             </ListView.ItemContainerStyle>
+         
         </ListView>
     </Grid>
 </Page>

@@ -27,8 +27,8 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
-        
+
+
         <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -243,40 +243,16 @@
 
             </TextBox>
 
-            <Button x:Name="ButtonPicture" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" VerticalAlignment="Top"   Click="ButtonPicture_Click" Margin="18,22,114,0" Height="80">
+            <Button x:Name="ButtonPicture" Background="#151515" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" VerticalAlignment="Top"   Click="ButtonPicture_Click" Margin="18,28,121,0" Height="74">
 
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#202020"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#333237"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
 
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="50"/>
 
-                    </Style>
-                </Button.Resources>
 
-                <Ellipse Width="80" Height="80">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/GrafikiMenu/avatar.png"  x:Name="imgPhoto"  Stretch="Fill"/>
-                    </Ellipse.Fill>
-                </Ellipse>
+
+
+
+                <Image Source="/Images/GrafikiMenu/a.png"  x:Name="imgPhoto"  Stretch="None"/>
+
 
 
 

@@ -283,5 +283,16 @@
     <Resource Include="Images\GrafikiMenu\logoutOrange.png" />
     <Resource Include="Images\GrafikiMenu\logoutSilver.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ChatPage\exitRed.png" />
+    <Resource Include="Images\ChatPage\exitSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\StatusGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\a.png" />
+    <Resource Include="Images\GrafikiMenu\b.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

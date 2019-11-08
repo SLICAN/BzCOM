@@ -86,8 +86,8 @@
 
 
 
-                                <Button  Click="DeleteConnection" BorderThickness="0" Background="#282828" Margin="5,0,0,1" CommandParameter="{Binding}" HorizontalAlignment="Right">
-                                    <Image Stretch="None" Source="/Images/ChatMessage/exit2.png"  >
+                                <Button  Click="DeleteConnection" BorderThickness="0" Background="#282828" Margin="5,0,0,1" CommandParameter="{Binding}" HorizontalAlignment="Right" MouseEnter="buttonListView_MouseEnter">
+                                    <Image Stretch="None" Source="/Images/ChatPage/exitSilver.png"  >
 
                                     </Image>
                                 </Button>

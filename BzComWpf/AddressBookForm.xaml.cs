@@ -300,7 +300,7 @@ namespace BzCOMWpf
                 // Get the selected file name and display in a TextBox 
                 if (result == true)
                 {
-                    imgPhoto.ImageSource = new BitmapImage(new Uri(dlg.FileName));
+                    imgPhoto.Source = new BitmapImage(new Uri(dlg.FileName));
                     // Open document 
 
                     string filename = dlg.FileName;

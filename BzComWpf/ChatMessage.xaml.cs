@@ -232,6 +232,11 @@ namespace BzCOMWpf
         {
             DragMove();
         }
+
+        private void buttonListView_MouseEnter(object sender, MouseEventArgs e)
+        {
+          
+        }
     }
 }
     public class ConnectionItem
