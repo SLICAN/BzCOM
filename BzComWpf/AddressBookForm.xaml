@@ -139,32 +139,8 @@
             </Image>
             <Label HorizontalAlignment="Left" FontWeight="Bold"   Height="23" FontFamily="arial" Foreground="Silver" VerticalContentAlignment="Center" FontSize="8pt" Content="BzCOM" Width="58"  />
 
-            <Button x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#282828"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Red"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <Image  Source="/Images/GrafikiPozostale/ExitReszta.png" Width="12" Height="12" RenderTransformOrigin="0.629,0.552"></Image>
-
-
-            </Button>
-            <Button x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
+           
+            <Button ToolTip="Minimalizuj"  x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
 
 
                 <Button.Style>
@@ -347,19 +323,19 @@
                 <Image Source="Images/GrafikiMenu/foldermenuSilver.png"  x:Name="Archive"  Stretch="None" />
             </Button>
 
-            <Button x:Name="ButtonTeam" Background="#151515" BorderThickness="0"  Click="ButtonTeam_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonTeam_MouseEnter" MouseLeave="ButtonTeam_MouseLeave">
+            <Button ToolTip="Konwersacja" x:Name="ButtonTeam" Background="#151515" BorderThickness="0"  Click="ButtonTeam_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonTeam_MouseEnter" MouseLeave="ButtonTeam_MouseLeave">
                 <Image Source="Images/GrafikiMenu/groupSilver.png" x:Name="Team"  Stretch="None" />
             </Button>
 
-            <Button x:Name="ButtonFav" Background="#151515" BorderThickness="0"  Click="ButtonFav_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonFav_MouseEnter" MouseLeave="ButtonFav_MouseLeave" >
+            <Button ToolTip="Informacje o programie" x:Name="ButtonFav" Background="#151515" BorderThickness="0"  Click="ButtonFav_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonFav_MouseEnter" MouseLeave="ButtonFav_MouseLeave" >
                 <Image Source="Images/GrafikiMenu/infoSilver.png" x:Name="UserInfo"  Stretch="None"/>
             </Button>
 
-            <Button x:Name="ButtonAdd" Background="#151515"  BorderThickness="0"  Click="ButtonAdd_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonAdd_MouseEnter" MouseLeave="ButtonAdd_MouseLeave" >
+            <Button ToolTip="Lista używtkowników" x:Name="ButtonAdd" Background="#151515"  BorderThickness="0"  Click="ButtonAdd_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonAdd_MouseEnter" MouseLeave="ButtonAdd_MouseLeave" >
                 <Image Source="Images/GrafikiMenu/listing-optionSilver.png" Stretch="None" x:Name="UserList" ></Image>
             </Button>
 
-            <Button x:Name="Logout" Background="#151515" BorderThickness="0"  Click="Logout_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="65,0,0,5"  Grid.Column="1" MouseEnter="Logout_MouseEnter" MouseLeave="Logout_MouseLeave">
+            <Button ToolTip="Wyloguj"  x:Name="Logout" Background="#151515" BorderThickness="0"  Click="Logout_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="65,0,0,5"  Grid.Column="1" MouseEnter="Logout_MouseEnter" MouseLeave="Logout_MouseLeave">
 
 
                 <Image Source="Images/GrafikiMenu/logoutSilver.png" x:Name="logout"  Stretch="None" />

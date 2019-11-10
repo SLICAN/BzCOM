@@ -16,7 +16,7 @@
             </Image>
             <Label HorizontalAlignment="Left" FontWeight="Bold"   Height="23" FontFamily="arial" Foreground="Silver" VerticalContentAlignment="Center" FontSize="8pt" Content="BzCOM" Width="58"  />
 
-            <Button x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
+            <Button ToolTip="Zamknij czat" x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#282828"/>
@@ -41,7 +41,7 @@
 
 
             </Button>
-            <Button x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
+            <Button ToolTip="Minimalizuj" x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
 
 
                 <Button.Style>
@@ -86,7 +86,7 @@
 
 
 
-                                <Button  Click="DeleteConnection" BorderThickness="0" Background="#282828" Margin="5,0,0,1" CommandParameter="{Binding}" HorizontalAlignment="Right" MouseEnter="buttonListView_MouseEnter">
+                                <Button ToolTip="Usuń użytkownika z czatu"  Click="DeleteConnection" BorderThickness="0" Background="#282828" Margin="5,0,0,1" CommandParameter="{Binding}" HorizontalAlignment="Right" MouseEnter="buttonListView_MouseEnter">
                                     <Image Stretch="None" Source="/Images/ChatPage/exitSilver.png"  >
 
                                     </Image>
