@@ -1,0 +1,28 @@
+﻿<Page x:Class="BzCOMWpf.Information"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BzCOMWpf"
+      mc:Ignorable="d" 
+     d:DesignHeight="360" d:DesignWidth="340"
+      Title="Information">
+
+    <Grid  Background="#282828">
+       
+        <DockPanel VerticalAlignment="Stretch" Margin="0,15,0,0" >
+
+
+            <TextBlock x:Name="textDesc" TextWrapping="Wrap" Foreground="#BEBEBE" Margin="4,0,4,4" HorizontalAlignment="Center" FontFamily="Calibri">
+ BzCOM jest biznesowym komunikatorem internetowym stworzonym na potrzeby zaliczenia przedmiotu Zespołowy Projekt Informatyczny na Uniwersytecie 
+                    im. Kazimierza Wielkiego w Bydgoszczy. Projekt jest wykonywany pod patronatem Bydgoskiej firmy Slican.
+                    i tu bedzie dalszy opis
+                </TextBlock>
+
+           
+            
+        </DockPanel>
+        
+        
+    </Grid>
+</Page>

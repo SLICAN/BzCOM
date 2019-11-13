@@ -44,6 +44,7 @@ namespace BzCOMWpf
         public bool znaleziony;
         public ChatMessage messageForm;
         ListConversation conversationList;
+        Information informationPage;
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
@@ -60,8 +61,11 @@ namespace BzCOMWpf
             conversationConnections = new List<ConversationPage>();
             AdressBookPage adressBookPage = new AdressBookPage(messageForm, openedConnections, conversationConnections,myNumber);
             conversationList = new ListConversation(messageForm, openedConnections, conversationConnections, adressBookPage.ListViewAddressBook,myNumber);
+            informationPage = new Information();
             pages.Add(adressBookPage);
             pages.Add(conversationList);
+            pages.Add(informationPage);
+
             _mainFrame.Navigate(pages[0]);
 
             messageForm.Hide();
@@ -314,7 +318,8 @@ namespace BzCOMWpf
 
             private void ButtonFav_Click(object sender, RoutedEventArgs e)
             {
-            }
+            _mainFrame.Navigate(pages[2]);
+        }
 
             private void UserControl_Loaded(object sender, RoutedEventArgs e)
             {
