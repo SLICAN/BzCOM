@@ -71,10 +71,10 @@ namespace BzCOMWpf
                             {
 
                             }
-                            else { ListViewConversations.Items.Add(new ConversationsItem { idConversation = i, UsersNames = "Konwersacja z " + osobyWKonwersacj, UsersNumbers = item.Mynumber }); }
+                            else { ListViewConversations.Items.Add(new ConversationsItem { idConversation = i+1, UsersNames = "Konwersacja z " + osobyWKonwersacj, UsersNumbers = item.Mynumber}); }
                         }                
                     }
-                    else { ListViewConversations.Items.Add(new ConversationsItem { idConversation = i, UsersNames = "Konwersacja z " + osobyWKonwersacj, UsersNumbers = item.Mynumber }); }              
+                    else { ListViewConversations.Items.Add(new ConversationsItem { idConversation = i+1, UsersNames = "Konwersacja z " + osobyWKonwersacj, UsersNumbers = item.Mynumber}); }              
                 }
             }
 
@@ -266,4 +266,6 @@ public class ConversationsItem
     public int idConversation { get; set; }
     public string UsersNames { get; set; }
     public int UsersNumbers { get; set; }
+    public string UserName { get; set; }
+
 }

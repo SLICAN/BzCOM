@@ -5,18 +5,55 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BzCOMWpf"
       mc:Ignorable="d" 
-      d:DesignHeight="360" d:DesignWidth="340"
+      d:DesignHeight="360" d:DesignWidth="288"
       Title="ListConversation">
 
-    <Grid  Background="#282828">
-        <Button x:Name="Button_Create" Background="#41AECF" Content="Stwórz konwersację" Foreground="Black" Click="Button_Create_Click" Margin="70,320,70,0" FontFamily="Tahoma" FontSize="15"  BorderThickness="0"/>
-        <ListView  x:Name="ListViewConversations" Height="320" Margin="0,0,0,0" VerticalAlignment="Top" Width="340" Background="#282828" BorderThickness="0" MouseDoubleClick="ListViewAddressBook_DoubleClick" Grid.ColumnSpan="2">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn  DisplayMemberBinding="{Binding UsersNames}"/>
+    <Page.Resources>
+       
 
-                </GridView>
-            </ListView.View>
+    </Page.Resources>
+    
+    <Grid  Background="#282828">
+        
+        
+
+        <DockPanel VerticalAlignment="Top" Margin="10">
+            <StackPanel >
+                <TextBlock FontSize="18" Foreground="White" Text="Lista konwersacji"  TextAlignment="Center" VerticalAlignment="Top">
+
+                </TextBlock>
+                <Separator   HorizontalAlignment="Center" Background="White"  Height="1" VerticalAlignment="Top" Width="150"/>
+            </StackPanel>
+        </DockPanel>
+
+        <Button x:Name="Button_Create" Background="#41AECF" Height="30" Content="Stwórz konwersację" Foreground="Black" Click="Button_Create_Click" Margin="70,320,70,0"  FontSize="15"  BorderThickness="0"/>
+
+        <ListView  x:Name="ListViewConversations" Height="276" Margin="0,44,0,0" VerticalAlignment="Top" Background="#282828" BorderThickness="0" MouseDoubleClick="ListViewAddressBook_DoubleClick">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <WrapPanel>
+
+                        <TextBlock Text="{Binding idConversation}" FontSize="16px"  FontWeight="Normal" Foreground="White" />
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding UsersNames}" FontSize="16px"  FontWeight="Normal" Foreground="Silver" />
+                        <TextBlock Text=" "/>
+                        
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+
         </ListView>
     </Grid>
 </Page>
