@@ -112,28 +112,48 @@
         <ListView BorderThickness="0" x:Name="ListViewAddressBook" Background="#282828" HorizontalAlignment="Left" Height="360" Margin="0,0,0,0" VerticalAlignment="Top" Width="288" MouseDoubleClick="ListViewAddressBook_DoubleClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
+                    
+                    
                     <WrapPanel>
-                        
 
 
-                        <Image Source="{Binding Image}" Width="32" Height="32">
-                        
-                        
-                        
-                        </Image>
+                        <Border BorderThickness="0"  >
+                           
+                            <Image >
+                                <Image.Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Setter Property="Source" Value="{x:Null}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding UserState}" Value="BRB" >
+                                                <Setter Property="Source" Value="/Images/AdressBookPage/statusBRB.png"  />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding UserState}" Value="UNAVAILABLE">
+                                                <Setter Property="Source" Value="/Images/AdressBookPage/statusOfline.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding UserState}" Value="AVAILABLE">
+                                                <Setter Property="Source" Value="/Images/AdressBookPage/statusOnline.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding UserState}" Value="BUSY">
+                                                <Setter Property="Source" Value="/Images/AdressBookPage/statusBusy.png" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </Border>
+
 
                         <TextBlock Text=" " FontSize="16px"  FontWeight="Normal" Foreground="Silver" />
                         <TextBlock Text="{Binding UserName}"  FontWeight="Normal" FontSize="17px"  Foreground="White" >
-
                         
                        <LineBreak></LineBreak> 
                             <TextBlock Text="" FontSize="15px"  FontWeight="Normal" Foreground="Silver" />
-                    <TextBlock Text="{Binding UserDesc}" FontSize="16px"  FontWeight="Normal" Foreground="Silver" />
+                      <TextBlock Text="{Binding UserDesc}" FontSize="16px"  FontWeight="Normal" Foreground="Silver" />
                             
                    
                         </TextBlock>
 
-
+                      
 
 
 
@@ -144,50 +164,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         
-            <ListView.ItemContainerStyle>
-
            
-                        <Style TargetType="{x:Type ListViewItem }">
-                  
-
-
-                    <Style.Triggers>
-
-                      
-
-                        <DataTrigger  Binding="{Binding UserState}" Value="BRB">
-                          
-                            <Setter Property="Background"  Value="Yellow" >
-                           
- </Setter>
-                            
-                        </DataTrigger>
-                     
-               
-                        <DataTrigger Binding="{Binding UserState}" Value="UNAVAILABLE">
-                            <Setter Property="Background" Value="#282828"/>
-                            
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}"  Value="AVAILABLE">
-                            <Setter Property="Background" Value="Green"/>
-                          
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}" Value="BUSY">
-                            <Setter Property="Background" Value="Blue"/>
-                            
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}" Value="UNKNOWN">
-                            <Setter Property="Background" Value="Black"/>
-                          
-                        </DataTrigger>
-                    </Style.Triggers>
-
-
-                       
-                </Style>
-                   
-
-            </ListView.ItemContainerStyle>
          
         </ListView>
     </Grid>

@@ -301,5 +301,11 @@
     <Resource Include="Images\GrafikiMenu\a.png" />
     <Resource Include="Images\GrafikiMenu\b.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AdressBookPage\statusBRB.png" />
+    <Resource Include="Images\AdressBookPage\statusBusy.png" />
+    <Resource Include="Images\AdressBookPage\statusOfline.png" />
+    <Resource Include="Images\AdressBookPage\statusOnline.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
