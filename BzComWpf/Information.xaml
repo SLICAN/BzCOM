@@ -8,21 +8,49 @@
      d:DesignHeight="360" d:DesignWidth="340"
       Title="Information">
 
+    
+
     <Grid  Background="#282828">
-       
-        <DockPanel VerticalAlignment="Stretch" Margin="0,15,0,0" >
 
-
-            <TextBlock x:Name="textDesc" TextWrapping="Wrap" Foreground="#BEBEBE" Margin="4,0,4,4" HorizontalAlignment="Center" FontFamily="Calibri">
- BzCOM jest biznesowym komunikatorem internetowym stworzonym na potrzeby zaliczenia przedmiotu Zespołowy Projekt Informatyczny na Uniwersytecie 
-                    im. Kazimierza Wielkiego w Bydgoszczy. Projekt jest wykonywany pod patronatem Bydgoskiej firmy Slican.
-                    i tu bedzie dalszy opis
+        <ScrollViewer VerticalScrollBarVisibility="Hidden" >
+            
+                <DockPanel VerticalAlignment="Stretch" Margin="0,15,0,0" >
+            
+            
+            <TextBlock x:Name="textDesc" TextWrapping="Wrap" Foreground="#BEBEBE" Margin="4,0,4,4" HorizontalAlignment="Center" FontFamily="Calibri" FontWeight="Bold">
+                BzCOM jest biznesowym komunikatorem internetowym stworzonym na potrzeby zaliczenia przedmiotu
+                Zespołowy Projekt Informatyczny na Uniwersytecie im. Kazimierza Wielkiego w Bydgoszczy.
+                Ma on za zadanie umożliwić swobodną komunikację tekstową oraz wymianę plików pracownikom biznesowym.
+                Projekt został wykonywany pod patronatem Bydgoskiej firmy Slican.<LineBreak/><LineBreak/>
+                
+                Jeżeli chcesz dowiedzieć się o projekcie więcej, odwiedź stronę repozytorium projektu:<LineBreak/><LineBreak/>
+                
+                https://github.com/SLICAN/BzCOM<LineBreak/><LineBreak/>
+                
+                Autorzy:<LineBreak/><LineBreak/>
+                
+                Adrianna Piszcz<LineBreak/>
+                Michał Adamkowski<LineBreak/>
+                Kamil Biegański<LineBreak/>
+                Kamil Kowalski<LineBreak/>
+                Marta Kowalczyk<LineBreak/>
+                Kacper Koźlikowski<LineBreak/>
+                Miłosz Totoń<LineBreak/>
+                Marek Kurjan<LineBreak/>
+                Kamil Weselski<LineBreak/>
+                Artur Komar<LineBreak/>
+                Aleksander Kowalski<LineBreak/><LineBreak/>
+                
+                Opiekun firmy Slican:<LineBreak/><LineBreak/>
+                
+                Adam Wiśniewski
                 </TextBlock>
 
-           
             
-        </DockPanel>
-        
+
+            </DockPanel>
+            
+        </ScrollViewer>
         
     </Grid>
 </Page>
