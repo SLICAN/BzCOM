@@ -18,7 +18,21 @@
            
 
         </TextBox>
-        <Button x:Name="ButtonLogin"  FontSize="11pt" BorderThickness="0" Content="Login" HorizontalAlignment="Left" Margin="107,282,0,0" VerticalAlignment="Top" Width="203" Click="ButtonLogin_Click" Height="31" Background="#41AECF"/>
+        <Button x:Name="ButtonLogin"  FontSize="11pt" BorderThickness="0" Content="Login" HorizontalAlignment="Left" Margin="107,282,0,0" VerticalAlignment="Top" Width="203" Click="ButtonLogin_Click" Height="31" Background="#41AECF">
+            <Button.Template>
+                <ControlTemplate>
+                    <Border CornerRadius="7" Background="#41AECF">
+                        <TextBlock Text="Login" Foreground="Black" 
+                                           HorizontalAlignment="Center"                                           
+                                           Margin="0,0,0,0"
+                                           Height="20"
+                                       
+                                           FontSize="15"></TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
         <TextBox ToolTip="Ustaw port" x:Name="TextBoxPort" VerticalContentAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="22" Margin="17,128,0,0" TextWrapping="Wrap" Text="5529" VerticalAlignment="Top" Width="100" TextChanged="TextBoxPort_TextChanged" LostFocus="TextBoxPort_LostFocus" PreviewMouseDown="TextBoxPort_PreviewMouseDown">
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">

@@ -5,19 +5,110 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BzCOMWpf"
       mc:Ignorable="d" 
-     d:DesignHeight="360" d:DesignWidth="340"
+    d:DesignHeight="360" d:DesignWidth="288"
       Title="Information">
+    <Page.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" 
+                                           Height="Auto" Fill="Transparent"/>
+                            <Border x:Name="Rectangle1" CornerRadius="10 0 0 10" HorizontalAlignment="Stretch" 
+                                        VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
+                                        Background="{TemplateBinding Background}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
+                                <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
+        <!--SCROLLBARS-->
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Foreground" Value="#808080"/>
+            <Setter Property="Background" Value="DarkGray"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="12" Background="{x:Null}">
+                            <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
+                                <Track.Thumb>
+                                    <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" 
+                                               Style="{DynamicResource ScrollThumbs}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                                <Setter Value="{DynamicResource ButtonSelectBrush}" 
+                                            TargetName="Thumb" Property="Background"/>
+                            </Trigger>
+                            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                                <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto"/>
+                                <Setter Property="Height" Value="12"/>
+                                <Setter TargetName="Thumb" Property="Tag" Value="Horizontal"/>
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand"/>
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     
 
     <Grid  Background="#282828">
 
-        <ScrollViewer VerticalScrollBarVisibility="Hidden" >
+        <DockPanel VerticalAlignment="Top" Height="42" Background="#202020"  >
+            <StackPanel Margin="0,0,0,10" >
+                <TextBlock FontSize="20" Margin="5" Height="30" Foreground="White" Text="Informacje o projekcie" TextAlignment="Center" VerticalAlignment="Top">
+
+                </TextBlock>
+
+            </StackPanel>
+        </DockPanel>
+       
+
+            <ScrollViewer Margin="0,47,0,0" >
             
-                <DockPanel VerticalAlignment="Stretch" Margin="0,15,0,0" >
+                <DockPanel VerticalAlignment="Stretch" Height="476" >
             
             
-            <TextBlock x:Name="textDesc" TextWrapping="Wrap" Foreground="#BEBEBE" Margin="4,0,4,4" HorizontalAlignment="Center" FontFamily="Calibri" FontWeight="Bold">
+            <TextBlock x:Name="textDesc" TextWrapping="Wrap" Foreground="#BEBEBE" Margin="4,0,4,0" HorizontalAlignment="Center" FontFamily="Calibri" FontWeight="Bold">
                 BzCOM jest biznesowym komunikatorem internetowym stworzonym na potrzeby zaliczenia przedmiotu
                 Zespołowy Projekt Informatyczny na Uniwersytecie im. Kazimierza Wielkiego w Bydgoszczy.
                 Ma on za zadanie umożliwić swobodną komunikację tekstową oraz wymianę plików pracownikom biznesowym.
@@ -43,7 +134,7 @@
                 
                 Opiekun firmy Slican:<LineBreak/><LineBreak/>
                 
-                Adam Wiśniewski
+                Adam Wiśniewski<LineBreak/><LineBreak/>
                 </TextBlock>
 
             

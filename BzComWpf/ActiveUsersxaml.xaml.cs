@@ -110,5 +110,15 @@ namespace BzCOMWpf
             }
             this.Close();
         }
+
+        private void DockPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void zamknijOkno_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
     }
