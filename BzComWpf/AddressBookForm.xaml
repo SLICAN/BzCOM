@@ -170,7 +170,7 @@
         </DockPanel>
         <Frame x:Name="_mainFrame" Margin="0,159,0,40" NavigationUIVisibility="Hidden" Background="#0D0D0D" Grid.ColumnSpan="2" />
 
-        <Grid Background="#151515" VerticalAlignment="Top" Margin="0,25,0,0" Height="134" Grid.ColumnSpan="2">
+        <Grid Background="#171717" VerticalAlignment="Top" Margin="0,25,0,0" Height="134" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="251*"/>
                 <ColumnDefinition Width="89*"/>
@@ -315,7 +315,7 @@
 
         </Grid>
 
-        <DockPanel VerticalAlignment="Bottom"  Background="#151515" Height="40" Grid.ColumnSpan="2" >
+        <DockPanel VerticalAlignment="Bottom"  Background="#171717" Height="40" Grid.ColumnSpan="2" >
             <Button ToolTip="Lista używtkowników" x:Name="ButtonAdd" Background="#151515"  BorderThickness="0"  Click="ButtonAdd_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="8,0,15,5" MouseEnter="ButtonAdd_MouseEnter" MouseLeave="ButtonAdd_MouseLeave" >
                 <Image Source="Images/GrafikiMenu/listing-optionSilver.png" Stretch="None" x:Name="UserList" ></Image>
             </Button>
