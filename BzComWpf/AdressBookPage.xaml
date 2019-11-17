@@ -9,6 +9,34 @@
       Title="AdressBookPage">
 
     <Page.Resources>
+        <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#BEBEBE" />
+        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#A9A9A9" />
+
+        <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" CornerRadius="8" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#202020"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#202020"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
 
 
         <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
@@ -163,9 +191,8 @@
 
                 </DataTemplate>
             </ListView.ItemTemplate>
-        
            
-         
+
         </ListView>
     </Grid>
 </Page>
