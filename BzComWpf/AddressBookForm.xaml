@@ -219,7 +219,12 @@
 
             </TextBox>
 
-            <Button x:Name="ButtonPicture" Background="#151515" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" VerticalAlignment="Top"   Click="ButtonPicture_Click" Margin="18,28,121,0" Height="74">
+
+
+
+
+
+            <Image Source="/Images/GrafikiMenu/statusAVAperson.png"  x:Name="imgPhoto"   Stretch="None" Margin="0,0,89,0"/>
 
 
 
@@ -227,15 +232,7 @@
 
 
 
-                <Image Source="/Images/GrafikiMenu/a.png"  x:Name="imgPhoto"  Stretch="None"/>
-
-
-
-
-
-
-
-            </Button>
+          
 
             <ComboBox x:Name="ComboBoxStatus"    Foreground="Silver"  Margin="129,80,30,32" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded" Height="22" Grid.ColumnSpan="2">
 

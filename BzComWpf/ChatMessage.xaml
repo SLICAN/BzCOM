@@ -97,7 +97,7 @@
                     </ListView.ItemTemplate>
                 </ListView> 
                 <Frame x:Name="_mainFrame" Width="398" NavigationUIVisibility="Hidden"
-                  Background="#151515" HorizontalAlignment="Right"
+                  Background="#202020" HorizontalAlignment="Right"
                    />
          </DockPanel>
     </Border>
