@@ -9,7 +9,33 @@
       Title="ListConversation">
 
     <Page.Resources>
-       
+        <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#BEBEBE" />
+        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#A9A9A9" />
+
+        <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" CornerRadius="8" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#202020"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#202020"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Page.Resources>
     
@@ -32,7 +58,7 @@
                     <Border CornerRadius="7" Background="#41AECF">
                         <TextBlock Text="Stwórz konwersację" Foreground="Black" 
                                            HorizontalAlignment="Center"                                           
-                                           Margin="0,0,0,0"
+                                           Margin="0,0,00,0"
                                            Height="20"
                                        
                                            FontSize="15"></TextBlock>
@@ -55,16 +81,7 @@
                     </WrapPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="BorderThickness" Value="0" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.ItemContainerStyle>
+           
 
 
         </ListView>

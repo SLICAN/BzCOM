@@ -8,6 +8,8 @@
         Title="AddressBookForm" Height="560" Background="#151515"  Width="288" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
 
     <Window.Resources>
+        
+     
 
         <Style TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#FF444444"/>

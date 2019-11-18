@@ -7,6 +7,36 @@
         xmlns:wf1="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         mc:Ignorable="d"
         Title="ChatMessage" Height="440" Width="600" ResizeMode="NoResize"  WindowStyle="None" Closing="Window_Closing">
+    <Window.Resources>
+        <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#BEBEBE" />
+        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#A9A9A9" />
+
+        <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" CornerRadius="8" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#202020"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#202020"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
     <Grid x:Name="gridChat">
         <DockPanel x:Name="menuPanel"  Background="#282828"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
 
@@ -80,17 +110,38 @@
                         <DataTemplate>
                             <WrapPanel>
 
-                                <TextBlock Text="{Binding UserName}" Margin="3,0,0,0" Foreground="White" />
+                               
 
 
 
 
 
-                                <Button ToolTip="Usuń użytkownika z czatu"  Click="DeleteConnection" BorderThickness="0" Background="#282828" Margin="5,0,0,1" CommandParameter="{Binding}" HorizontalAlignment="Right" MouseEnter="buttonListView_MouseEnter">
+                                <Button ToolTip="Usuń z konwersacji" HorizontalAlignment="Right"  Click="DeleteConnection" BorderThickness="0" Background="#282828" Margin="0,0,0,0" CommandParameter="{Binding}"  MouseEnter="buttonListView_MouseEnter">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#282828"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Red"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+
                                     <Image Stretch="None" Source="/Images/ChatPage/exitSilver.png"  >
 
                                     </Image>
                                 </Button>
+                                <TextBlock Text="{Binding UserName}" Margin="20,0,0,0" Foreground="White" />
                             </WrapPanel>
 
                         </DataTemplate>
