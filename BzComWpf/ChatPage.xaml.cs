@@ -170,7 +170,7 @@ namespace BzCOMWpf
                 Border borderOkienka = new Border();
                 if (text.Substring(0, 2) == "Ja")
                 {
-                    borderOkienka.Background = new SolidColorBrush(Color.FromRgb(65, 174, 207));
+                    borderOkienka.Background = new SolidColorBrush(Color.FromRgb(3, 145, 253));
                     borderOkienka.HorizontalAlignment = HorizontalAlignment.Right;
                 }
                 else {
@@ -870,6 +870,22 @@ namespace BzCOMWpf
         private void Konwersacja_Button(object sender, RoutedEventArgs e)
         {
            
+        }
+
+        private void TextBoxMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Return)
+            {
+                if (trafficController.GetState() == State.OpenedGate && !TextBoxMessage.Text.Equals(""))
+                {
+                    messageSendTime = DateTime.Now;
+
+                    /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
+                    trafficController.SMSSend(nr.ToString(), null, TextBoxMessage.Text, "", "" + messageSendTime);
+                    messageSend = true;
+                }
+                else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
+            }
         }
     }
 }
