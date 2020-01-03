@@ -61,10 +61,12 @@ namespace BzCOMWpf
             conversationConnections = new List<ConversationPage>();
             AdressBookPage adressBookPage = new AdressBookPage(messageForm, openedConnections, conversationConnections,myNumber);
             conversationList = new ListConversation(messageForm, openedConnections, conversationConnections, adressBookPage.ListViewAddressBook,myNumber);
+            ScreenSharing screenSharing = new ScreenSharing();
             informationPage = new Information();
             pages.Add(adressBookPage);
             pages.Add(conversationList);
             pages.Add(informationPage);
+            pages.Add(screenSharing);
 
             _mainFrame.Navigate(pages[0]);
 
@@ -327,7 +329,8 @@ namespace BzCOMWpf
 
             private void ButtonArchive_Click(object sender, RoutedEventArgs e)
             {
-            }
+            _mainFrame.Navigate(pages[3]);
+        }
 
             private void ButtonSetting_Click(object sender, RoutedEventArgs e)
             {
