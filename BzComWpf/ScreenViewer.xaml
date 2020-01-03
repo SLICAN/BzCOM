@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:BzCOMWpf"
       xmlns:controls="clr-namespace:AxRDPCOMAPILib;assembly=AxInterop.RDPCOMAPILib"
       mc:Ignorable="d" 
-      d:DesignHeight="680" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1920"
       Title="ScreenViewer">
 
     <Grid  Background="#282828" Margin="0,0,0,0">
@@ -17,24 +17,8 @@
                 </TextBlock>
 
             </StackPanel>
-            <TextBox x:Name="textBox_Link" Height="23" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#282828"  Margin="4,0,0,0" Width="180"/>
-            <Button x:Name="Button_Connect" Background="#41AECF" Height="23" Content="Kopiuj" Foreground="Black" Click="Button_Connect_Click" Margin="4,0,0,0"  FontSize="15"  BorderThickness="0" HorizontalAlignment="Right" Width="100">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Border CornerRadius="7" Background="#41AECF">
-                            <TextBlock Foreground="Black" 
-                                           HorizontalAlignment="Center"                                           
-                                           Margin="0,0,00,0"
-                                           Height="23"
-                                       
-                                           FontSize="12"><Run Text="Kopiuj"/><InlineUIContainer>
-                            </InlineUIContainer></TextBlock>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
         </DockPanel>
-        <DockPanel VerticalAlignment="Bottom" Height="600" Width="800">
+        <DockPanel VerticalAlignment="Bottom" Height="1080" Width="1920">
             <WindowsFormsHost>
                 <controls:AxRDPViewer x:Name="RdpViewer"/>
             </WindowsFormsHost>

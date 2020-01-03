@@ -44,14 +44,13 @@ namespace BzCOMWpf
         {
             string Invitation = textBox_Link.Text;
             xy.Show();
-            //xy.connection(Invitation); - Do ogarnięcia - wychodzi poza zakres ???
+            xy.connection(Invitation); // Do ogarnięcia - wychodzi poza zakres ???
         }
 
         private void Button_StopSharing_Click(object sender, RoutedEventArgs e)
         {
             x.Close();
             x = null;
-            textBox_Link.Text = "";
             Button_StopSharing.Visibility = Visibility.Hidden;
             Button_Copy.Visibility = Visibility.Hidden;
             Button_Paste.Visibility = Visibility.Visible;
@@ -64,7 +63,8 @@ namespace BzCOMWpf
 
         private void Button_StopViewing_Click(object sender, RoutedEventArgs e)
         {
-
+            xy.disconnection();
+            xy.Hide();
         }
 
         private void Button_Host_Click(object sender, RoutedEventArgs e)
