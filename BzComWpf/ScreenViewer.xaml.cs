@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace BzCOMWpf
 {
     /// <summary>
@@ -27,7 +28,7 @@ namespace BzCOMWpf
         public void connection(String Invitation) {
           RdpViewer.Connect(Invitation, "User1", "");
         }
-        public void disconnection(String Invitation) {
+        public void disconnection() {
           RdpViewer.Disconnect();
         }
 
