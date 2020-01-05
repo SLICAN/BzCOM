@@ -258,16 +258,7 @@
     <Resource Include="Images\GrafikiMenu\avatar_placeholder.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\adduser.png" />
-    <Resource Include="Images\GrafikiMenu\folder.png" />
-    <Resource Include="Images\GrafikiMenu\settings.png" />
-    <Resource Include="Images\GrafikiMenu\user.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\GrafikiMenu\team.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\avatar.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ChatPage\clipWhite.png" />
@@ -291,9 +282,6 @@
     <Resource Include="Images\GrafikiMenu\chat.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\logout.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\GrafikiMenu\peopleList.png" />
   </ItemGroup>
   <ItemGroup>
@@ -314,10 +302,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\GrafikiMenu\StatusGreen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\a.png" />
-    <Resource Include="Images\GrafikiMenu\b.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\AdressBookPage\statusBusy.png" />
@@ -345,6 +329,15 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\screenWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\screenSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\create.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

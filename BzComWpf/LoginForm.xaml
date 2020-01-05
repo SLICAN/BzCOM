@@ -18,19 +18,28 @@
            
 
         </TextBox>
-        <Button x:Name="ButtonLogin"  FontSize="11pt" BorderThickness="0" Content="Login" HorizontalAlignment="Left" Margin="107,282,0,0" VerticalAlignment="Top" Width="203" Click="ButtonLogin_Click" Height="31" Background="#41AECF">
-            <Button.Template>
-                <ControlTemplate>
-                    <Border CornerRadius="7" Background="#41AECF">
-                        <TextBlock Text="Login" Foreground="Black" 
-                                           HorizontalAlignment="Center"                                           
-                                           Margin="0,0,0,0"
-                                           Height="20"
-                                       
-                                           FontSize="15"></TextBlock>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
+        
+        <Button x:Name="ButtonLogin"  BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0"  HorizontalAlignment="Left" Margin="107,282,0,0" VerticalAlignment="Top" Width="203" Click="ButtonLogin_Click" Height="31" Cursor="Hand">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#41AECF"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                                    <ContentPresenter  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#8ac7db"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock Text="Login" Foreground="White" FontSize="15px"></TextBlock>
         </Button>
 
         <TextBox ToolTip="Ustaw port" x:Name="TextBoxPort" VerticalContentAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="22" Margin="17,128,0,0" TextWrapping="Wrap" Text="5529" VerticalAlignment="Top" Width="100" TextChanged="TextBoxPort_TextChanged" LostFocus="TextBoxPort_LostFocus" PreviewMouseDown="TextBoxPort_PreviewMouseDown">
@@ -70,7 +79,7 @@
             </Image>
             <Label HorizontalAlignment="Left" FontWeight="Bold"   Height="32" FontFamily="arial" Foreground="Silver" VerticalContentAlignment="Center" FontSize="10pt" Content="BzCOM" Width="58"  />
 
-            <Button ToolTip="Zamknij program" x:Name="buttonExit"  BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
+            <Button Cursor="Hand" ToolTip="Zamknij program" x:Name="buttonExit"  BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#0D0D0D"/>
@@ -95,7 +104,7 @@
 
 
             </Button>
-            <Button ToolTip="Minimalizuj" x:Name="buttonMinimize" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
+            <Button Cursor="Hand" ToolTip="Minimalizuj" x:Name="buttonMinimize" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
 
 
                 <Button.Style>
@@ -132,7 +141,7 @@
 
 
         </Image>
-        <Button x:Name="buttonSetting" Background="#0D0D0D" HorizontalAlignment="Left" Height="44" Margin="17,52,0,0" VerticalAlignment="Top" Width="45" Click="ButtonSetting_Click" LostFocus="ButtonSetting_LostFocus">
+        <Button x:Name="buttonSetting" Background="#0D0D0D" HorizontalAlignment="Left" Height="44" Margin="17,52,0,0" VerticalAlignment="Top" Width="45" Click="ButtonSetting_Click" LostFocus="ButtonSetting_LostFocus" Cursor="Hand">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="#212121"/>

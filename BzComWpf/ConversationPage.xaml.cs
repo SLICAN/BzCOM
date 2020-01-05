@@ -300,17 +300,7 @@ namespace BzCOMWpf
             send.Stretch = Stretch.None;
         }
 
-        private void EmotikonaButton_MouseEnter(object sender, MouseEventArgs e)
-        {
-            emotikona.Source = new BitmapImage(new Uri(@"/Images/ChatPage/emotikonaWhite.png", UriKind.Relative));
-            emotikona.Stretch = Stretch.None;
-        }
-
-        private void EmotikonaButton_MouseLeave(object sender, MouseEventArgs e)
-        {
-            emotikona.Source = new BitmapImage(new Uri(@"/Images/ChatPage/emotikonaSilver.png", UriKind.Relative));
-            emotikona.Stretch = Stretch.None;
-        }
+     
 
 
         //Gooogle Drive transfer plikow

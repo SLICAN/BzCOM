@@ -23,7 +23,46 @@
             </StackPanel>
         </DockPanel>
 
-        <TextBox x:Name="textBox_Link" Height="23" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#282828"  Margin="4,0,0,0" Width="180"/>
+        <TextBox x:Name="textBox_Link" Foreground="White" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#282828"  Margin="10,183,0,150" Width="168" >
+            <TextBox.Resources>
+                <Style TargetType="{x:Type TextBox}">
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Border x:Name="border"
+                                            CornerRadius="3"
+                                            BorderBrush="#151515"
+                                            BorderThickness="1"
+                                            Background="#202020"
+>
+                                    <ScrollViewer x:Name="PART_ContentHost"
+                                         Focusable="false"
+                                            HorizontalScrollBarVisibility="Hidden"
+                                            VerticalScrollBarVisibility="Hidden"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#151515"/>
+                                        <Setter Property="Background" TargetName="border" Value="#333237"/>
+
+
+                                    </Trigger>
+                                    <Trigger Property="IsFocused" Value="true">
+
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#151515"/>
+                                        <Setter Property="Background" TargetName="border" Value="#333237"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+
+            </TextBox.Resources>
+
+        </TextBox>
         <Button x:Name="Button_Copy" Background="#41AECF" Height="23" Content="Kopiuj" Foreground="Black" Click="Button_Copy_Click" Margin="4,0,0,0"  FontSize="15"  BorderThickness="0" HorizontalAlignment="Right" Width="100" Visibility="Hidden">
             <Button.Template>
                 <ControlTemplate>
@@ -39,20 +78,27 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="Button_Paste" Background="#41AECF" Height="23" Content="Wklej" Foreground="Black" Click="Button_Paste_Click" Margin="4,0,0,0"  FontSize="15"  BorderThickness="0" HorizontalAlignment="Right" Width="100" Visibility="Visible">
-            <Button.Template>
-                <ControlTemplate>
-                    <Border CornerRadius="7" Background="#41AECF">
-                        <TextBlock Foreground="Black" 
-                                           HorizontalAlignment="Center"                                           
-                                           Margin="0,0,00,0"
-                                           Height="23"
-                                       
-                                           FontSize="12"><Run Text="Wklej"/><InlineUIContainer>
-                            </InlineUIContainer></TextBlock>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
+        <Button Cursor="Hand" x:Name="Button_Paste"  Foreground="Black" Click="Button_Paste_Click" Margin="0,183,10,150"  FontSize="15"  BorderThickness="0" HorizontalAlignment="Right" Width="95" Visibility="Visible">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#383838"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                                    <ContentPresenter  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#41AECF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock Text="Wklej" Foreground="White" FontSize="12px"></TextBlock>
         </Button>
 
         <Button x:Name="Button_StopSharing" Background="#41AECF" Height="30" Content="Zakończ Udostępnianie" Foreground="Black" Click="Button_StopSharing_Click" Margin="70,120,70,0"  FontSize="15"  BorderThickness="0" Visibility="Hidden">
@@ -85,36 +131,51 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        
-        <Button x:Name="Button_Host" Background="#41AECF" Height="30" Content="Udostępnij Ekran" Foreground="Black" Click="Button_Host_Click" Margin="70,320,70,0"  FontSize="15"  BorderThickness="0">
-            <Button.Template>
-                <ControlTemplate>
-                    <Border CornerRadius="7" Background="#41AECF">
-                        <TextBlock Foreground="Black" 
-                                           HorizontalAlignment="Center"                                           
-                                           Margin="0,0,00,0"
-                                           Height="20"
-                                       
-                                           FontSize="12"><Run Text="Udostępnij Ekran"/><InlineUIContainer>
-                            </InlineUIContainer></TextBlock>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
+
+        <Button Cursor="Hand" x:Name="Button_Host"   Foreground="Black" Click="Button_Host_Click" Margin="10,124,10,191"  FontSize="15"  BorderThickness="0">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#383838"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                                    <ContentPresenter  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#41AECF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock Text="Udostępnij ekran" Foreground="White" FontSize="15px"></TextBlock>
         </Button>
 
-        <Button x:Name="Button_Viewer" Background="#41AECF" Height="30" Content="Połącz" Foreground="Black" Click="Button_Viewer_Click" Margin="70,220,70,0"  FontSize="15"  BorderThickness="0">
-        <Button.Template>
-            <ControlTemplate>
-                <Border CornerRadius="7" Background="#41AECF">
-                        <TextBlock Text="Połącz" Foreground="Black" 
-                                           HorizontalAlignment="Center"                                           
-                                           Margin="0,0,00,0"
-                                           Height="20"
-                                       
-                                           FontSize="12"></TextBlock>
-                </Border>
-            </ControlTemplate>
-        </Button.Template>
+        <Button Cursor="Hand" x:Name="Button_Viewer"  Foreground="Black" Click="Button_Viewer_Click" Margin="10,64,10,250"  FontSize="15"  BorderThickness="0">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#383838"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                                    <ContentPresenter  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#41AECF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock Text="Połącz" Foreground="White" FontSize="15px"></TextBlock>
         </Button>
 
     </Grid>

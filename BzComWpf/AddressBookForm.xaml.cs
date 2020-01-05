@@ -379,13 +379,13 @@ namespace BzCOMWpf
         private void ButtonArchive_MouseEnter(object sender, MouseEventArgs e)
         {
          
-                 Archive.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/foldermenuWhite.png", UriKind.Relative));
+            Archive.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenWhite.png", UriKind.Relative));
             Archive.Stretch = Stretch.None;
         }
 
         private void ButtonArchive_MouseLeave(object sender, MouseEventArgs e)
         {
-            Archive.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/foldermenuSilver.png", UriKind.Relative));
+            Archive.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenSilver.png", UriKind.Relative));
             Archive.Stretch = Stretch.None;
         }
 
