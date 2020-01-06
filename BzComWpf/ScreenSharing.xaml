@@ -63,21 +63,29 @@
             </TextBox.Resources>
 
         </TextBox>
-        <Button x:Name="Button_Copy" Background="#41AECF" Height="23" Content="Kopiuj" Foreground="Black" Click="Button_Copy_Click" Margin="4,0,0,0"  FontSize="15"  BorderThickness="0" HorizontalAlignment="Right" Width="100" Visibility="Hidden">
-            <Button.Template>
-                <ControlTemplate>
-                    <Border CornerRadius="7" Background="#41AECF">
-                        <TextBlock Foreground="Black" 
-                                           HorizontalAlignment="Center"                                           
-                                           Margin="0,0,00,0"
-                                           Height="23"
-                                       
-                                           FontSize="12"><Run Text="Kopiuj"/><InlineUIContainer>
-                            </InlineUIContainer></TextBlock>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
+        <Button x:Name="Button_Copy" Height="23" Foreground="Black" Click="Button_Copy_Click" Margin="0,183,10,150"  FontSize="15"  BorderThickness="0" HorizontalAlignment="Right" Width="100" Visibility="Hidden">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#383838"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                                    <ContentPresenter  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#41AECF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock Text="Kopiuj" Foreground="White" FontSize="12px"></TextBlock>
         </Button>
+        
         <Button Cursor="Hand" x:Name="Button_Paste"  Foreground="Black" Click="Button_Paste_Click" Margin="0,183,10,150"  FontSize="15"  BorderThickness="0" HorizontalAlignment="Right" Width="95" Visibility="Visible">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
