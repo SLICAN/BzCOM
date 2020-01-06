@@ -31,98 +31,98 @@
             </Style.Triggers>
         </Style>
 
-        
-            <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Grid x:Name="Grid">
-                                <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" 
+
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" 
                                            Height="Auto" Fill="Transparent"/>
-                                <Border x:Name="Rectangle1" CornerRadius="10 0 0 10" HorizontalAlignment="Stretch" 
+                            <Border x:Name="Rectangle1" CornerRadius="10 0 0 10" HorizontalAlignment="Stretch" 
                                         VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
                                         Background="{TemplateBinding Background}"/>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="Tag" Value="Horizontal">
-                                    <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
-                                    <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
+                                <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-            <!--SCROLLBARS-->
-            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
-                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <!--SCROLLBARS-->
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
             <Setter Property="Foreground" Value="#808080"/>
-                <Setter Property="Background" Value="DarkGray"/>
-                <Setter Property="Width" Value="10"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ScrollBar}">
-                            <Grid x:Name="GridRoot" Width="12" Background="{x:Null}">
-                                <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
-                                    <Track.Thumb>
-                                        <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" 
+            <Setter Property="Background" Value="DarkGray"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="12" Background="{x:Null}">
+                            <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
+                                <Track.Thumb>
+                                    <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" 
                                                Style="{DynamicResource ScrollThumbs}"/>
-                                    </Track.Thumb>
-                                    <Track.IncreaseRepeatButton>
-                                        <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
-                                    </Track.IncreaseRepeatButton>
-                                    <Track.DecreaseRepeatButton>
-                                        <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
-                                    </Track.DecreaseRepeatButton>
-                                </Track>
-                            </Grid>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
 
-                            <ControlTemplate.Triggers>
-                                <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
-                                    <Setter Value="{DynamicResource ButtonSelectBrush}" 
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                                <Setter Value="{DynamicResource ButtonSelectBrush}" 
                                             TargetName="Thumb" Property="Background"/>
-                                </Trigger>
-                                <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
-                                    <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background"/>
-                                </Trigger>
+                            </Trigger>
+                            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                                <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background"/>
+                            </Trigger>
 
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
-                                </Trigger>
-                                <Trigger Property="Orientation" Value="Horizontal">
-                                    <Setter TargetName="GridRoot" Property="LayoutTransform">
-                                        <Setter.Value>
-                                            <RotateTransform Angle="-90"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter TargetName="PART_Track" Property="LayoutTransform">
-                                        <Setter.Value>
-                                            <RotateTransform Angle="-90"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Width" Value="Auto"/>
-                                    <Setter Property="Height" Value="12"/>
-                                    <Setter TargetName="Thumb" Property="Tag" Value="Horizontal"/>
-                                    <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand"/>
-                                    <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-       
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto"/>
+                                <Setter Property="Height" Value="12"/>
+                                <Setter TargetName="Thumb" Property="Tag" Value="Horizontal"/>
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand"/>
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Page.Resources>
 
 
     <Grid>
 
         <ScrollViewer VerticalAlignment="Top" Height="364"  Grid.Row="1" >
-                <StackPanel VerticalAlignment="Top"  x:Name="stackPanelBorder"    >
+            <StackPanel VerticalAlignment="Top"  x:Name="stackPanelBorder"    >
 
                 <TextBlock x:Name="Chat" TextWrapping="Wrap" Foreground="Silver" FontFamily="Segoe UI Light" FontSize="14"  >
-                   
+
 
 
 
@@ -132,14 +132,14 @@
         </ScrollViewer>
 
 
-        <Border  Margin="0,364,1,1" Background="#282828" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
+        <Border  Margin="1,364,1,1" Background="#282828" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
 
-            <DockPanel  Height="40" Background="#282828">
+            <DockPanel Background="#282828" Margin="0,0,0,0">
 
 
-                <TextBox  KeyDown="TextBoxMessage_KeyDown" x:Name="TextBoxMessage" Foreground="Silver" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#282828"  Margin="4,0,0,0" Width="283"/>
-                <Button ToolTip="Wyślij wiadomość" x:Name="sendButton" Click="Button_Click" BorderThickness="0" Background="#282828" DockPanel.Dock="Right"  Width="40" MouseEnter="SendButton_MouseEnter" LostFocus="SendButton_LostFocus" MouseLeave="SendButton_MouseLeave">
-                    
+                <TextBox  KeyDown="TextBoxMessage_KeyDown" x:Name="TextBoxMessage" Foreground="Silver" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#282828"  Margin="4,1,0,1" Width="320"/>
+                <Button Cursor="Hand" ToolTip="Wyślij wiadomość" x:Name="sendButton" Click="Button_Click" BorderThickness="0" Background="#282828" DockPanel.Dock="Right"  Width="40" MouseEnter="SendButton_MouseEnter" LostFocus="SendButton_LostFocus" MouseLeave="SendButton_MouseLeave">
+
 
 
                     <Image x:Name="send" Stretch="None" Source="/Images/ChatPage/wyslijAqua.png" Height="34"   >
@@ -147,18 +147,13 @@
                     </Image>
 
                 </Button>
-                <Button ToolTip="Załącznik" x:Name="clipButton"   BorderThickness="0" Background="#282828" DockPanel.Dock="Right" Width="35" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="ClipButton_Click" >
+                <Button Cursor="Hand" ToolTip="Załącznik" x:Name="clipButton"  BorderThickness="0" Margin="0,0,0,0" Background="#282828"  Width="35" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="ClipButton_Click" >
                     <Image  x:Name="clip" Stretch="None" Source="/Images/ChatPage/clipSilver.png" Height="34"   >
 
                     </Image>
 
                 </Button>
-                <Button ToolTip="Emotikony" x:Name="emotikonaButton"  BorderThickness="0" Background="#282828" HorizontalAlignment="Right" Width="30" MouseEnter="EmotikonaButton_MouseEnter" MouseLeave="EmotikonaButton_MouseLeave" Click="Konwersacja_Button" >
-                    <Image x:Name="emotikona" Stretch="None" Source="/Images/ChatPage/emotikonaSilver.png" Height="34" RenderTransformOrigin="2.002,0.406"   >
 
-                    </Image>
-
-                </Button>
             </DockPanel>
         </Border>
     </Grid>

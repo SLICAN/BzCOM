@@ -15,7 +15,7 @@
             <TextBlock HorizontalAlignment="Left" FontSize="13" Margin="0,3,5,0" Height="22" Foreground="White" Text="Dodaj osoby do nowej konwersacji" TextAlignment="Center" VerticalAlignment="Top" Width="204">
 
             </TextBlock>
-            <Button x:Name="zamknijOkno"  BorderThickness="0" Click="zamknijOkno_Click">
+            <Button Cursor="Hand" x:Name="zamknijOkno"  BorderThickness="0" Click="zamknijOkno_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#202020"/>
@@ -79,19 +79,27 @@
             </ListView>
         </DockPanel>
         <DockPanel VerticalAlignment="Bottom" Height="38" Margin="0,0,0,0">
-            <Button  x:Name="emotikonaButton" Content="Dodaj" Height="22"  BorderThickness="0" Background="#41AECF"  Click="EmotikonaButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12"   Width="100" >
-                <Button.Template>
-                    <ControlTemplate>
-                        <Border CornerRadius="7" Background="#41AECF">
-                            <TextBlock Text="Dodaj" Foreground="Black" 
-                                           HorizontalAlignment="Center"                                           
-                                           Margin="0,0,0,0"
-                                           Height="20"
-                                       
-                                           FontSize="15"></TextBlock>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
+            <Button  Cursor="Hand" x:Name="emotikonaButton"  Height="22"  BorderThickness="0"   Click="EmotikonaButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12"   Width="214" Margin="0,8" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#383838"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                                        <ContentPresenter  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#41AECF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <TextBlock Text="Dodaj osoby" Foreground="White" FontSize="12px"></TextBlock>
             </Button>
         </DockPanel>
     </Grid>

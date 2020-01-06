@@ -46,7 +46,7 @@
             </Image>
             <Label HorizontalAlignment="Left" FontWeight="Bold"   Height="23" FontFamily="arial" Foreground="Silver" VerticalContentAlignment="Center" FontSize="8pt" Content="BzCOM" Width="58"  />
 
-            <Button ToolTip="Zamknij czat" x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
+            <Button Cursor="Hand" ToolTip="Zamknij czat" x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#282828"/>
@@ -71,7 +71,7 @@
 
 
             </Button>
-            <Button ToolTip="Minimalizuj" x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
+            <Button Cursor="Hand" ToolTip="Minimalizuj" x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
 
 
                 <Button.Style>
@@ -104,7 +104,7 @@
         <Border>
 
 
-            <DockPanel Background="#FF444444" Height="415" VerticalAlignment="Bottom">
+            <DockPanel Background="#202020" Height="415" VerticalAlignment="Bottom">
                 <ListView BorderThickness="0" Background="#282828" x:Name="ConnectionsListView" Width="200" MouseDoubleClick="ConnectionsListView_MouseDoubleClick" HorizontalAlignment="Left">
                     <ListView.ItemTemplate>
                         <DataTemplate>
