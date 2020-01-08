@@ -38,7 +38,7 @@
 
     </Window.Resources>
     <Grid x:Name="gridChat">
-        <DockPanel x:Name="menuPanel"  Background="#282828"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
+        <DockPanel x:Name="menuPanel"  Background="#303030"  Height="25" VerticalAlignment="Top" MouseDown="MenuPanel_MouseDown" >
 
             <Image Source="/Images/GrafikiPozostale/LogoReszta.png"  HorizontalAlignment="Left" Stretch="None" Width="17"  Margin="10,0,0,0">
 
@@ -49,7 +49,7 @@
             <Button Cursor="Hand" ToolTip="Zamknij czat" x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#282828"/>
+                        <Setter Property="Background" Value="#303030"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -76,7 +76,7 @@
 
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#282828"/>
+                        <Setter Property="Background" Value="#303030"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -105,7 +105,7 @@
 
 
             <DockPanel Background="#202020" Height="415" VerticalAlignment="Bottom">
-                <ListView BorderThickness="0" Background="#282828" x:Name="ConnectionsListView" Width="200" MouseDoubleClick="ConnectionsListView_MouseDoubleClick" HorizontalAlignment="Left">
+                <ListView BorderThickness="0" Background="#303030" x:Name="ConnectionsListView" Width="191" MouseDoubleClick="ConnectionsListView_MouseDoubleClick" HorizontalAlignment="Left">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel>
@@ -147,7 +147,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView> 
-                <Frame x:Name="_mainFrame" Width="398" NavigationUIVisibility="Hidden"
+                <Frame x:Name="_mainFrame" Width="409" NavigationUIVisibility="Hidden"
                   Background="#202020" HorizontalAlignment="Right"
                    />
          </DockPanel>

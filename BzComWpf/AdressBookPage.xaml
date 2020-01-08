@@ -137,7 +137,7 @@
             </StackPanel>
         </ScrollViewer>
 
-        <ListView BorderThickness="0" x:Name="ListViewAddressBook" Background="#282828" HorizontalAlignment="Left" Height="360" Margin="0,0,0,0" VerticalAlignment="Top" Width="288" MouseDoubleClick="ListViewAddressBook_DoubleClick">
+        <ListView BorderThickness="0" x:Name="ListViewAddressBook" Background="#303030" HorizontalAlignment="Left" Height="360" Margin="0,0,0,0" VerticalAlignment="Top" Width="288" MouseDoubleClick="ListViewAddressBook_DoubleClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     

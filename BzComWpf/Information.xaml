@@ -89,9 +89,9 @@
             </Setter>
         </Style>
     </Page.Resources>
-    
 
-    <Grid  Background="#282828">
+
+    <Grid  Background="#303030">
 
         <DockPanel VerticalAlignment="Top" Height="42" Background="#202020"  >
             <StackPanel Margin="0,0,0,10" >
