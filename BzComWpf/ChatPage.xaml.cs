@@ -352,7 +352,7 @@ namespace BzCOMWpf
                 messageSend = true;
 
             }
-
+           DeleteAfter30(service);
 
         }
 
@@ -856,6 +856,110 @@ namespace BzCOMWpf
             }
             return fileid;
         }
+
+        public void getFilesByDate(DriveService service)
+        {
+            FilesResource.ListRequest list = service.Files.List();
+            list.OrderBy = "createdDate";
+
+
+        }
+
+        public class SampleHelpers
+        {
+            /// <summary>
+            /// Using reflection to apply optional parameters to the request.
+            ///
+            /// If the optonal parameters are null then we will just return the request as is.
+            /// </summary>
+            /// <param name="request">The request. </param>
+            /// <param name="optional">The optional parameters. </param>
+            /// <returns></returns>
+            public static object ApplyOptionalParms(object request, object optional)
+            {
+                if (optional == null)
+                    return request;
+
+                System.Reflection.PropertyInfo[] optionalProperties = (optional.GetType()).GetProperties();
+
+                foreach (System.Reflection.PropertyInfo property in optionalProperties)
+                {
+                    // Copy value from optional parms to the request.  They should have the same names and datatypes.
+                    System.Reflection.PropertyInfo piShared = (request.GetType()).GetProperty(property.Name);
+                    piShared.SetValue(request, property.GetValue(optional, null), null);
+                }
+
+                return request;
+            }
+        }
+
+        public class FilesListOptionalParms
+        {
+            /// The source of files to list.
+            public string Corpus { get; set; }
+
+            /// A comma-separated list of sort keys. Valid keys are 'createdTime', 'folder', 'modifiedByMeTime', 'modifiedTime', 'name', 'quotaBytesUsed', 'recency', 'sharedWithMeTime', 'starred', and 'viewedByMeTime'. Each key sorts ascending by default, but may be reversed with the 'desc' modifier. Example usage: ?orderBy=folder,modifiedTime desc,name. Please note that there is a current limitation for users with approximately one million files in which the requested sort order is ignored.
+            public string OrderBy { get; set; }
+
+            /// The maximum number of files to return per page.
+            public int PageSize { get; set; }
+
+            /// The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response.
+            public string PageToken { get; set; }
+
+            /// A query for filtering the file results. See the "Search for Files" guide for supported syntax.
+            public string Q { get; set; }
+
+            /// A comma-separated list of spaces to query within the corpus. Supported values are 'drive', 'appDataFolder' and 'photos'.
+            public string Spaces { get; set; }
+        }
+        public static Google.Apis.Drive.v3.Data.FileList DeleteAfter30(DriveService service, FilesListOptionalParms optional = null)
+        {
+            DateTime ThirtyDayBeforeToday = DateTime.Now.AddDays(-30);
+            try
+            {
+                // Initial validation.
+                if (service == null)
+                    throw new ArgumentNullException("service");
+
+                // Building the initial request.
+                var request = service.Files.List();
+
+                // Applying optional parameters to the request.
+                request.Fields = "nextPageToken, files(createdTime ,id, name, mimeType)";
+
+                var pageStreamer = new Google.Apis.Requests.PageStreamer<Google.Apis.Drive.v3.Data.File, FilesResource.ListRequest, Google.Apis.Drive.v3.Data.FileList, string>(
+                                                   (req, token) => request.PageToken = token,
+                                                   response => response.NextPageToken,
+                                                   response => response.Files);
+
+                var allFiles = new Google.Apis.Drive.v3.Data.FileList();
+                allFiles.Files = new List<Google.Apis.Drive.v3.Data.File>();
+
+                foreach (var result in pageStreamer.Fetch(request))
+                {
+
+                    if (result.MimeType != "application/vnd.google-apps.folder")
+                    {
+                        if (result.CreatedTime < ThirtyDayBeforeToday) { service.Files.Delete(result.Id).Execute(); }
+                        else { Console.WriteLine("Data sie zgdza"); }
+                    }
+                    else { Console.WriteLine("Nie usunięto"); }
+                }
+
+
+
+
+                return allFiles;
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception("Request Files.List failed.", Ex);
+            }
+        }
+
+
+
 
         private void Konwersacja_Button(object sender, RoutedEventArgs e)
         {
