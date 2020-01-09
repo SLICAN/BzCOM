@@ -130,16 +130,16 @@
 
             </StackPanel>
         </ScrollViewer>
-       
-
-        <Border  Margin="0,364,1,1" Background="#FF444444" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
-
-            <DockPanel  Height="40" Background="#FF444444">
 
 
-                <TextBox x:Name="TextBoxMessage" Foreground="#41AECF" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#151515"  Margin="4,0,0,0" Width="283"/>
-                <Button x:Name="sendButton" Click="Button_Click" BorderThickness="0" Background="#FF444444" DockPanel.Dock="Right"  Width="40" MouseEnter="SendButton_MouseEnter" LostFocus="SendButton_LostFocus" MouseLeave="SendButton_MouseLeave">
-                    
+        <Border  Margin="1,364,1,1" Background="#282828" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3">
+
+            <DockPanel Background="#383838"   Margin="0,0,0,0">
+
+
+                <TextBox  KeyDown="TextBoxMessage_KeyDown" x:Name="TextBoxMessage" Foreground="Silver" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#383838"   Margin="4,1,0,1" Width="320"/>
+                <Button Cursor="Hand" ToolTip="Wyślij wiadomość" x:Name="sendButton" Click="Button_Click" BorderThickness="0" Background="#383838"  DockPanel.Dock="Right"  Width="40" MouseEnter="SendButton_MouseEnter" LostFocus="SendButton_LostFocus" MouseLeave="SendButton_MouseLeave">
+
 
 
                     <Image x:Name="send" Stretch="None" Source="/Images/ChatPage/wyslijAqua.png" Height="34"   >
@@ -147,18 +147,13 @@
                     </Image>
 
                 </Button>
-                <Button x:Name="clipButton"   BorderThickness="0" Background="#FF444444" DockPanel.Dock="Right" Width="35" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="ClipButton_Click" >
+                <Button Cursor="Hand" ToolTip="Załącznik" x:Name="clipButton"  BorderThickness="0" Margin="0,0,0,0" Background="#383838"   Width="35" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="ClipButton_Click" >
                     <Image  x:Name="clip" Stretch="None" Source="/Images/ChatPage/clipSilver.png" Height="34"   >
 
                     </Image>
 
                 </Button>
-                <Button x:Name="emotikonaButton"  BorderThickness="0" Background="#FF444444" HorizontalAlignment="Right" Width="30" MouseEnter="EmotikonaButton_MouseEnter" MouseLeave="EmotikonaButton_MouseLeave">
-                    <Image x:Name="emotikona" Stretch="None" Source="/Images/ChatPage/emotikonaSilver.png" Height="34" RenderTransformOrigin="2.002,0.406"   >
 
-                    </Image>
-
-                </Button>
             </DockPanel>
         </Border>
     </Grid>

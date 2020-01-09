@@ -202,7 +202,7 @@ namespace BzCOMWpf
                 Border borderOkienka = new Border();
                 if (text.Substring(0, 2) == "Ja")
                 {
-                    borderOkienka.Background = new SolidColorBrush(Color.FromRgb(65, 174, 207));
+                    borderOkienka.Background = new SolidColorBrush(Color.FromRgb(3, 145, 253));
                     borderOkienka.HorizontalAlignment = HorizontalAlignment.Right;
                 }
                 else
@@ -300,17 +300,7 @@ namespace BzCOMWpf
             send.Stretch = Stretch.None;
         }
 
-        private void EmotikonaButton_MouseEnter(object sender, MouseEventArgs e)
-        {
-            emotikona.Source = new BitmapImage(new Uri(@"/Images/ChatPage/emotikonaWhite.png", UriKind.Relative));
-            emotikona.Stretch = Stretch.None;
-        }
-
-        private void EmotikonaButton_MouseLeave(object sender, MouseEventArgs e)
-        {
-            emotikona.Source = new BitmapImage(new Uri(@"/Images/ChatPage/emotikonaSilver.png", UriKind.Relative));
-            emotikona.Stretch = Stretch.None;
-        }
+     
 
 
         //Gooogle Drive transfer plikow
@@ -322,7 +312,27 @@ namespace BzCOMWpf
 
         }
 
+        private void TextBoxMessage_KeyDown(object sender, KeyEventArgs e)
+        {
 
+            if (e.Key == Key.Return)
+            {
+                conversation_numbers = conversation_numbers.Where(val => val != mynumber).ToArray();
+
+                for (int i = 0; i < conversation_numbers.Length; i++)
+                {
+                    if (trafficController.GetState() == State.OpenedGate && !TextBoxMessage.Text.Equals(""))
+                    {
+                        messageSendTime = DateTime.Now;
+
+                        /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
+                        trafficController.SMSSend(conversation_numbers[i].ToString(), null, szyfr + TextBoxMessage.Text, "", "" + messageSendTime);
+                        messageSend = true;
+                    }
+                    else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
+                }
+            }
+        }
     }
     
 }

@@ -1,44 +1,13 @@
-﻿<Page x:Class="BzCOMWpf.AdressBookPage"
+﻿<Page x:Class="BzCOMWpf.Information"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BzCOMWpf"
       mc:Ignorable="d" 
-      d:DesignHeight="360" d:DesignWidth="288"
-      Title="AdressBookPage">
-
+    d:DesignHeight="360" d:DesignWidth="288"
+      Title="Information">
     <Page.Resources>
-        <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#BEBEBE" />
-        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#A9A9A9" />
-
-        <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
-            <Setter Property="SnapsToDevicePixels" Value="true"/>
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="Border" CornerRadius="8" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
-                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="#202020"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="#202020"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-
-
         <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -61,6 +30,7 @@
             </Setter>
         </Style>
 
+        <!--SCROLLBARS-->
         <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
             <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
             <Setter Property="Foreground" Value="#808080"/>
@@ -118,81 +88,60 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
     </Page.Resources>
 
 
-    <Grid>
+    <Grid  Background="#303030">
 
-        <ScrollViewer VerticalAlignment="Top" Height="360" >
-            <StackPanel VerticalAlignment="Top"  x:Name="stackPanelBorder"    >
-
-                <TextBlock x:Name="Chat" TextWrapping="Wrap" Foreground="Silver" FontFamily="Segoe UI Light" FontSize="14"  >
-
-
-
+        <DockPanel VerticalAlignment="Top" Height="42" Background="#202020"  >
+            <StackPanel Margin="0,0,0,10" >
+                <TextBlock FontSize="20" Margin="5" Height="30" Foreground="White" Text="Informacje o projekcie" TextAlignment="Center" VerticalAlignment="Top">
 
                 </TextBlock>
 
             </StackPanel>
+        </DockPanel>
+       
+
+            <ScrollViewer Margin="0,47,0,0" >
+            
+                <DockPanel VerticalAlignment="Stretch" Height="476" >
+            
+            
+            <TextBlock x:Name="textDesc" TextWrapping="Wrap" Foreground="#BEBEBE" Margin="4,0,4,0" HorizontalAlignment="Center" FontFamily="Calibri" FontWeight="Bold">
+                BzCOM jest biznesowym komunikatorem internetowym stworzonym na potrzeby zaliczenia przedmiotu
+                Zespołowy Projekt Informatyczny na Uniwersytecie im. Kazimierza Wielkiego w Bydgoszczy.
+                Ma on za zadanie umożliwić swobodną komunikację tekstową oraz wymianę plików pracownikom biznesowym.
+                Projekt został wykonywany pod patronatem Bydgoskiej firmy Slican.<LineBreak/><LineBreak/>
+                
+                Jeżeli chcesz dowiedzieć się o projekcie więcej, odwiedź stronę repozytorium projektu:<LineBreak/><LineBreak/>
+                
+                https://github.com/SLICAN/BzCOM<LineBreak/><LineBreak/>
+                
+                Autorzy:<LineBreak/><LineBreak/>
+                
+                Adrianna Piszcz<LineBreak/>
+                Michał Adamkowski<LineBreak/>
+                Kamil Biegański<LineBreak/>
+                Kamil Kowalski<LineBreak/>
+                Marta Kowalczyk<LineBreak/>
+                Kacper Koźlikowski<LineBreak/>
+                Miłosz Totoń<LineBreak/>
+                Marek Kurjan<LineBreak/>
+                Kamil Weselski<LineBreak/>
+                Artur Komar<LineBreak/>
+                Aleksander Kowalski<LineBreak/><LineBreak/>
+                
+                Opiekun firmy Slican:<LineBreak/><LineBreak/>
+                
+                Adam Wiśniewski<LineBreak/><LineBreak/>
+                </TextBlock>
+
+            
+
+            </DockPanel>
+            
         </ScrollViewer>
-
-        <ListView BorderThickness="0" x:Name="ListViewAddressBook" Background="#303030" HorizontalAlignment="Left" Height="360" Margin="0,0,0,0" VerticalAlignment="Top" Width="288" MouseDoubleClick="ListViewAddressBook_DoubleClick">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    
-                    
-                    <WrapPanel>
-
-
-                        <Border BorderThickness="0"  >
-                           
-                            <Image >
-                                <Image.Style>
-                                    <Style TargetType="{x:Type Image}">
-                                        <Setter Property="Source" Value="{x:Null}" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding UserState}" Value="BRB" >
-                                                <Setter Property="Source" Value="/Images/AdressBookPage/statusBRB.png"  />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding UserState}" Value="UNAVAILABLE">
-                                                <Setter Property="Source" Value="/Images/AdressBookPage/statusOfline.png" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding UserState}" Value="AVAILABLE">
-                                                <Setter Property="Source" Value="/Images/AdressBookPage/statusOnline.png" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding UserState}" Value="BUSY">
-                                                <Setter Property="Source" Value="/Images/AdressBookPage/statusBusy.png" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                        </Border>
-
-
-                        <TextBlock Text=" " FontSize="16px"  FontWeight="Normal" Foreground="Silver" />
-                        <TextBlock Text="{Binding UserName}"  FontWeight="Normal" FontSize="17px"  Foreground="White" >
-                        
-                       <LineBreak></LineBreak> 
-                            <TextBlock Text="" FontSize="15px"  FontWeight="Normal" Foreground="Silver" />
-                      <TextBlock Text="{Binding UserDesc}" FontSize="16px"  FontWeight="Normal" Foreground="Silver" />
-                            
-                   
-                        </TextBlock>
-
-                      
-
-
-
-
-
-                    </WrapPanel>
-
-                </DataTemplate>
-            </ListView.ItemTemplate>
-           
-
-        </ListView>
+        
     </Grid>
 </Page>

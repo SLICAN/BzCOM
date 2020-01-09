@@ -5,18 +5,94 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BzCOMWpf"
       mc:Ignorable="d" 
-      d:DesignHeight="360" d:DesignWidth="340"
+      d:DesignHeight="360" d:DesignWidth="288"
       Title="ListConversation">
 
-    <Grid>
-        <Button x:Name="Button_Create" Background="#41AECF" Content="Stwórz konwersację" Foreground="Black" Click="Button_Create_Click" Margin="70,320,70,0" FontFamily="Tahoma" FontSize="18"/>
-        <ListView x:Name="ListViewConversations" Height="320" Margin="0,0,0,0" VerticalAlignment="Top" Width="340" Background="#151515" BorderThickness="0" MouseDoubleClick="ListViewAddressBook_DoubleClick" Grid.ColumnSpan="2">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn  DisplayMemberBinding="{Binding UsersNames}"/>
-                    <GridViewColumn  DisplayMemberBinding="{Binding UsersNumbers}"/>
-                </GridView>
-            </ListView.View>
+    <Page.Resources>
+        <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#BEBEBE" />
+        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#A9A9A9" />
+
+        <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" CornerRadius="8" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#202020"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#202020"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid  Background="#282828">
+
+
+
+        <DockPanel VerticalAlignment="Top" Height="42" Background="#202020"  >
+            <StackPanel Margin="0,0,0,10" >
+                <TextBlock FontSize="20" Margin="5" Height="30" Foreground="White" Text="Lista konwersacji" TextAlignment="Center" VerticalAlignment="Top">
+
+                </TextBlock>
+
+            </StackPanel>
+        </DockPanel>
+
+        <Button x:Name="Button_Create"   Foreground="Black" Click="Button_Create_Click" Margin="10,310,10,10"  FontSize="15"  BorderThickness="0" Cursor="Hand">
+
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#383838"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                                    <ContentPresenter  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#41AECF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock Text="Stwórz konwersację" Foreground="White" FontSize="15px"></TextBlock>
+        </Button>
+
+        <ListView  x:Name="ListViewConversations" Height="261" Margin="0,44,0,0" VerticalAlignment="Top" Background="#282828" BorderThickness="0" MouseDoubleClick="ListViewAddressBook_DoubleClick">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <WrapPanel>
+
+                        <TextBlock Text="{Binding idConversation}" FontSize="16px"  FontWeight="Normal" Foreground="White" />
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding UsersNames}" FontSize="16px"  FontWeight="Normal" Foreground="Silver" />
+                        <TextBlock Text=" "/>
+
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+
         </ListView>
     </Grid>
 </Page>

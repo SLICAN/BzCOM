@@ -5,9 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BzCOMWpf"
         mc:Ignorable="d"
-        Title="AddressBookForm" Height="570" Background="#151515"  Width="340" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
+        Title="AddressBookForm" Height="560" Background="#151515"  Width="288" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
 
     <Window.Resources>
+        
+     
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF444444"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF444444"/>
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
 
         <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
             <Setter Property="Template">
@@ -97,41 +119,21 @@
             <ColumnDefinition Width="117*"/>
             <ColumnDefinition Width="53*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="ButtonTeam" Background="#0D0D0D" Click="ButtonTeam_Click"  Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" Margin="50,0,0,1">
 
-            <StackPanel>
-                <Image Source="Images/GrafikiMenu/team.png" x:Name="Team" Height="25"  Width="25" Stretch="Fill" />
-            </StackPanel>
-        </Button>
-        <Button x:Name="ButtonFav" Background="#0D0D0D" Click="ButtonFav_Click" Margin="100,0,0,1" Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" >
-            <Image Source="Images/GrafikiMenu/adduser.png" x:Name="UserFav" Width="30" Height="30" Stretch="None"/>
-        </Button>
-        <Button x:Name="ButtonAdd" Background="#0D0D0D" Click="ButtonAdd_Click" Margin="150,0,0,0" Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" >
 
-            <Image Source="Images/GrafikiMenu/peopleList.png" Stretch="None" x:Name="UserAdd" Width="30" Height="30"></Image>
-        </Button>
 
-        <Button x:Name="Logout" Background="#0D0D0D" Click="Logout_Click"  Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" Margin="66,0,0,1" Grid.Column="1">
 
-            <StackPanel Orientation="Horizontal">
-                <Image Source="Images/GrafikiMenu/logout.png" x:Name="Setting" Height="25"  Width="25" Stretch="None" />
-            </StackPanel>
-        </Button>
-        <Button x:Name="ButtonArchive" Background="#0D0D0D" Click="ButtonArchive_Click"  Foreground="Black" HorizontalAlignment="Left" Width="35" Height="35" VerticalAlignment="Bottom" Margin="5,0,0,1">
 
-            <StackPanel>
-                <Image Source="Images/GrafikiMenu/folder.png" x:Name="Archive" Height="25"  Width="25" Stretch="None" />
-            </StackPanel>
-        </Button>
-        
-        <UserControl Loaded="UserControl_Loaded" Margin="0,0,0,51" Grid.ColumnSpan="2">
+
+
+        <UserControl Loaded="UserControl_Loaded" Grid.ColumnSpan="2" Margin="0,0,0,59">
             <UserControl.Resources>
 
 
             </UserControl.Resources>
 
         </UserControl>
-        <DockPanel x:Name="menuPanel"  Background="#202020"  Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2" >
+        <DockPanel x:Name="menuPanel"  Background="#282828"  Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2" >
 
             <Image Source="/Images/GrafikiPozostale/LogoReszta.png"  HorizontalAlignment="Left" Stretch="None" Width="17"  Margin="10,0,0,0">
 
@@ -139,37 +141,13 @@
             </Image>
             <Label HorizontalAlignment="Left" FontWeight="Bold"   Height="23" FontFamily="arial" Foreground="Silver" VerticalContentAlignment="Center" FontSize="8pt" Content="BzCOM" Width="58"  />
 
-            <Button x:Name="buttonExit" Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" DockPanel.Dock="Right" Click="ButtonExit_Click"  >
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#202020"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Red"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
 
-                <Image  Source="/Images/GrafikiPozostale/ExitReszta.png" Width="12" Height="12" RenderTransformOrigin="0.629,0.552"></Image>
-
-
-            </Button>
-            <Button x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
+            <Button Cursor="Hand" ToolTip="Minimalizuj"  x:Name="buttonMinimize"  Width="27" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" Click="ButtonMinimize_Click" >
 
 
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#202020"/>
+                        <Setter Property="Background" Value="#282828"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -192,9 +170,9 @@
             </Button>
 
         </DockPanel>
-        <Frame x:Name="_mainFrame" Height="360" Margin="0,164,0,46" Width="340" NavigationUIVisibility="Hidden" Background="#0D0D0D" Grid.ColumnSpan="2"/>
+        <Frame x:Name="_mainFrame" Margin="0,159,0,40" NavigationUIVisibility="Hidden" Background="#0D0D0D" Grid.ColumnSpan="2" />
 
-        <Grid Background="#151515" VerticalAlignment="Top" Margin="0,25,0,0" Height="134" Grid.ColumnSpan="2">
+        <Grid Background="#171717" VerticalAlignment="Top" Margin="0,25,0,0" Height="134" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="251*"/>
                 <ColumnDefinition Width="89*"/>
@@ -202,7 +180,7 @@
 
 
 
-            <TextBox x:Name="TextBoxDescription" MaxLength="27" BorderThickness="0" VerticalContentAlignment="Center" FontSize="10pt"  Background="#0D0D0D" Foreground="Silver" Margin="150,12,20,85" KeyDown="TextBoxDescription_KeyDown" PreviewMouseDown="TextBoxDescription_PreviewMouseDown" TextChanged="TextBoxDescription_TextChanged" MouseEnter="TextBoxDescription_MouseEnter" LostFocus="TextBoxDescription_LostFocus" Grid.ColumnSpan="2">
+            <TextBox x:Name="TextBoxDescription" MaxLength="27" BorderThickness="0" VerticalContentAlignment="Center" FontSize="10pt"  Background="#0D0D0D" Foreground="Silver" Margin="129,28,30,69" KeyDown="TextBoxDescription_KeyDown" PreviewMouseDown="TextBoxDescription_PreviewMouseDown" TextChanged="TextBoxDescription_TextChanged" MouseEnter="TextBoxDescription_MouseEnter" LostFocus="TextBoxDescription_LostFocus" Grid.ColumnSpan="2">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type TextBox}">
 
@@ -243,49 +221,22 @@
 
             </TextBox>
 
-            <Button x:Name="ButtonPicture" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" VerticalAlignment="Top"   Click="ButtonPicture_Click" Margin="20,5,139.667,0" Height="90">
 
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#202020"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#333237"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
 
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="50"/>
 
-                    </Style>
-                </Button.Resources>
 
-                <Ellipse Width="88" Height="80">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/GrafikiMenu/avatar.png"  x:Name="imgPhoto"  Stretch="Fill"/>
-                    </Ellipse.Fill>
-                </Ellipse>
+
+            <Image Source="/Images/GrafikiMenu/statusAVAperson.png"  x:Name="imgPhoto"   Stretch="None" Margin="0,0,89,0"/>
 
 
 
 
 
 
-            </Button>
 
-            <ComboBox x:Name="ComboBoxStatus"    Foreground="Silver"  Margin="150,60,20,54" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded" Height="22" Grid.ColumnSpan="2">
+          
+
+            <ComboBox x:Name="ComboBoxStatus"    Foreground="Silver"  Margin="129,80,30,32" SelectionChanged="ComboBoxStatus_SelectionChanged" Loaded="ComboBoxStatus_Loaded" Height="22" Grid.ColumnSpan="2">
 
 
 
@@ -313,7 +264,7 @@
                                                         </Grid.ColumnDefinitions>
                                                         <Border x:Name="Border"  Grid.ColumnSpan="1" CornerRadius="4" Background="#0D0D0D " BorderBrush="#151515 " BorderThickness="1" Margin="10,0,0,0" />
                                                         <Border x:Name="Border2" Grid.Column="0" CornerRadius="4"   Background="#202020"  BorderBrush="#151515" BorderThickness="1" Margin="0" />
-                                                        <Path x:Name="Arrow" Grid.Column="0"  Fill="Silver" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="147,9,4.5,9"/>
+                                                        <Path x:Name="Arrow" Grid.Column="0"  Fill="Silver" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="115,9,4.5,9"/>
                                                     </Grid>
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="ToggleButton.IsMouseOver" Value="true">
@@ -363,9 +314,40 @@
             </ComboBox>
 
 
-            
+
         </Grid>
+
+        <DockPanel VerticalAlignment="Bottom"  Background="#171717" Height="40" Grid.ColumnSpan="2" >
+            <Button Cursor="Hand" ToolTip="Lista używtkowników" x:Name="ButtonAdd" Background="#151515"  BorderThickness="0"  Click="ButtonAdd_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="8,0,15,5" MouseEnter="ButtonAdd_MouseEnter" MouseLeave="ButtonAdd_MouseLeave" >
+                <Image Source="Images/GrafikiMenu/listing-optionSilver.png" Stretch="None" x:Name="UserList" ></Image>
+            </Button>
+
+            <Button Cursor="Hand" ToolTip="Konwersacja" x:Name="ButtonTeam" Background="#151515" BorderThickness="0"  Click="ButtonTeam_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonTeam_MouseEnter" MouseLeave="ButtonTeam_MouseLeave">
+                <Image Source="Images/GrafikiMenu/groupSilver.png" x:Name="Team"  Stretch="None" />
+            </Button>
+
+            <Button Cursor="Hand" x:Name="ButtonArchive" ToolTip="Udostępnianie ekranu" Background="#151515" BorderThickness="0"  Click="ButtonArchive_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonArchive_MouseEnter" MouseLeave="ButtonArchive_MouseLeave">
+                <Image Source="Images/GrafikiMenu/screenSilver.png"  x:Name="Archive"  Stretch="None" />
+            </Button>
+
+
+
+            <Button Cursor="Hand" ToolTip="Informacje o programie" x:Name="ButtonFav" Background="#151515" BorderThickness="0"  Click="ButtonFav_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonFav_MouseEnter" MouseLeave="ButtonFav_MouseLeave" >
+                <Image Source="Images/GrafikiMenu/infoSilver.png" x:Name="UserInfo"  Stretch="None"/>
+            </Button>
+
+
+
+            <Button Cursor="Hand" ToolTip="Wyloguj"  x:Name="Logout" Background="#151515" BorderThickness="0"  Click="Logout_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="65,0,0,5"  Grid.Column="1" MouseEnter="Logout_MouseEnter" MouseLeave="Logout_MouseLeave">
+
+
+                <Image Source="Images/GrafikiMenu/logoutSilver.png" x:Name="logout"  Stretch="None" />
+
+            </Button>
+
+        </DockPanel>
     </Grid>
+
 </Window>
     
 

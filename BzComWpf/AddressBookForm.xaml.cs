@@ -27,7 +27,7 @@ namespace BzCOMWpf
     {
 
         private int myNumber;
-
+        private string login;
         private string descrption;
         //private ListViewItem item;
         //ImageSource MyImage= new BitmapImage(new Uri("", UriKind.Relative));
@@ -44,6 +44,7 @@ namespace BzCOMWpf
         public bool znaleziony;
         public ChatMessage messageForm;
         ListConversation conversationList;
+        Information informationPage;
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
@@ -55,17 +56,22 @@ namespace BzCOMWpf
             InitializeComponent();
             messageForm = new ChatMessage();
             LoadLogin();
-
+          
             openedConnections = new List<ChatPage>();
             conversationConnections = new List<ConversationPage>();
             AdressBookPage adressBookPage = new AdressBookPage(messageForm, openedConnections, conversationConnections,myNumber);
             conversationList = new ListConversation(messageForm, openedConnections, conversationConnections, adressBookPage.ListViewAddressBook,myNumber);
+            ScreenSharing screenSharing = new ScreenSharing();
+            informationPage = new Information();
             pages.Add(adressBookPage);
             pages.Add(conversationList);
+            pages.Add(informationPage);
+            pages.Add(screenSharing);
+
             _mainFrame.Navigate(pages[0]);
 
             messageForm.Hide();
-
+        
         }
 
 
@@ -90,7 +96,20 @@ namespace BzCOMWpf
         {
             if (trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate)
                 trafficController.SetStatus((Status)Enum.Parse(typeof(Status), ComboBoxStatus.SelectedItem.ToString()));
-            //Console.WriteLine(ComboBoxStatus.Text);
+            //    Console.WriteLine(ComboBoxStatus.Text);
+
+
+
+            //   Console.WriteLine((ComboBoxStatus.SelectedIndex).ToString());
+            if (ComboBoxStatus.SelectedIndex == 0) { imgPhoto.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/statusAVAperson.png", UriKind.Relative)); }
+            else if (ComboBoxStatus.SelectedIndex == 1) { imgPhoto.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/statusBRBperson.png", UriKind.Relative)); }
+            else if (ComboBoxStatus.SelectedIndex == 2) { imgPhoto.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/statusBUSYperson.png", UriKind.Relative)); }
+            else if (ComboBoxStatus.SelectedIndex == 3) { imgPhoto.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/statusUNAperson.png", UriKind.Relative)); }
+            
+           
+
+
+
         }
 
         /// <summary>
@@ -100,6 +119,7 @@ namespace BzCOMWpf
         private void ChangeComboBox(string text)
         {
             ComboBoxStatus.Text = text;
+
         }
 
         #endregion
@@ -114,6 +134,8 @@ namespace BzCOMWpf
         {
             if ((trafficController.GetState() == State.LoggedIn || trafficController.GetState() == State.OpenedGate) && e.Key == Key.Enter)
                 trafficController.SetDescription(ComboBoxStatus.Text, TextBoxDescription.Text);
+
+         
         }
         /// <summary>
         /// Symuluje hint'a
@@ -185,37 +207,32 @@ namespace BzCOMWpf
         public void LoadLogin()
         {
             var path2 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string login;
+          
             string jsonRead;
 
 
-
+           
             if (File.Exists(path2 + "BzCOMfile.json"))
             {
                 jsonRead = File.ReadAllText(path2 + "BzCOMfile.json");
                 dynamic resultRead = new JavaScriptSerializer().Deserialize<dynamic>(jsonRead);
                 login = resultRead["login"];
-                descrption = trafficController.GetDescriptionByNumber(login);
-                TextBoxDescription.Text = descrption;
+                
                 myNumber = Int32.Parse(login);
             }
             else { return; }
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-          
-
-
-
+            descrption = trafficController.GetDescriptionByNumber(login);
+            TextBoxDescription.Text = descrption;
         }
 
 
 
-            private void ButtonExit_Click(object sender, RoutedEventArgs e)
-            {
-                Environment.Exit(0);
-            }
+           
 
             private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
             {
@@ -289,28 +306,7 @@ namespace BzCOMWpf
                 }
             }
 
-            private void ButtonPicture_Click(object sender, RoutedEventArgs e)
-
-            {
-
-                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-                dlg.DefaultExt = ".png";
-                // dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
-                Nullable<bool> result = dlg.ShowDialog();
-
-
-                // Get the selected file name and display in a TextBox 
-                if (result == true)
-                {
-                    imgPhoto.ImageSource = new BitmapImage(new Uri(dlg.FileName));
-                    // Open document 
-
-                    string filename = dlg.FileName;
-
-                    //MyImage = img;
-
-                }
-            }
+            
 
             private void ButtonAdd_Click(object sender, RoutedEventArgs e)
             {
@@ -319,7 +315,8 @@ namespace BzCOMWpf
 
             private void ButtonFav_Click(object sender, RoutedEventArgs e)
             {
-            }
+            _mainFrame.Navigate(pages[2]);
+        }
 
             private void UserControl_Loaded(object sender, RoutedEventArgs e)
             {
@@ -332,7 +329,8 @@ namespace BzCOMWpf
 
             private void ButtonArchive_Click(object sender, RoutedEventArgs e)
             {
-            }
+            _mainFrame.Navigate(pages[3]);
+        }
 
             private void ButtonSetting_Click(object sender, RoutedEventArgs e)
             {
@@ -353,10 +351,72 @@ namespace BzCOMWpf
                 }
 
             }
+
+        private void Logout_MouseEnter(object sender, MouseEventArgs e)
+        {
+            logout.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/logoutOrange.png", UriKind.Relative));
+            logout.Stretch = Stretch.None;
         }
 
+        private void Logout_MouseLeave(object sender, MouseEventArgs e)
+        {
+            logout.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/logoutSilver.png", UriKind.Relative));
+            logout.Stretch = Stretch.None;
+        }
 
-        public class MyItem
+        private void ButtonAdd_MouseEnter(object sender, MouseEventArgs e)
+        {
+            UserList.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/listing-optionWhite.png", UriKind.Relative));
+            UserList.Stretch = Stretch.None;
+        }
+
+        private void ButtonAdd_MouseLeave(object sender, MouseEventArgs e)
+        {
+            UserList.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/listing-optionSilver.png", UriKind.Relative));
+            UserList.Stretch = Stretch.None;
+        }
+
+        private void ButtonArchive_MouseEnter(object sender, MouseEventArgs e)
+        {
+         
+            Archive.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenWhite.png", UriKind.Relative));
+            Archive.Stretch = Stretch.None;
+        }
+
+        private void ButtonArchive_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Archive.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenSilver.png", UriKind.Relative));
+            Archive.Stretch = Stretch.None;
+        }
+
+        private void ButtonTeam_MouseEnter(object sender, MouseEventArgs e)
+        {
+           
+                  Team.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/groupWhite.png", UriKind.Relative));
+            Team.Stretch = Stretch.None;
+        }
+
+        private void ButtonTeam_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Team.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/groupSilver.png", UriKind.Relative));
+            Team.Stretch = Stretch.None;
+        }
+
+        private void ButtonFav_MouseEnter(object sender, MouseEventArgs e)
+        {
+            UserInfo.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/infoWhite.png", UriKind.Relative));
+            UserInfo.Stretch = Stretch.None;
+        }
+
+        private void ButtonFav_MouseLeave(object sender, MouseEventArgs e)
+        {
+            UserInfo.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/infoSilver.png", UriKind.Relative));
+            UserInfo.Stretch = Stretch.None;
+        }
+    }
+
+
+    public class MyItem
         {
             public string UserState { get; set; }
             public string UserName { get; set; }

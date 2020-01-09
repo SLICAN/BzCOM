@@ -21,18 +21,20 @@ namespace BzCOMWpf
     /// </summary>
     public partial class ActiveUsersxaml : Window
     {
-        public DateTime messageSendTime; 
+        public DateTime messageSendTime;
+        private int myNumber;
         delegate void SetUsersCallBack(List<User> users);
         private List<MyItem> myItems = new List<MyItem>();
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
         public ChatMessage messageForm;
         List<string> numbers = new List<string>();
         private int[] number;
-        public ActiveUsersxaml(ListView listView)
+        public ActiveUsersxaml(ListView listView,int _myNumber)
         {
             InitializeComponent();
-
+            myNumber = _myNumber;
             Wypelnij(listView);
+
             
         }
 
@@ -47,10 +49,11 @@ namespace BzCOMWpf
             {
                 numbers.Add(trafficController.FindNumber(items.UserName));        
             }
-            number = new int[numbers.Count];
-            for (int i = 0; i < numbers.Count; i++)
+            number = new int[numbers.Count+1];
+            number[0] = myNumber;
+            for (int i = 1; i < number.Length; i++)
             {
-                number[i] = Int32.Parse(numbers[i]);
+                number[i] = Int32.Parse(numbers[i-1]);
                 Console.WriteLine(number[i] + " Połączenie");
         
             }
@@ -73,11 +76,17 @@ namespace BzCOMWpf
 
         public void Wypelnij(ListView listView)
         {
-                foreach(MyItem item in listView.Items)
+            string myname = trafficController.FindName(myNumber.ToString());
+            foreach (MyItem item in listView.Items)
+            {
+                if (item.UserName.Equals(myname)) { }
+                else
                 {
-                if (item.UserState.Equals("AVAILABLE") || item.UserState.Equals("BUSY"))
-                    ActiveUsers.Items.Add(item);
+                    if (item.UserState.Equals("AVAILABLE") || item.UserState.Equals("BUSY"))
+
+                        ActiveUsers.Items.Add(item);
                 }
+            }
                 //MyItem selectedItem = (MyItem)ActiveUsers.SelectedItems[0];
                 //currentNumber = trafficController.FindNumber(selectedItem.UserName);
                 //trafficController.SetState(State.OpenedGate);
@@ -86,6 +95,7 @@ namespace BzCOMWpf
 
         private void EmotikonaButton_Click(object sender, RoutedEventArgs e)
         {
+            int id  = 0;
             string numeryaktywne = "";
             number = numeryPolaczen();
 
@@ -98,6 +108,17 @@ namespace BzCOMWpf
                 messageSendTime = DateTime.Now;
                 trafficController.SMSSend(number[i].ToString(), null, "CONVERSATION"+numeryaktywne, "1",""+messageSendTime);
             }
+            this.Close();
+        }
+
+        private void DockPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void zamknijOkno_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
     }

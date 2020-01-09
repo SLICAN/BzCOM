@@ -5,47 +5,102 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BzCOMWpf"
         mc:Ignorable="d"
-        Title="ActiveUsersxaml" Height="303.895" Width="443.506">
-    <Grid Background="#0D0D0D">
-        <ListView x:Name="ActiveUsers" Background="#151515" HorizontalAlignment="Left" Margin="0,0,0,0" Width="340" BorderThickness="0" ItemsSource="{Binding}"
+        Title="ActiveUsersxaml" Height="277.196" Width="240" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None">
+    <Grid Background="#282828"   Width="240">
+
+
+        <DockPanel VerticalAlignment="Top" Height="26" Background="#202020" MouseDown="DockPanel_MouseDown"  >
+
+
+            <TextBlock HorizontalAlignment="Left" FontSize="13" Margin="0,3,5,0" Height="22" Foreground="White" Text="Dodaj osoby do nowej konwersacji" TextAlignment="Center" VerticalAlignment="Top" Width="204">
+
+            </TextBlock>
+            <Button Cursor="Hand" x:Name="zamknijOkno"  BorderThickness="0" Click="zamknijOkno_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#202020"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Red"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Image  Source="/Images/GrafikiPozostale/ExitReszta.png"  Width="14" HorizontalAlignment="Center" Margin="0,0,0,0"  />
+            </Button>
+        </DockPanel>
+        <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left" Height="213" Margin="0,26,0,38" Width="240">
+            <ListView  Foreground="White" x:Name="ActiveUsers" Background="#282828" HorizontalAlignment="Left" Width="240" BorderThickness="0" ItemsSource="{Binding}"
               IsSynchronizedWithCurrentItem="True" SelectionChanged="ActiveUsers_SelectionChanged">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="30">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <CheckBox x:Name="CheckBoxConv" Tag="{Binding UserName}" IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn  DisplayMemberBinding="{Binding UserName}"/>
-                </GridView>
-            </ListView.View>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem }">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding UserState}" Value="BRB">
-                            <Setter Property="Background" Value="Yellow"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}" Value="UNAVAILABLE">
-                            <Setter Property="Background" Value="Red"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}"  Value="AVAILABLE">
-                            <Setter Property="Background" Value="Green"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}" Value="BUSY">
-                            <Setter Property="Background" Value="Blue"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding UserState}" Value="UNKNOWN">
-                            <Setter Property="Background" Value="Black"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
-        <Button x:Name="emotikonaButton" Content="Dodaj osobę"  BorderThickness="0" Background="#41AECF" HorizontalAlignment="Right" Click="EmotikonaButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Margin="0,120,0,120" Width="90" >
-        </Button>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+
+                        <WrapPanel>
+
+                            <CheckBox x:Name="CheckBoxConv" Height="20"  FontSize="15" Tag="{Binding UserName}" IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}"/>
+                            <TextBlock Text=" " ></TextBlock>
+                            <TextBlock Text="{Binding UserName}" FontSize="12" ></TextBlock>
+                            <TextBlock Text="{Binding UserNumber}"></TextBlock>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem }">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding UserState}" Value="BRB">
+                                <Setter Property="Background" Value="Yellow"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding UserState}" Value="UNAVAILABLE">
+                                <Setter Property="Background" Value="Red"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding UserState}"  Value="AVAILABLE">
+                                <Setter Property="Background" Value="Green"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding UserState}" Value="BUSY">
+                                <Setter Property="Background" Value="Blue"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding UserState}" Value="UNKNOWN">
+                                <Setter Property="Background" Value="Black"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </DockPanel>
+        <DockPanel VerticalAlignment="Bottom" Height="38" Margin="0,0,0,0">
+            <Button  Cursor="Hand" x:Name="emotikonaButton"  Height="22"  BorderThickness="0"   Click="EmotikonaButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12"   Width="214" Margin="0,8" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#383838"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                                        <ContentPresenter  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#41AECF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <TextBlock Text="Dodaj osoby" Foreground="White" FontSize="12px"></TextBlock>
+            </Button>
+        </DockPanel>
     </Grid>
 </Window>

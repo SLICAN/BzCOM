@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxInterop.RDPCOMAPILib">
+      <HintPath>.\AxInterop.RDPCOMAPILib.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Apis, Version=1.41.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.41.1\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
@@ -87,6 +91,12 @@
     <Compile Include="AddressBookForm.xaml.cs">
       <DependentUpon>AddressBookForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Information.xaml.cs">
+      <DependentUpon>Information.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScreenSharing.xaml.cs">
+      <DependentUpon>ScreenSharing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ListConversation.xaml.cs">
       <DependentUpon>ListConversation.xaml</DependentUpon>
     </Compile>
@@ -114,6 +124,9 @@
     <Compile Include="Parsers\XMLCreator.cs" />
     <Compile Include="Parsers\XMLInterpreter.cs" />
     <Compile Include="SaveToJSON.cs" />
+    <Compile Include="ScreenViewer.xaml.cs">
+      <DependentUpon>ScreenViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TrafficController.cs" />
     <Compile Include="User.cs" />
     <Page Include="ActiveUsersxaml.xaml">
@@ -123,6 +136,14 @@
     <Page Include="AddressBookForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Information.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ScreenSharing.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ListConversation.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -159,6 +180,10 @@
       <DependentUpon>LoginForm.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ScreenViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modules\Message.cs" />
@@ -233,19 +258,7 @@
     <Resource Include="Images\GrafikiMenu\avatar_placeholder.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\group.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\adduser.png" />
-    <Resource Include="Images\GrafikiMenu\folder.png" />
-    <Resource Include="Images\GrafikiMenu\settings.png" />
-    <Resource Include="Images\GrafikiMenu\user.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\GrafikiMenu\team.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\avatar.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ChatPage\clipWhite.png" />
@@ -269,10 +282,62 @@
     <Resource Include="Images\GrafikiMenu\chat.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\logout.png" />
+    <Resource Include="Images\GrafikiMenu\peopleList.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\GrafikiMenu\peopleList.png" />
+    <Resource Include="Images\GrafikiMenu\foldermenuSilver.png" />
+    <Resource Include="Images\GrafikiMenu\foldermenuWhite.png" />
+    <Resource Include="Images\GrafikiMenu\groupSilver.png" />
+    <Resource Include="Images\GrafikiMenu\groupWhite.png" />
+    <Resource Include="Images\GrafikiMenu\infoSilver.png" />
+    <Resource Include="Images\GrafikiMenu\infoWhite.png" />
+    <Resource Include="Images\GrafikiMenu\listing-optionSilver.png" />
+    <Resource Include="Images\GrafikiMenu\listing-optionWhite.png" />
+    <Resource Include="Images\GrafikiMenu\logoutOrange.png" />
+    <Resource Include="Images\GrafikiMenu\logoutSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ChatPage\exitRed.png" />
+    <Resource Include="Images\ChatPage\exitSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\StatusGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AdressBookPage\statusBusy.png" />
+    <Resource Include="Images\AdressBookPage\statusOfline.png" />
+    <Resource Include="Images\AdressBookPage\statusOnline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AdressBookPage\statusBRB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\statusBRBperson.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\statusAVAperson.png" />
+    <Resource Include="Images\GrafikiMenu\statusBUSYperson.png" />
+    <Resource Include="Images\GrafikiMenu\statusUNAperson.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="RDPCOMAPILib">
+      <Guid>{CC802D05-AE07-4C15-B496-DB9D22AA0A84}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\screenWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\screenSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GrafikiMenu\create.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
