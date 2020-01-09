@@ -25,12 +25,12 @@ namespace BzCOMWpf
         {
             InitializeComponent();
         }
-        public void connection(String Invitation) {
+        public void Connection(String Invitation) {
             //RdpViewer.Connect(Invitation, "User1", "");
             String inv = Invitation;
             RdpViewer.Connect(inv, "User1", "");
         }
-        public void disconnection() {
+        public void Disconnection() {
           RdpViewer.Disconnect();
         }
     }

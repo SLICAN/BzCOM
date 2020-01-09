@@ -1,20 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 using RDPCOMAPILib;
 
 namespace BzCOMWpf
@@ -24,29 +10,34 @@ namespace BzCOMWpf
     /// </summary>
     public partial class ScreenSharing : Page
     {
-
-        ScreenViewer xy = new ScreenViewer();
-
+        ScreenViewer xy;
+        RDPSession x;
         public ScreenSharing()
         {
             InitializeComponent();
 
         }
-
-        RDPSession x = new RDPSession();
         private void Incoming(object Guest)
         {
             IRDPSRAPIAttendee MyGuest = (IRDPSRAPIAttendee)Guest;//???
             MyGuest.ControlLevel = CTRL_LEVEL.CTRL_LEVEL_INTERACTIVE;
         }
-
         private void Button_Viewer_Click(object sender, RoutedEventArgs e)
-        {
-            string Invitation = textBox_Link.Text;
-            xy.Show();
-            xy.connection(Invitation); // Do ogarnięcia - wychodzi poza zakres ???
+        {   
+            try
+            {
+                string Invitation = textBox_Link.Text;
+                xy = new ScreenViewer();
+                xy.Connection(Invitation);// Do ogarnięcia - wychodzi poza zakres ??? 
+                xy.Show();
+                Button_StopViewing.Visibility = Visibility.Visible;
+                Button_Viewer.IsEnabled = false;
+            }
+            catch(ArgumentException)
+            {
+                textBox_Link.Text = "Błędne zaproszenie";
+            }
         }
-
         private void Button_StopSharing_Click(object sender, RoutedEventArgs e)
         {
             x.Close();
@@ -54,21 +45,23 @@ namespace BzCOMWpf
             Button_StopSharing.Visibility = Visibility.Hidden;
             Button_Copy.Visibility = Visibility.Hidden;
             Button_Paste.Visibility = Visibility.Visible;
+            Button_Host.IsEnabled = true;
         }
-
         private void Button_Copy_Click(object sender, RoutedEventArgs e)
         {
-
+            string Invitation = textBox_Link.Text;
+            Clipboard.SetText(Invitation);
         }
-
         private void Button_StopViewing_Click(object sender, RoutedEventArgs e)
         {
-            xy.disconnection();
-            xy.Hide();
+            xy.Disconnection();
+            xy.Close();
+            Button_StopViewing.Visibility = Visibility.Hidden;
+            Button_Viewer.IsEnabled = true;
         }
-
         private void Button_Host_Click(object sender, RoutedEventArgs e)
         {
+            x = new RDPSession();
             x.OnAttendeeConnected += Incoming;
             x.Open();
             IRDPSRAPIInvitation Invitation = x.Invitations.CreateInvitation("Trial", "MyGroup", "", 10);
@@ -76,11 +69,11 @@ namespace BzCOMWpf
             Button_StopSharing.Visibility = Visibility.Visible;
             Button_Copy.Visibility = Visibility.Visible;
             Button_Paste.Visibility = Visibility.Hidden;
+            Button_Host.IsEnabled = false;
         }
-
         private void Button_Paste_Click(object sender, RoutedEventArgs e)
         {
-            
+            textBox_Link.Text = Clipboard.GetText();
         }
     }
 }
