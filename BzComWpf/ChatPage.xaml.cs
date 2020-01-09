@@ -62,6 +62,7 @@ namespace BzCOMWpf
              }));*/
 
             LoadMessages(trafficController.GetMessagesByNumber(nr));
+            
 
         }
 
@@ -112,7 +113,7 @@ namespace BzCOMWpf
                 bool zawiera = false;
                 if (msgNow.Text.Contains(confSzyfr))
                 {
-                    
+
                 }
                 else
                 {
@@ -300,10 +301,11 @@ namespace BzCOMWpf
             send.Stretch = Stretch.None;
         }
 
-      
+
 
         private void ClipButton_Click(object sender, RoutedEventArgs e)
         {
+        
             UserCredential credential;
             using (var stream = new FileStream("credential.json", FileMode.Open, FileAccess.Read))
             {
@@ -352,6 +354,7 @@ namespace BzCOMWpf
                 messageSend = true;
 
             }
+            ListAll(service);//, new FilesListOptionalParms { Q = "createdTime <" + "'" + ThirtyDayBeforeToday + "'" });
 
 
         }
@@ -577,10 +580,10 @@ namespace BzCOMWpf
             CheckFolderDriveExist(service, mynumber.ToString());
             bool movebool = true;
             if (CheckFileinFolderExist(service, file, folderNameID) == true)
-             {
-                 FileId = GetIDFile(service, file, mynumber.ToString());
-                 movebool = false;
-             }
+            {
+                FileId = GetIDFile(service, file, mynumber.ToString());
+                movebool = false;
+            }
             else { FileId = GetIDFile(service, file, folderName_); }
             //FileId = GetIDFile(service, file, folderName_);
             Console.WriteLine("MOVE BOOL " + movebool);
@@ -671,6 +674,27 @@ namespace BzCOMWpf
         }
 
 
+       /* public void SamePlikiBezFolderow(Drive service)
+        {
+            FilesResource.ListRequest listRequest = service.Files.List();
+            listRequest.PageSize = 600;
+            listRequest.Fields = "nextPageToken, files(id, name,parents)";
+
+            IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
+               .Files;
+
+
+            FilesResource.ListRequest folderRequest = service.Files.List();
+
+            folderRequest.Q = "mimeType='application/vnd.google-apps.folder'";
+            folderRequest.PageSize = 600;
+            folderRequest.Fields = "nextPageToken, files(id, name)";
+            IList<Google.Apis.Drive.v3.Data.File> folders = folderRequest.Execute()
+              .Files;
+
+
+        }*/
+
         public bool CheckFileinFolderExist(DriveService service, string filename, string FolderID)
         {
 
@@ -696,39 +720,39 @@ namespace BzCOMWpf
             List<String> FoldersExist = new List<string>();
             List<String[]> FilesExist = new List<string[]>();
 
-      
+
             if (files.Count == 0)
             {
                 Console.WriteLine("Nie istenieje żaden plik");
             }
 
-            if(files != null && files.Count > 0)
+            if (files != null && files.Count > 0)
             {
-                foreach(var file in files)
+                foreach (var file in files)
                 {
                     string[] s = { file.Name, file.Id, file.Parents[0] };
                     FilesExist.Add(s);
                 }
             }
 
-            if(folders != null && folders.Count > 0)
+            if (folders != null && folders.Count > 0)
             {
-                foreach ( var folder in folders)
+                foreach (var folder in folders)
                 {
                     FoldersExist.Add(folder.Id);
                 }
             }
 
-             for (int i = 0; i < FilesExist.Count; i++)
+            for (int i = 0; i < FilesExist.Count; i++)
+            {
+                foreach (var folder in FoldersExist)
                 {
-                    foreach (var folder in FoldersExist)
+                    if (FilesExist[i][1].Equals(folder))
                     {
-                        if (FilesExist[i][1].Equals(folder))
-                        {
-                            FilesExist.Remove(FilesExist[i]);
-                        }
+                        FilesExist.Remove(FilesExist[i]);
                     }
                 }
+            }
 
             for (int i = 0; i < FoldersExist.Count;)
             {
@@ -738,7 +762,7 @@ namespace BzCOMWpf
                 }
                 else
                 {
-                    
+
                     FoldersExist.Remove(FoldersExist[i]);
                     i = 0;
 
@@ -748,18 +772,18 @@ namespace BzCOMWpf
             {
                 for (int j = 0; j < FilesExist.Count; j++)
                 {
-                    if(FilesExist[j][0].Equals(filename) && FilesExist[j][2].Equals(FoldersExist[i]))
+                    if (FilesExist[j][0].Equals(filename) && FilesExist[j][2].Equals(FoldersExist[i]))
                     {
                         return true;
                     }
-                       
+
                 }
             }
             return false;
         }
 
 
-        public void GetFileFromDrive(DriveService service , string FileId, string where)
+        public void GetFileFromDrive(DriveService service, string FileId, string where)
         {
             var request = service.Files.Get(FileId);
             var stream = new System.IO.MemoryStream();
@@ -797,6 +821,105 @@ namespace BzCOMWpf
             }
         }
 
+        public void getFilesByDate(DriveService service) {
+            FilesResource.ListRequest list = service.Files.List();
+            list.OrderBy = "createdDate";
+          
+
+        }
+
+        public class SampleHelpers
+        {
+            /// <summary>
+            /// Using reflection to apply optional parameters to the request.
+            ///
+            /// If the optonal parameters are null then we will just return the request as is.
+            /// </summary>
+            /// <param name="request">The request. </param>
+            /// <param name="optional">The optional parameters. </param>
+            /// <returns></returns>
+            public static object ApplyOptionalParms(object request, object optional)
+            {
+                if (optional == null)
+                    return request;
+
+                System.Reflection.PropertyInfo[] optionalProperties = (optional.GetType()).GetProperties();
+
+                foreach (System.Reflection.PropertyInfo property in optionalProperties)
+                {
+                    // Copy value from optional parms to the request.  They should have the same names and datatypes.
+                    System.Reflection.PropertyInfo piShared = (request.GetType()).GetProperty(property.Name);
+                    piShared.SetValue(request, property.GetValue(optional, null), null);
+                }
+
+                return request;
+            }
+        }
+
+        public class FilesListOptionalParms
+        {
+            /// The source of files to list.
+            public string Corpus { get; set; }
+
+            /// A comma-separated list of sort keys. Valid keys are 'createdTime', 'folder', 'modifiedByMeTime', 'modifiedTime', 'name', 'quotaBytesUsed', 'recency', 'sharedWithMeTime', 'starred', and 'viewedByMeTime'. Each key sorts ascending by default, but may be reversed with the 'desc' modifier. Example usage: ?orderBy=folder,modifiedTime desc,name. Please note that there is a current limitation for users with approximately one million files in which the requested sort order is ignored.
+            public string OrderBy { get; set; }
+
+            /// The maximum number of files to return per page.
+            public int PageSize { get; set; }
+
+            /// The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response.
+            public string PageToken { get; set; }
+
+            /// A query for filtering the file results. See the "Search for Files" guide for supported syntax.
+            public string Q { get; set; }
+
+            /// A comma-separated list of spaces to query within the corpus. Supported values are 'drive', 'appDataFolder' and 'photos'.
+            public string Spaces { get; set; }
+        }
+        public static Google.Apis.Drive.v3.Data.FileList ListAll(DriveService service, FilesListOptionalParms optional = null)
+        {
+            DateTime ThirtyDayBeforeToday = DateTime.Now.AddMinutes(-3);
+            try
+            {
+                // Initial validation.
+                if (service == null)
+                    throw new ArgumentNullException("service");
+
+                // Building the initial request.
+                var request = service.Files.List();
+
+                // Applying optional parameters to the request.
+                request.Fields = "nextPageToken, files(createdTime ,id, name, mimeType)";
+
+                var pageStreamer = new Google.Apis.Requests.PageStreamer<Google.Apis.Drive.v3.Data.File, FilesResource.ListRequest, Google.Apis.Drive.v3.Data.FileList, string>(
+                                                   (req, token) => request.PageToken = token,
+                                                   response => response.NextPageToken,
+                                                   response => response.Files);
+
+                var allFiles = new Google.Apis.Drive.v3.Data.FileList();
+                allFiles.Files = new List<Google.Apis.Drive.v3.Data.File>();
+
+                foreach (var result in pageStreamer.Fetch(request))
+                {
+
+                    if (result.MimeType != "application/vnd.google-apps.folder")
+                    {
+                        if(result.CreatedTime < ThirtyDayBeforeToday) { service.Files.Delete(result.Id).Execute(); }
+                        else { Console.WriteLine("Data sie zgdza"); }
+                    }
+                    else { Console.WriteLine("Nie usunięto"); }
+                }
+
+            
+
+
+                return allFiles;
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception("Request Files.List failed.", Ex);
+            }
+        }
 
         public string GetIDFile(DriveService service, string filename,string folderName)
         {
@@ -877,6 +1000,9 @@ namespace BzCOMWpf
                 else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
             }
         }
+
+
+
     }
 }
 

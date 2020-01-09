@@ -35,7 +35,7 @@ namespace BzCOMWpf
         delegate void SetUsersCallBack(List<User> users);
         private ConversationPage page;
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
-
+        List<UnreadMessages> unreadMessages = new List<UnreadMessages>();
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
         public bool znaleziony;
@@ -52,10 +52,10 @@ namespace BzCOMWpf
             trafficController.OnDeadConnection += TrafficController_OnDeadConnection;
             trafficController.OnMessageReceived += TrafficController_OnMessageReceived;
             messageForm = _messageForm;
-
             myNumber = _mynumber;
             openedConnections = _openedConnections;
             conversationConnections = _conversationConnections;
+            
         }
 
 
@@ -69,6 +69,22 @@ namespace BzCOMWpf
 
         }
 
+        public void wypelnijMessage(List<UnreadMessages> messages)
+        {
+            foreach(MyItem item in ListViewAddressBook.Items)
+            {
+                int number = Int32.Parse(trafficController.FindNumber(item.UserName));
+                messages.Add(new UnreadMessages { NumberM = number, IsMessageUnread= false });
+            }
+        }
+
+        public void sprawdzMessage(ChatMessage message, List<UnreadMessages> unreadMessages)
+        {
+            foreach(ConnectionItem item in message.ConnectionsListView.Items)
+            {
+   //             if(item.UserNumber == unreadMessages.) 
+            }
+        }
 
         private void TrafficController_OnAddressBookGet(TrafficController sender, List<User> users)
         {
@@ -118,12 +134,14 @@ namespace BzCOMWpf
                     //Utworz_pliki_json(item);
                     //Wypelnij_pliki_json(item);
                 }
+                
             }
             else
             {
                 SetUsersCallBack f = new SetUsersCallBack(SetBook);
                 Dispatcher.Invoke(f, new object[] { bookList });
             }
+            wypelnijMessage(unreadMessages);
         }
         /// <summary>
         /// Edytuj książkę po otrzymaniu zmian, sortuj kontakty od dostępnego
@@ -229,6 +247,12 @@ public class MyItem
     public string UserDesc { get; set; }
     public ImageSource Image { get; set; }
 
+}
+
+public class UnreadMessages
+{
+    public int NumberM { get; set; }
+    public bool IsMessageUnread { get; set; }
 }
 
 
