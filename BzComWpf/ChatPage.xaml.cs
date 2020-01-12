@@ -1,28 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Download;
 using Google.Apis.Drive.v3;
-using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Microsoft.Win32;
-
+using Notifications.Wpf;
 namespace BzCOMWpf
 {
 
@@ -131,6 +124,7 @@ namespace BzCOMWpf
             {
                 Console.WriteLine("MSG" + msgNow.Number);
             }
+
 
         }
         /// <summary>
@@ -600,7 +594,6 @@ namespace BzCOMWpf
             if (dialogOK == true)
             {
                 spath = fileDialog.FileName;
-
             }
 
 
@@ -857,24 +850,9 @@ namespace BzCOMWpf
             return fileid;
         }
 
-        public void getFilesByDate(DriveService service)
-        {
-            FilesResource.ListRequest list = service.Files.List();
-            list.OrderBy = "createdDate";
-
-
-        }
-
         public class SampleHelpers
         {
-            /// <summary>
-            /// Using reflection to apply optional parameters to the request.
-            ///
-            /// If the optonal parameters are null then we will just return the request as is.
-            /// </summary>
-            /// <param name="request">The request. </param>
-            /// <param name="optional">The optional parameters. </param>
-            /// <returns></returns>
+
             public static object ApplyOptionalParms(object request, object optional)
             {
                 if (optional == null)
@@ -888,7 +866,6 @@ namespace BzCOMWpf
                     System.Reflection.PropertyInfo piShared = (request.GetType()).GetProperty(property.Name);
                     piShared.SetValue(request, property.GetValue(optional, null), null);
                 }
-
                 return request;
             }
         }
@@ -946,10 +923,6 @@ namespace BzCOMWpf
                     }
                     else { Console.WriteLine("Nie usunięto"); }
                 }
-
-
-
-
                 return allFiles;
             }
             catch (Exception Ex)
@@ -981,6 +954,7 @@ namespace BzCOMWpf
                 else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
             }
         }
+
     }
 }
 

@@ -98,17 +98,23 @@ namespace BzCOMWpf
             int id  = 0;
             string numeryaktywne = "";
             number = numeryPolaczen();
-
-            for (int i = 0; i < number.Length; i++)
+            if (number.Count() == 2)
             {
-                numeryaktywne += "?" +number[i];
+                MessageBox.Show("Do czatu grupowego potrzeba minimum 3 rozmówców");
             }
-            for (int i = 0; i < number.Length; i++)
+            else
             {
-                messageSendTime = DateTime.Now;
-                trafficController.SMSSend(number[i].ToString(), null, "CONVERSATION"+numeryaktywne, "1",""+messageSendTime);
+                for (int i = 0; i < number.Length; i++)
+                {
+                    numeryaktywne += "?" + number[i];
+                }
+                for (int i = 0; i < number.Length; i++)
+                {
+                    messageSendTime = DateTime.Now;
+                    trafficController.SMSSend(number[i].ToString(), null, "CONVERSATION" + numeryaktywne, "1", "" + messageSendTime);
+                }
+                this.Close();
             }
-            this.Close();
         }
 
         private void DockPanel_MouseDown(object sender, MouseButtonEventArgs e)

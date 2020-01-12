@@ -7,7 +7,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
-
+using Notifications.Wpf;
 namespace BzCOMWpf
 {
     public sealed class TrafficController
@@ -273,7 +273,8 @@ namespace BzCOMWpf
             if (message.Text == null)
                 return;
             OnMessageReceived?.Invoke(this, message);
-            allMessages.Add(message); //Zapisywanie otrzymanej wiadomosci
+            allMessages.Add(message);
+            Toast(message);//Zapisywanie otrzymanej wiadomosci
         }
 
         public List<Message> GetMessagesExtended(List<XCTIP> data)
@@ -379,8 +380,29 @@ namespace BzCOMWpf
             List<Message> messages = new List<Message>();
             foreach (Message message in allMessages)
                 if (nr == message.Number)
-                    messages.Add(message);
+                    messages.Add(message);      
             return messages;
+        }
+
+        public void Toast(Message message)
+        {
+            var notificationManager = new NotificationManager();
+            string m = "";
+            if (message.Text.Contains("CONVERSATION"))
+            {
+                return;
+            }
+            if (message.Text.Contains("xxxcoco")){
+                string x = "xxxcoco";
+                m = message.Text.Replace(x,string.Empty);
+            }
+            else { m = message.Text; }
+            notificationManager.Show(new NotificationContent
+            {
+                Title = "Wiadomość od użytkownika:" + FindName(message.Number.ToString()),        
+                Message = m,         
+                Type = NotificationType.Information
+            });
         }
 
     }

@@ -56,7 +56,7 @@ namespace BzCOMWpf
             numbersConv = numbersConv.Where(val => val != myNumber).ToArray();
             for (int i = 0; i < numbersConv.Length; i++)
             {
-                osobyWKonwersacj += numbersConv[i].ToString() + " ";
+                osobyWKonwersacj += trafficController.FindName(numbersConv[i].ToString()) + " ";
             }
            
             if (ListViewConversations.Dispatcher.Thread == Thread.CurrentThread)
@@ -214,7 +214,7 @@ namespace BzCOMWpf
                         string users = "";
                         for (int i = 0; i < _number.Length; i++)
                         {
-                            users += _number[i].ToString();
+                            users += trafficController.FindName(_number[i].ToString());
                         }
 
                         ConnectionItem connectionItem = new ConnectionItem { UserName = "Konwersacja z " + users, UserNumber = users, IsConv = true };
