@@ -326,17 +326,9 @@
                 <Image Source="Images/GrafikiMenu/groupSilver.png" x:Name="Team"  Stretch="None" />
             </Button>
 
-            <Button Cursor="Hand" x:Name="ButtonArchive" ToolTip="Udostępnianie ekranu" Background="#151515" BorderThickness="0"  Click="ButtonArchive_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonArchive_MouseEnter" MouseLeave="ButtonArchive_MouseLeave">
-                <Image Source="Images/GrafikiMenu/screenSilver.png"  x:Name="Archive"  Stretch="None" />
-            </Button>
-
-
-
             <Button Cursor="Hand" ToolTip="Informacje o programie" x:Name="ButtonFav" Background="#151515" BorderThickness="0"  Click="ButtonFav_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="0,0,15,5" MouseEnter="ButtonFav_MouseEnter" MouseLeave="ButtonFav_MouseLeave" >
                 <Image Source="Images/GrafikiMenu/infoSilver.png" x:Name="UserInfo"  Stretch="None"/>
             </Button>
-
-
 
             <Button Cursor="Hand" ToolTip="Wyloguj"  x:Name="Logout" Background="#151515" BorderThickness="0"  Click="Logout_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="65,0,0,5"  Grid.Column="1" MouseEnter="Logout_MouseEnter" MouseLeave="Logout_MouseLeave">
 
