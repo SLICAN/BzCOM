@@ -16,6 +16,7 @@ using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Microsoft.Win32;
 using Notifications.Wpf;
+using RDPCOMAPILib;
 namespace BzCOMWpf
 {
 
@@ -33,11 +34,78 @@ namespace BzCOMWpf
         //private bool upload;
 
         string szyfr = "3t6w9z$C&E)H@McQ";
+        string szyfr2 = "St6w9z$C&E)H@McS";
         public DateTime messageSendTime; // Zmienna pod dokładny czas wysłania wiadomości.
         static string[] Scopes = { DriveService.Scope.Drive };
         static string ApplicationName = "BzCom";
         string confSzyfr = "xxxcoco";
 
+        #region Udostepnianie Ekranu
+        ScreenViewer xy;
+        RDPSession x;
+
+        private void Incoming(object Guest)
+        {
+            IRDPSRAPIAttendee MyGuest = (IRDPSRAPIAttendee)Guest;//???
+            MyGuest.ControlLevel = CTRL_LEVEL.CTRL_LEVEL_INTERACTIVE;
+        }
+
+        private void ButtonHost_Click(object sender, RoutedEventArgs e)
+        {
+            x = new RDPSession();
+            x.OnAttendeeConnected += Incoming;
+            x.Open();
+            IRDPSRAPIInvitation Invitation = x.Invitations.CreateInvitation("Trial", "MyGroup", "", 10);
+            //ButtonHost.Visibility = Visibility.Hidden;
+            //ButtonStopHost.Visibility = Visibility.Visible;
+
+            if (trafficController.GetState() == State.OpenedGate)
+            {
+                messageSendTime = DateTime.Now;
+                /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
+                TextBoxMessage.Text = "Plik wysłany";
+                trafficController.SMSSend(nr.ToString(), null, szyfr2 + Invitation, "", "" + messageSendTime);
+                messageSend = true;
+
+            }
+
+        }
+
+        private void ButtonHost_MouseEnter(object sender, MouseEventArgs e)
+        {
+            //send.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenSilver.png", UriKind.Relative));
+            //send.Stretch = Stretch.None;
+        }
+
+        private void ButtonHost_MouseLeave(object sender, MouseEventArgs e)
+        {
+            //clip.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenSilver.png", UriKind.Relative));
+           // clip.Stretch = Stretch.None;
+        }
+
+        private void ButtonStopHost_Click(object sender, RoutedEventArgs e)
+        {
+            x.Close();
+            x = null;
+            //ButtonHost.Visibility = Visibility.Visible;
+            //ButtonStopHost.Visibility = Visibility.Hidden;
+        }
+
+        public void OpenViewer(string Invitation) {
+            try
+            {
+                string inv = Invitation;
+                xy = new ScreenViewer();
+                xy.Connection(inv);// Do ogarnięcia - wychodzi poza zakres ??? 
+                xy.Show();
+            }
+            catch (ArgumentException)
+            {
+                //textBox_Link.Text = "Błędne zaproszenie";
+            }
+        }
+
+        #endregion
 
         public ChatPage(int _nr, int _myNumber)
         {
@@ -103,18 +171,25 @@ namespace BzCOMWpf
             if (nr == msgNow.Number)
             {
                 bool zawiera = false;
+                bool zawiera2 = false;
                 if (msgNow.Text.Contains(confSzyfr))
                 {
                     
                 }
                 else
                 {
-                    if (msgNow.Text.Contains(szyfr) || msgNow.Text.Contains("CONVERSATION")) { zawiera = true; }
+                    if (msgNow.Text.Contains(szyfr) ) { zawiera = true; } //|| msgNow.Text.Contains("CONVERSATION")
+                    if (msgNow.Text.Contains(szyfr2) ) { zawiera2 = true; } //|| msgNow.Text.Contains("CONVERSATION")
                     Console.WriteLine(zawiera);
                     if (zawiera == true)
                     {
                         msgNow.Text = msgNow.Text.Replace(szyfr, "");
                         TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime, true);
+                    }
+                    if (zawiera2 == true)
+                    {
+                        msgNow.Text = msgNow.Text.Replace(szyfr2, "");
+                        TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime, false , true);
                     }
                     if (zawiera == false) { TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime); }
                 }
@@ -133,10 +208,11 @@ namespace BzCOMWpf
         /// <param name="who"></param>
         /// <param name="message"></param>
         /// <param name="datatime"></param>
-        public void TypeText(string who, string message, DateTime datatime, bool hyper = false)
+        public void TypeText(string who, string message, DateTime datatime, bool hyper = false, bool inv = false)
         {
             //Chat.Text += who + " : " + message;        
             if (hyper == true) { SetHyperlink((who + ": " + datatime + "\n" + "?" + message + "\n")); }
+            else if (inv == true) { SetHyperlink2((who + ": " + datatime + "\n" + "?" + message + "\n")); }
             else {
                 SetTextHTML(who + ": " + datatime + "\n" + "" + message + "\n");
             }
@@ -228,6 +304,52 @@ namespace BzCOMWpf
                 TextBlock textBlock = new TextBlock();
                 textBlock.TextWrapping = TextWrapping.Wrap;
                 textBlock.Inlines.Add(lines[0]);
+                textBlock.Inlines.Add(h);
+                textBlock.Foreground = new SolidColorBrush(Colors.White);
+                borderOkienka.Child = textBlock;
+                stackPanelBorder.Children.Add(borderOkienka);
+            }
+            else
+            {
+                Console.WriteLine("SetTextHTML");
+                SetTextCallBack f = new SetTextCallBack(SetHyperlink);
+                Dispatcher.Invoke(f, new object[] { text });
+            }
+        }
+        private void SetHyperlink2(string text)
+        {
+            if (Chat.Dispatcher.Thread == Thread.CurrentThread)
+            {
+
+                Border borderOkienka = new Border();
+                if (text.Substring(0, 2) == "Ja")
+                {
+                    borderOkienka.Background = new SolidColorBrush(Color.FromRgb(65, 174, 207));
+                    borderOkienka.HorizontalAlignment = HorizontalAlignment.Right;
+                }
+                else
+                {
+                    borderOkienka.Background = new SolidColorBrush(Color.FromRgb(68, 68, 68));
+                    borderOkienka.HorizontalAlignment = HorizontalAlignment.Left;
+
+                }
+
+                borderOkienka.CornerRadius = new CornerRadius(4);
+                borderOkienka.BorderThickness = new Thickness(1);
+
+                string[] lines = text.Split(new Char[] { '?', '!' });
+                //int index = text.IndexOf("?");
+                //int lastindex = text.- 1;
+                //Console.WriteLine(index);
+                //string text1 = text.Substring(0, index);
+                //string hiperlink = text.Substring(index + 1, lastindex);
+                Console.WriteLine(lines[1]);
+                var h = new Hyperlink();
+                h.Inlines.Add(lines[1]);
+                Console.WriteLine(lines[1]);
+                h.Click += (s, a) => { OpenViewer(lines[1]); };
+                TextBlock textBlock = new TextBlock();
+                textBlock.TextWrapping = TextWrapping.Wrap;
                 textBlock.Inlines.Add(h);
                 textBlock.Foreground = new SolidColorBrush(Colors.White);
                 borderOkienka.Child = textBlock;
@@ -955,6 +1077,7 @@ namespace BzCOMWpf
             }
         }
 
+       
     }
 }
 

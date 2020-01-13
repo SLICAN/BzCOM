@@ -27,7 +27,7 @@ namespace BzCOMWpf
             try
             {
                 string Invitation = textBox_Link.Text;
-                xy = new ScreenViewer();
+                xy = new ScreenViewer(this);
                 xy.Connection(Invitation);// Do ogarnięcia - wychodzi poza zakres ??? 
                 xy.Show();
                 Button_StopViewing.Visibility = Visibility.Visible;
@@ -54,10 +54,7 @@ namespace BzCOMWpf
         }
         private void Button_StopViewing_Click(object sender, RoutedEventArgs e)
         {
-            xy.Disconnection();
-            xy.Close();
-            Button_StopViewing.Visibility = Visibility.Hidden;
-            Button_Viewer.IsEnabled = true;
+            StopViewing();
         }
         private void Button_Host_Click(object sender, RoutedEventArgs e)
         {
@@ -74,6 +71,13 @@ namespace BzCOMWpf
         private void Button_Paste_Click(object sender, RoutedEventArgs e)
         {
             textBox_Link.Text = Clipboard.GetText();
+        }
+        public void StopViewing()
+        {
+            xy.Disconnection();
+            xy.Close();
+            Button_StopViewing.Visibility = Visibility.Hidden;
+            Button_Viewer.IsEnabled = true;
         }
     }
 }

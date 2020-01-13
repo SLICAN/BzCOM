@@ -137,7 +137,7 @@
             <DockPanel Background="#383838" Margin="0,0,0,0">
 
 
-                <TextBox  KeyDown="TextBoxMessage_KeyDown" x:Name="TextBoxMessage" Foreground="Silver" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#383838"  Margin="4,1,0,1" Width="320"/>
+                <TextBox  KeyDown="TextBoxMessage_KeyDown" x:Name="TextBoxMessage" Foreground="Silver" HorizontalAlignment="Left" FontSize="15px" TextWrapping="Wrap"  BorderThickness="0" Background="#383838"  Margin="4,1,0,1" Width="289"/>
                 <Button Cursor="Hand" ToolTip="Wyślij wiadomość" x:Name="sendButton" Click="Button_Click" Background="#383838"  BorderThickness="0"  DockPanel.Dock="Right"  Width="40" MouseEnter="SendButton_MouseEnter" LostFocus="SendButton_LostFocus" MouseLeave="SendButton_MouseLeave">
 
 
@@ -152,6 +152,14 @@
 
                     </Image>
 
+                </Button>
+
+                <Button Cursor="Hand" x:Name="ButtonHost" ToolTip="Udostępnianie ekranu" Background="#383838" BorderThickness="0" Margin="0,0,0,0"  Width="35"  Click="ButtonHost_Click" MouseEnter="ButtonHost_MouseEnter" MouseLeave="ButtonHost_MouseLeave">
+                    <Image Source="Images/GrafikiMenu/screenSilver.png"  x:Name="Archive"  Stretch="None" />
+                </Button>
+
+                <Button Cursor="Hand" x:Name="ButtonStopHost" ToolTip="Udostępnianie ekranu" Background="#383838" BorderThickness="0" Margin="0,0,0,0"  Width="35"  Click="ButtonStopHost_Click" MouseEnter="ButtonHost_MouseEnter" MouseLeave="ButtonHost_MouseLeave" Visibility="Hidden">
+                    <Image Source="Images/GrafikiMenu/screenSilver.png"  x:Name="StopHost"  Stretch="None" />
                 </Button>
 
             </DockPanel>

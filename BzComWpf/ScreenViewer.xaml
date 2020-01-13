@@ -6,22 +6,15 @@
       xmlns:local="clr-namespace:BzCOMWpf"
       xmlns:controls="clr-namespace:AxRDPCOMAPILib;assembly=AxInterop.RDPCOMAPILib"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="ScreenViewer">
+        SizeToContent="WidthAndHeight"
+      Title="ScreenViewer"
+        x:Name="ScreenViewerWindow" Closed="ScreenViewerWindow_Closed">
+
+
 
     <Grid  Background="#282828" Margin="0,0,0,0">
-        <DockPanel VerticalAlignment="Top" Height="42" Background="#202020"  >
-            <StackPanel Margin="0,0,0,10" >
-                <TextBlock FontSize="20" Margin="5" Height="30" Foreground="White" Text="Udostępnianie Ekranu" TextAlignment="Center" VerticalAlignment="Top">
-
-                </TextBlock>
-
-            </StackPanel>
-        </DockPanel>
-        <DockPanel VerticalAlignment="Bottom" Height="1080" Width="1920">
-            <WindowsFormsHost>
-                <controls:AxRDPViewer x:Name="RdpViewer"/>
-            </WindowsFormsHost>
-        </DockPanel>
+        <WindowsFormsHost Margin="20,20" Height="Auto" Width="Auto" MinHeight="560" MinWidth="760">
+            <controls:AxRDPViewer x:Name="RdpViewer"/>
+        </WindowsFormsHost>
     </Grid>
 </Window>
