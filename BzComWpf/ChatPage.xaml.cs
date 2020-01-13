@@ -595,10 +595,7 @@ namespace BzCOMWpf
             {
                 spath = fileDialog.FileName;
             }
-
-
             GetFileFromDrive(service, FileId, spath);
-
             Console.WriteLine("ID after download " + folderName_);
             string done = move(service, FileId, folderNameID, folderName_, movebool);
             Console.WriteLine(done);

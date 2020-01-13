@@ -342,13 +342,10 @@ namespace BzCOMWpf
 
             private void Logout_Click(object sender, RoutedEventArgs e)
             {
-                if (trafficController.GetState() == State.LoggedIn)
-                {
                     trafficController.LogOut();
                     System.Windows.Forms.Application.Restart();
                     System.Windows.Application.Current.Shutdown();
 
-                }
 
             }
 
