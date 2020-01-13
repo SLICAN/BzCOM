@@ -32,7 +32,7 @@ namespace BzCOMWpf
     public partial class ConversationPage : Page
     {
         private int mynumber;
-        private int nr;
+        public int nr;
         public int[] conversation_numbers;
         public List<string> users_names;
         private TrafficController trafficController = TrafficController.TrafficControllerInstance;
@@ -40,14 +40,16 @@ namespace BzCOMWpf
         delegate void SetScrollCallBack();
         private bool messageSend = false;
         //private bool upload;
-        string szyfr = "xxxcoco";
+        string szyfr = "3t6w9z$C&E)H@McQ";
+
+        string convszyfr = "xxxcoco";
         public DateTime messageSendTime; // Zmienna pod dokładny czas wysłania wiadomości.
         static string[] Scopes = { DriveService.Scope.Drive };
         static string ApplicationName = "BzCom";
 
 
         public int Mynumber { get { return mynumber; } }
-
+        string o = "";
 
 
         public ConversationPage(int[] numbers, int _myNumber)
@@ -105,15 +107,16 @@ namespace BzCOMWpf
         {
             if (msgNow.Number != mynumber)
             {
-                if (msgNow.Text.Contains(szyfr))
+                if (msgNow.Text.Contains(convszyfr))
                 {
+                    msgNow.Text = msgNow.Text.Replace(convszyfr, "");
                     bool zawiera = false;
                     if (msgNow.Text.Contains(szyfr)) { zawiera = true; }
                     Console.WriteLine(zawiera);
                     if (zawiera == true)
                     {
-                        //msgNow.Text = msgNow.Text.Replace(szyfr, "");
-                        TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text.Replace(szyfr,""), msgNow.DateTime, true);
+                        msgNow.Text = msgNow.Text.Replace(szyfr, "");
+                        TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime, true);
                     }
                     if (zawiera == false) { TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime); }
                 }
@@ -134,7 +137,7 @@ namespace BzCOMWpf
         public void TypeText(string who, string message, DateTime datatime, bool hyper = false)
         {
             //Chat.Text += who + " : " + message;        
-            if (hyper == true) { SetHyperlink((who + ": " + datatime + "\n" + "?" + message + "\n")); }
+            if (hyper == true) { o = who; SetHyperlink((who + ": " + datatime + "\n" + "?" + message + "\n")); }
             else
             {
                 SetTextHTML(who + ": " + datatime + "\n" + "" + message + "\n");
@@ -221,14 +224,14 @@ namespace BzCOMWpf
                 //Console.WriteLine(index);
                 //string text1 = text.Substring(0, index);
                 //string hiperlink = text.Substring(index + 1, lastindex);
-                string folderName = nr.ToString() + "_" + mynumber.ToString();
-                //var h = new Hyperlink();
-                //h.Inlines.Add(lines[1]);
-                //h.Click += (s, a) => { download(lines[1], folderName); };
+                string folderName = trafficController.FindNumber(o) + "_" + mynumber.ToString();
+                var h = new Hyperlink();
+                h.Inlines.Add(lines[1]);
+                h.Click += (s, a) => { download(lines[1], folderName); };
                 TextBlock textBlock = new TextBlock();
                 textBlock.TextWrapping = TextWrapping.Wrap;
                 textBlock.Inlines.Add(lines[0]);
-                //textBlock.Inlines.Add(h);
+                textBlock.Inlines.Add(h);
                 textBlock.Foreground = new SolidColorBrush(Colors.White);
                 borderOkienka.Child = textBlock;
                 stackPanelBorder.Children.Add(borderOkienka);
@@ -260,7 +263,7 @@ namespace BzCOMWpf
                     messageSendTime = DateTime.Now;
                   
                     /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
-                    trafficController.SMSSend(conversation_numbers[i].ToString(), null, szyfr + TextBoxMessage.Text, "", "" + messageSendTime);
+                    trafficController.SMSSend(conversation_numbers[i].ToString(), null, convszyfr + TextBoxMessage.Text, "", "" + messageSendTime);
                     messageSend = true;
                 }
                 else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
@@ -305,55 +308,59 @@ namespace BzCOMWpf
 
         private void ClipButton_Click(object sender, RoutedEventArgs e)
         {
-            UserCredential credential;
-            using (var stream = new FileStream("credential.json", FileMode.Open, FileAccess.Read))
-            {
-                string credPath = "token.json";
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
-                Console.WriteLine("Credential file saved to: " + credPath);
+            conversation_numbers = conversation_numbers.Where(val => val != mynumber).ToArray();
+            
+                UserCredential credential;
+                using (var stream = new FileStream("credential.json", FileMode.Open, FileAccess.Read))
+                {
+                    string credPath = "token.json";
+                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        GoogleClientSecrets.Load(stream).Secrets,
+                        Scopes,
+                        "user",
+                        CancellationToken.None,
+                        new FileDataStore(credPath, true)).Result;
+                    Console.WriteLine("Credential file saved to: " + credPath);
 
+                }
+                var service = new DriveService(new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = ApplicationName,
+                });
+                CheckFolderDriveExist(service, mynumber.ToString());
+                string spath = "";
+                string typ = "";
+                string filename = "";
+                string folder_id = "";
+                OpenFileDialog fileDialog = new OpenFileDialog();
+                Nullable<bool> dialogOK = fileDialog.ShowDialog();
+                if (dialogOK == true)
+                {
+                    spath = fileDialog.FileName;
+                    typ = System.IO.Path.GetExtension(spath);
+                    filename = System.IO.Path.GetFileName(spath);
+
+                }
+            for (int i = 0; i < conversation_numbers.Length; i++)
+            {
+                folder_id = CheckFolderDriveExist(service, mynumber.ToString() + "_" + conversation_numbers[i].ToString());
+                UploadToDrive(service, filename, spath, typ, folder_id);
+                Console.WriteLine("Nazwa " + folder_id);
+                Console.WriteLine("Typ " + typ);                      
+                    if (trafficController.GetState() == State.OpenedGate)
+                    {
+                        messageSendTime = DateTime.Now;
+                        /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
+
+                        TextBoxMessage.Text = "Plik wysłany";
+                        trafficController.SMSSend(conversation_numbers[i].ToString(), null, convszyfr + szyfr + filename, "", "" + messageSendTime);
+                        messageSend = true;
+
+                    }
+                DeleteAfter30(service);
             }
-            var service = new DriveService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
-            CheckFolderDriveExist(service, mynumber.ToString());
-            string spath = "";
-            string typ = "";
-            string filename = "";
-            string folder_id = "";
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            Nullable<bool> dialogOK = fileDialog.ShowDialog();
-            if (dialogOK == true)
-            {
-                spath = fileDialog.FileName;
-                typ = System.IO.Path.GetExtension(spath);
-                filename = System.IO.Path.GetFileName(spath);
-
-            }
-            folder_id = CheckFolderDriveExist(service, mynumber.ToString() + "_" + nr.ToString());
-            UploadToDrive(service, filename, spath, typ, folder_id);
-            Console.WriteLine("Nazwa " + folder_id);
-            Console.WriteLine("Typ " + typ);
-
-
-            if (trafficController.GetState() == State.OpenedGate)
-            {
-                messageSendTime = DateTime.Now;
-                /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
-
-                TextBoxMessage.Text = "Plik wysłany";
-                trafficController.SMSSend(nr.ToString(), null, szyfr + filename, "", "" + messageSendTime);
-                messageSend = true;
-
-            }
-            DeleteAfter30(service);
+            
         }
         //GOOGLE DRIVE
 
@@ -950,7 +957,7 @@ namespace BzCOMWpf
                         messageSendTime = DateTime.Now;
 
                         /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
-                        trafficController.SMSSend(conversation_numbers[i].ToString(), null, szyfr + TextBoxMessage.Text, "", "" + messageSendTime);
+                        trafficController.SMSSend(conversation_numbers[i].ToString(), null, convszyfr + TextBoxMessage.Text, "", "" + messageSendTime);
                         messageSend = true;
                     }
                     else MessageBox.Show("Nie wybrałeś kontaktu, do którego chcesz wysłać wiadomość!");
