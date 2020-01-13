@@ -8,13 +8,8 @@ namespace BzCOMWpf
     /// </summary>
     public partial class ScreenViewer : Window
     {
-        ScreenSharing activePage;
-        public ScreenViewer()
-        {
-            InitializeComponent();
-            activePage = null;
-        }
-        public ScreenViewer(ScreenSharing screen)
+        ChatPage activePage =null;
+        public ScreenViewer(ChatPage screen)
         {
             InitializeComponent();
             activePage = screen;
@@ -31,10 +26,7 @@ namespace BzCOMWpf
 
         private void ScreenViewerWindow_Closed(object sender, EventArgs e)
         {
-            if (activePage != null)
-            {
                 activePage.StopViewing();
-            }
         }
     }
 }

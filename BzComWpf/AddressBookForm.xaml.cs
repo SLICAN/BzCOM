@@ -61,12 +61,10 @@ namespace BzCOMWpf
             conversationConnections = new List<ConversationPage>();
             AdressBookPage adressBookPage = new AdressBookPage(messageForm, openedConnections, conversationConnections,myNumber);
             conversationList = new ListConversation(messageForm, openedConnections, conversationConnections, adressBookPage.ListViewAddressBook,myNumber);
-            ScreenSharing screenSharing = new ScreenSharing();
             informationPage = new Information();
             pages.Add(adressBookPage);
             pages.Add(conversationList);
             pages.Add(informationPage);
-            pages.Add(screenSharing);
 
             _mainFrame.Navigate(pages[0]);
 
@@ -327,11 +325,6 @@ namespace BzCOMWpf
                 _mainFrame.Navigate(pages[1]);
             }
 
-            private void ButtonArchive_Click(object sender, RoutedEventArgs e)
-            {
-            _mainFrame.Navigate(pages[3]);
-        }
-
             private void ButtonSetting_Click(object sender, RoutedEventArgs e)
             {
             }
@@ -374,19 +367,6 @@ namespace BzCOMWpf
         {
             UserList.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/listing-optionSilver.png", UriKind.Relative));
             UserList.Stretch = Stretch.None;
-        }
-
-        private void ButtonArchive_MouseEnter(object sender, MouseEventArgs e)
-        {
-         
-            Archive.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenWhite.png", UriKind.Relative));
-            Archive.Stretch = Stretch.None;
-        }
-
-        private void ButtonArchive_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Archive.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenSilver.png", UriKind.Relative));
-            Archive.Stretch = Stretch.None;
         }
 
         private void ButtonTeam_MouseEnter(object sender, MouseEventArgs e)

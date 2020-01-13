@@ -42,7 +42,7 @@ namespace BzCOMWpf
 
         #region Udostepnianie Ekranu
         ScreenViewer xy;
-        RDPSession x;
+        RDPSession x = null;
 
         private void Incoming(object Guest)
         {
@@ -52,57 +52,90 @@ namespace BzCOMWpf
 
         private void ButtonHost_Click(object sender, RoutedEventArgs e)
         {
-            x = new RDPSession();
-            x.OnAttendeeConnected += Incoming;
-            x.Open();
-            IRDPSRAPIInvitation Invitation = x.Invitations.CreateInvitation("Trial", "MyGroup", "", 10);
-            //ButtonHost.Visibility = Visibility.Hidden;
-            //ButtonStopHost.Visibility = Visibility.Visible;
+            if (x==null) {
+                x = new RDPSession();
+                x.OnAttendeeConnected += Incoming;
+                x.Open();
+                IRDPSRAPIInvitation Invitation = x.Invitations.CreateInvitation("Trial", "MyGroup", "", 10);
+                string inv = Invitation.ConnectionString;
 
-            if (trafficController.GetState() == State.OpenedGate)
-            {
-                messageSendTime = DateTime.Now;
-                /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
-                TextBoxMessage.Text = "Plik wysłany";
-                trafficController.SMSSend(nr.ToString(), null, szyfr2 + Invitation, "", "" + messageSendTime);
-                messageSend = true;
+                if (trafficController.GetState() == State.OpenedGate)
+                {
+                    messageSendTime = DateTime.Now;
+                    /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
+                    TextBoxMessage.Text = "Ekran udostępniony";
+                    trafficController.SMSSend(nr.ToString(), null, szyfr2 + inv, "", "" + messageSendTime);
+                    messageSend = true;
 
+                }
             }
+            else
+            {
+                x.Close();
+                x = null;
+                //if (trafficController.GetState() == State.OpenedGate)
+                //{
+                    TextBoxMessage.Text = "Udostępnianie przerwane";
+                  //  messageSendTime = DateTime.Now;
+                    /// Wysyłanie konkretnej wiadomości do kontaktu, z którym mamy otwartego gate'a
+                    //trafficController.SMSSend(nr.ToString(), null, TextBoxMessage.Text, "", "" + messageSendTime);
+                   // messageSend = true;
+               // }
+            }
+            
 
         }
 
         private void ButtonHost_MouseEnter(object sender, MouseEventArgs e)
         {
             //send.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenSilver.png", UriKind.Relative));
-            //send.Stretch = Stretch.None;
+           // send.Stretch = Stretch.None;
         }
 
         private void ButtonHost_MouseLeave(object sender, MouseEventArgs e)
         {
             //clip.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenSilver.png", UriKind.Relative));
-           // clip.Stretch = Stretch.None;
+            //clip.Stretch = Stretch.None;
         }
 
-        private void ButtonStopHost_Click(object sender, RoutedEventArgs e)
+       /* private void ButtonStopHost_Click(object sender, RoutedEventArgs e)
         {
             x.Close();
             x = null;
-            //ButtonHost.Visibility = Visibility.Visible;
-            //ButtonStopHost.Visibility = Visibility.Hidden;
         }
 
+        private void ButtonStopHost_MouseLeave(object sender, MouseEventArgs e)
+        {
+            clip.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenSilver.png", UriKind.Relative));
+            clip.Stretch = Stretch.None;
+        }
+
+        private void ButtonStopHost_MouseEnter(object sender, MouseEventArgs e)
+        {
+            send.Source = new BitmapImage(new Uri(@"/Images/GrafikiMenu/screenSilver.png", UriKind.Relative));
+            send.Stretch = Stretch.None;
+        }
+        */
         public void OpenViewer(string Invitation) {
             try
             {
                 string inv = Invitation;
-                xy = new ScreenViewer();
+                Console.WriteLine("TO ja "+inv+ " TO ja ");
+                xy = new ScreenViewer(this);
                 xy.Connection(inv);// Do ogarnięcia - wychodzi poza zakres ??? 
                 xy.Show();
             }
             catch (ArgumentException)
             {
                 //textBox_Link.Text = "Błędne zaproszenie";
+                TextBoxMessage.Text = "Błędne zaproszenie";
             }
+        }
+
+        public void StopViewing()
+        {
+            xy.Disconnection();
+            xy.Close();
         }
 
         #endregion
@@ -191,7 +224,7 @@ namespace BzCOMWpf
                         msgNow.Text = msgNow.Text.Replace(szyfr2, "");
                         TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime, false , true);
                     }
-                    if (zawiera == false) { TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime); }
+                    if (zawiera == false && zawiera2 == false) { TypeText(trafficController.FindName(msgNow.Number.ToString()), msgNow.Text, msgNow.DateTime); }
                 }
 
             }
@@ -267,6 +300,10 @@ namespace BzCOMWpf
                 SetTextCallBack f = new SetTextCallBack(SetTextHTML);
                 Dispatcher.Invoke(f, new object[] { text });
             }
+            if (ScrollViewerChat.VerticalOffset == ScrollViewerChat.ScrollableHeight)
+            {
+                ScrollViewerChat.ScrollToEnd();
+            }
         }
 
 
@@ -305,6 +342,7 @@ namespace BzCOMWpf
                 textBlock.TextWrapping = TextWrapping.Wrap;
                 textBlock.Inlines.Add(lines[0]);
                 textBlock.Inlines.Add(h);
+                textBlock.Inlines.Add("");
                 textBlock.Foreground = new SolidColorBrush(Colors.White);
                 borderOkienka.Child = textBlock;
                 stackPanelBorder.Children.Add(borderOkienka);
@@ -314,6 +352,10 @@ namespace BzCOMWpf
                 Console.WriteLine("SetTextHTML");
                 SetTextCallBack f = new SetTextCallBack(SetHyperlink);
                 Dispatcher.Invoke(f, new object[] { text });
+            }
+            if (ScrollViewerChat.VerticalOffset == ScrollViewerChat.ScrollableHeight)
+            {
+                ScrollViewerChat.ScrollToEnd();
             }
         }
         private void SetHyperlink2(string text)
@@ -345,12 +387,14 @@ namespace BzCOMWpf
                 //string hiperlink = text.Substring(index + 1, lastindex);
                 Console.WriteLine(lines[1]);
                 var h = new Hyperlink();
-                h.Inlines.Add(lines[1]);
+                h.Inlines.Add("Udostępniam ci mój pulpit");
                 Console.WriteLine(lines[1]);
                 h.Click += (s, a) => { OpenViewer(lines[1]); };
                 TextBlock textBlock = new TextBlock();
                 textBlock.TextWrapping = TextWrapping.Wrap;
+                textBlock.Inlines.Add(lines[0]);
                 textBlock.Inlines.Add(h);
+                textBlock.Inlines.Add("");
                 textBlock.Foreground = new SolidColorBrush(Colors.White);
                 borderOkienka.Child = textBlock;
                 stackPanelBorder.Children.Add(borderOkienka);
@@ -358,9 +402,17 @@ namespace BzCOMWpf
             else
             {
                 Console.WriteLine("SetTextHTML");
-                SetTextCallBack f = new SetTextCallBack(SetHyperlink);
+                SetTextCallBack f = new SetTextCallBack(SetHyperlink2);
                 Dispatcher.Invoke(f, new object[] { text });
             }
+            var oldFocusedElement = FocusManager.GetFocusedElement(this);
+
+            if (ScrollViewerChat.VerticalOffset == ScrollViewerChat.ScrollableHeight)
+            {
+                ScrollViewerChat.ScrollToEnd();
+            }
+
+            FocusManager.SetFocusedElement(this, oldFocusedElement);
         }
 
         // Ważna informacja względem możliwej chęci użycia userData:
@@ -1077,7 +1129,7 @@ namespace BzCOMWpf
             }
         }
 
-       
+
     }
 }
 
