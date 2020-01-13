@@ -370,7 +370,6 @@ namespace BzCOMWpf
             UserList.Stretch = Stretch.None;
         }
 
-
         private void ButtonTeam_MouseEnter(object sender, MouseEventArgs e)
         {
            
