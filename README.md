@@ -8,7 +8,6 @@ BzCOM jest biznesowym komunikatorem internetowym stworzonym na potrzeby zaliczen
 - Stworzenie komunikatora internetowego wymiany wiadomości tekstowych
 - Przyjemne i przejrzyste dla użytkownika GUI
 - Szyfrowanie wiadomości tekstowych.
-- Możliwość korzystania z awatarów oraz emotikonek.
 - Możliwość prowadzenia rozmów z więcej niż jedną osobą.
 - Funkcja transferu plików.
 - Funkcja udostępniania ekranu.
