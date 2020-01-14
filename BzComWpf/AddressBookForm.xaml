@@ -330,7 +330,7 @@
                 <Image Source="Images/GrafikiMenu/infoSilver.png" x:Name="UserInfo"  Stretch="None"/>
             </Button>
 
-            <Button Cursor="Hand" ToolTip="Wyloguj"  x:Name="Logout" Background="#151515" BorderThickness="0"  Click="Logout_Click"  Foreground="Black" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Bottom" Margin="65,0,0,5"  Grid.Column="1" MouseEnter="Logout_MouseEnter" MouseLeave="Logout_MouseLeave">
+            <Button Cursor="Hand" ToolTip="Wyloguj"  x:Name="Logout" Background="#151515" BorderThickness="0"  Click="Logout_Click"  Foreground="Black" HorizontalAlignment="Right" Width="30" Height="30" VerticalAlignment="Bottom" Margin="65,0,0,5"  Grid.Column="1" MouseEnter="Logout_MouseEnter" MouseLeave="Logout_MouseLeave">
 
 
                 <Image Source="Images/GrafikiMenu/logoutSilver.png" x:Name="logout"  Stretch="None" />

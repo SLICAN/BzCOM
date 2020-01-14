@@ -396,6 +396,10 @@ namespace BzCOMWpf
                 string x = "xxxcoco";
                 m = message.Text.Replace(x,string.Empty);
             }
+            if (message.Text.Substring(0,3) == ("<E>"))
+            {
+                m = "Chce udostępnić ci ekran";
+            }
             else { m = message.Text; }
             notificationManager.Show(new NotificationContent
             {
