@@ -19,9 +19,6 @@ BzCOM jest biznesowym komunikatorem internetowym stworzonym na potrzeby zaliczen
 - Biblioteki programistyczne firmy Slican
 - Google Drive API
 
-## Pobierz
-Aplikacja jest darmowa. Wystarczy skorzystać z poniższego linku, pobrać instalator, zainstalować aplikację i ją uruchomić.  
-
 ## Autorzy
 **Pierwsza grupa programistyczna (Rok akademicki 2018/2019)**  
 Adrianna Piszcz  
