@@ -30,10 +30,11 @@ Kacper Koźlikowski
 
 **Druga grupa programistyczna (Rok akademicki 2019/2020)**  
 Miłosz Totoń  
-Marek Kurjan  
 Kamil Weselski  
 Artur Komar  
-Aleksander Kowalski  
+Aleksander Kowalski
+Marek Kurjan
+Kacper Koźlikowski    
 
 **Opiekun firmy Slican**  
 Adam Wiśniewski
